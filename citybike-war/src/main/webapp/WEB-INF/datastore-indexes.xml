@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="true">
+	<datastore-index kind="User" ancestor="false">
+		<property name="userCode" direction="asc" />
+	</datastore-index>
+	
+	<datastore-index kind="Worker" ancestor="false">
+		<property name="rentalNetworkCode" direction="asc" />
+		<property name="userCode" direction="asc" />
+	</datastore-index>
+	
+	<datastore-index kind="RentalOffice" ancestor="false">
+		<property name="rentalOfficeCode" direction="asc" />
+		<property name="RentalNetworkCode" direction="asc" />
+	</datastore-index>
+	
+	<datastore-index kind="RentalNetwork" ancestor="false">
+		<property name="rentalNetworkCode" direction="asc" />
+	</datastore-index>
+	
+	<datastore-index kind="Bike" ancestor="false">
+		<property name="rentalOfficekCode" direction="asc" />
+		<property name="bikeCode" direction="asc" />
+	</datastore-index>
+	
+	<datastore-index kind="Fee" ancestor="false">
+		<property name="rentalNetworkCode" direction="asc" />
+	</datastore-index>
+	
+	<datastore-index kind="Rent" ancestor="false">
+		<property name="userCode" direction="asc" />
+	</datastore-index>
+	
+	<datastore-index kind="Credentials" ancestor="false">
+		<property name="login" direction="asc" />
+	</datastore-index>
+	
+</datastore-indexes>
