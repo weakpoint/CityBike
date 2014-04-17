@@ -15,7 +15,7 @@
 		<context:component-scan base-package="edu.citybike.controller"/> -->
 
 	<mvc:annotation-driven />
-<!-- 
+
 	<bean id="nosqlpersistence" class="edu.citybike.database.nosql.NoSQLPersistence">
 	</bean>
 
@@ -34,11 +34,11 @@
 		</property>
 		<property name="entityGen" ref="entityGen"></property>
 	</bean>
--->
+
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
-			<value>/WEB-INF/pages/</value>
+			<value>/WEB-INF/pages/test/</value>
 		</property>
 		<property name="suffix">
 			<value>.jsp</value>

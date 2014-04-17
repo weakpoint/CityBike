@@ -28,6 +28,25 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
                     org.springframework.web.context.ContextLoaderListener
                 </listener-class>
 	</listener>
+	
+	<!-- Test dispatcher servlet -->
+	<servlet>
+	<servlet-name>citybike-test-dispatcher</servlet-name>
+	<servlet-class>
+                    org.springframework.web.servlet.DispatcherServlet
+                </servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+ 
+	<servlet-mapping>
+		<servlet-name>citybike-test-dispatcher</servlet-name>
+		<url-pattern>/test</url-pattern>
+	</servlet-mapping>
+ 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/citybike-test-dispatcher-servlet.xml</param-value>
+	</context-param>
  
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

@@ -83,6 +83,7 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 			entity.setProperty("rentalNetworkCode", model.getRentalNetworkCode());
 
 			save(entity);
+			System.out.println(entity.getAppId()+" "+entity.getKey());
 		} catch (Exception e) {
 			throw new PersistenceException(e);
 		}
@@ -90,6 +91,7 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 
 	public void delete(User model) throws PersistenceException {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
 		PreparedQuery pq = datastore.prepare(generateQuery("User", "userCode", FilterOperator.EQUAL,
 				model.getUserCode()));
 		Entity entity;

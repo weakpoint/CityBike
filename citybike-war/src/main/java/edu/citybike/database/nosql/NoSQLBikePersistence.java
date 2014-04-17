@@ -1,5 +1,8 @@
 package edu.citybike.database.nosql;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -13,6 +16,8 @@ import edu.citybike.database.exception.ModelAlreadyExistsException;
 import edu.citybike.database.exception.ModelNotExistsException;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Bike;
+import edu.citybike.model.TechnicalDetails;
+import edu.citybike.model.User;
 
 public class NoSQLBikePersistence extends NoSQLModelPersistence<Bike> {
 
@@ -80,8 +85,31 @@ Entity entity = new Entity("Bike");
 
 	public List<Bike> getAll(String rentalNetworkCode)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		PreparedQuery pq = datastore.prepare(generateQuery("Bike", "rentalNetworkCode", FilterOperator.EQUAL,
+				rentalNetworkCode));
+		
+		List<Bike> bikes = new ArrayList<Bike>();
+		for (Entity en : pq.asIterable()) {
+			Bike bike = new Bike();
+			
+			TechnicalDetails technicalDetails = new TechnicalDetails();
+			EmbeddedEntity emb = (EmbeddedEntity) en.getProperty("technicalDetails");
+			
+			technicalDetails.setName((String) emb.getProperty("name"));
+
+			bike.setTechnicalDetails(technicalDetails);
+			bike.setStatus((String) en.getProperty("status"));
+			bike.setRentalCount((Integer) en.getProperty("rentalCount"));
+			bike.setLastServiceDate((Date) en.getProperty("lastServiceDate"));
+			bike.setBikeCode((String) en.getProperty("bikeCode"));
+			bike.setRentalOfficeCode((String) en.getProperty("rentalOfficeCode"));
+			bike.setRentalNetworkCode((String) en.getProperty("rentalNetworkCode"));
+			
+			bikes.add(bike);
+		}
+		
+		return Collections.unmodifiableList(bikes);
 	}
 
 
