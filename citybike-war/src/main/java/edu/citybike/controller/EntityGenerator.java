@@ -1,27 +1,17 @@
 package edu.citybike.controller;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.log4j.Logger;
-
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.EmbeddedEntity;
-import com.google.appengine.api.datastore.Entity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.citybike.database.DatabaseFascade;
-import edu.citybike.database.exception.ModelNotExistsException;
 import edu.citybike.database.exception.PersistenceException;
-import edu.citybike.database.exception.UnsupportedModelType;
 import edu.citybike.model.User;
 
 
 public class EntityGenerator {
 	
 	private DatabaseFascade fascade;
-	static final Logger logger = Logger.getLogger(EntityGenerator.class);
+	static final Logger logger = LoggerFactory.getLogger(EntityGenerator.class);
 	
 	public void setFascade(DatabaseFascade fascade){
 		this.fascade = fascade;
