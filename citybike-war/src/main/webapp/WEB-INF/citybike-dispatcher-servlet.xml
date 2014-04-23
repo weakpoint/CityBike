@@ -9,34 +9,17 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-
-	 <!-- <context:component-scan base-package="edu.citybike.controller"/>
-	  <context:exclude-filter 
-		type="regex" expression="edu.citybike.controller.Test.*" /> </context:component-scan> 
-		<context:component-scan base-package="edu.citybike.controller"/> 
--->
-	<mvc:annotation-driven /> 
-<!-- 
+	<mvc:annotation-driven />
 	<bean id="nosqlpersistence" class="edu.citybike.database.nosql.NoSQLPersistence">
 	</bean>
 
-	<bean id="fascade" class="edu.citybike.database.DatabaseFascade">
-		<property name="daoPersistenceFactory" ref="nosqlpersistence"/>
+	<bean id="facade" class="edu.citybike.database.DatabaseFacade">
+		<property name="daoPersistenceFactory" ref="nosqlpersistence" />
 	</bean>
 	
-	<bean id="entityGen" class="edu.citybike.controller.EntityGenerator">
-	<property name="fascade" ref="fascade"></property>
+	<bean class="edu.citybike.controller.AddNewBikeController">
+	<property name="facade" ref="facade"/>
 	</bean>
-
-
-	<bean class="edu.citybike.controller.TestPageController">
-		<property name="message">
-			<value>Hello World</value>
-		</property>
-		<property name="entityGen" ref="entityGen"></property>
-	</bean>
--->
-<bean class="edu.citybike.controller.AddNewBikeController"/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

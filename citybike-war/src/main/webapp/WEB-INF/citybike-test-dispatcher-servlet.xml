@@ -19,12 +19,12 @@
 	<bean id="nosqlpersistence" class="edu.citybike.database.nosql.NoSQLPersistence">
 	</bean>
 
-	<bean id="fascade" class="edu.citybike.database.DatabaseFascade">
+	<bean id="facade" class="edu.citybike.database.DatabaseFacade">
 		<property name="daoPersistenceFactory" ref="nosqlpersistence"/>
 	</bean>
 	
 	<bean id="entityGen" class="edu.citybike.controller.EntityGenerator">
-	<property name="fascade" ref="fascade"></property>
+	<property name="fascade" ref="facade"></property>
 	</bean>
 
 

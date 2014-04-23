@@ -13,7 +13,7 @@ import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.database.nosql.NoSQLPersistence;
 import edu.citybike.model.User;
 
-public class DatabaseFascadeTest {
+public class DatabaseFacadeTest {
 
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
@@ -30,7 +30,7 @@ public class DatabaseFascadeTest {
 
 	@Test
 	public void testSave() throws PersistenceException {
-		DatabaseFascade fascade = new DatabaseFascade();
+		DatabaseFacade fascade = new DatabaseFacade();
 		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();
@@ -42,7 +42,7 @@ public class DatabaseFascadeTest {
 
 	@Test(expected = PersistenceException.class)
 	public void testSaveWithException() throws PersistenceException {
-		DatabaseFascade fascade = new DatabaseFascade();
+		DatabaseFacade fascade = new DatabaseFacade();
 		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();
@@ -57,7 +57,7 @@ public class DatabaseFascadeTest {
 	@Test
 	public void testGetUser() throws PersistenceException {
 
-		DatabaseFascade fascade = new DatabaseFascade();
+		DatabaseFacade fascade = new DatabaseFacade();
 		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();
@@ -76,7 +76,7 @@ public class DatabaseFascadeTest {
 
 	@Test
 	public void testUpdate() throws PersistenceException {
-		DatabaseFascade fascade = new DatabaseFascade();
+		DatabaseFacade fascade = new DatabaseFacade();
 		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();
@@ -98,7 +98,7 @@ public class DatabaseFascadeTest {
 	
 	@Test(expected=PersistenceException.class)
 	public void testUpdateWithModelNotExistsException() throws PersistenceException {
-		DatabaseFascade fascade = new DatabaseFascade();
+		DatabaseFacade fascade = new DatabaseFacade();
 		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();

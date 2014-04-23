@@ -2,15 +2,16 @@ package edu.citybike.model;
 
 import com.google.appengine.api.datastore.PhoneNumber;
 
-public class Worker {
+public class Employee {
 
 	private String name;
 	private String lastName;
 	private Address address;
 	private PhoneNumber phoneNumber;
+	private String emailAddress;
 	private String role;
 	private String rentalNetworkCode;
-	private String workerCode;
+	private String employeeCode;
 
 	public String getName() {
 		return name;
@@ -60,12 +61,21 @@ public class Worker {
 		this.rentalNetworkCode = rentalNetworkCode;
 	}
 
-	public String getWorkerCode() {
-		return workerCode;
+	public String getEmployeeCode() {
+		return employeeCode;
 	}
 
-	public void setWorkerCode(String workerCode) {
-		this.workerCode = workerCode;
+	public void setEmployeeCode(String employeeCode) {
+		this.employeeCode = employeeCode;
 	}
+	
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
 
 }

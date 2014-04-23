@@ -1,5 +1,6 @@
 package edu.citybike.database.nosql;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.citybike.database.exception.PersistenceException;
@@ -25,7 +26,7 @@ public class NoSQLRentalOfficePersistence extends NoSQLModelPersistence<RentalOf
 	public List<RentalOffice> getAll(String rentalNetworkCode)
 			throws PersistenceException {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<RentalOffice>();
 	}
 
 

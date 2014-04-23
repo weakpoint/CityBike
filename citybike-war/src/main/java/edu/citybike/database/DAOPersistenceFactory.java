@@ -7,13 +7,13 @@ import edu.citybike.model.Rent;
 import edu.citybike.model.RentalNetwork;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
-import edu.citybike.model.Worker;
+import edu.citybike.model.Employee;
 
 
 public interface DAOPersistenceFactory {
 
 	public ModelPersistence<User> getUserPersistence();
-	public ModelPersistence<Worker> getWorkerPersistence();
+	public ModelPersistence<Employee> getWorkerPersistence();
 	public ModelPersistence<RentalOffice> getRentalOfficePersistence();
 	public ModelPersistence<RentalNetwork> getRentalNetworkPersistence();
 	public ModelPersistence<Bike> getBikePersistence();

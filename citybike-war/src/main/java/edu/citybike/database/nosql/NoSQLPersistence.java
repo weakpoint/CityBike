@@ -9,7 +9,7 @@ import edu.citybike.model.Rent;
 import edu.citybike.model.RentalNetwork;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
-import edu.citybike.model.Worker;
+import edu.citybike.model.Employee;
 
 public class NoSQLPersistence implements DAOPersistenceFactory {
 
@@ -17,8 +17,8 @@ public class NoSQLPersistence implements DAOPersistenceFactory {
 		return new NoSQLUserPersistence();
 	}
 
-	public ModelPersistence<Worker> getWorkerPersistence() {
-		return new NoSQLWorkerPersistence();
+	public ModelPersistence<Employee> getWorkerPersistence() {
+		return new NoSQLEmployeePersistence();
 	}
 
 	public ModelPersistence<RentalOffice> getRentalOfficePersistence() {

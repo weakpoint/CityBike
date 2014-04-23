@@ -3,17 +3,17 @@ package edu.citybike.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.citybike.database.DatabaseFascade;
+import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.User;
 
 
 public class EntityGenerator {
 	
-	private DatabaseFascade fascade;
+	private DatabaseFacade fascade;
 	static final Logger logger = LoggerFactory.getLogger(EntityGenerator.class);
 	
-	public void setFascade(DatabaseFascade fascade){
+	public void setFascade(DatabaseFacade fascade){
 		this.fascade = fascade;
 	}
 	

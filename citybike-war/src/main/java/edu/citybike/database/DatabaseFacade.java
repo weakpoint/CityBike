@@ -12,9 +12,9 @@ import edu.citybike.model.Rent;
 import edu.citybike.model.RentalNetwork;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
-import edu.citybike.model.Worker;
+import edu.citybike.model.Employee;
 
-public class DatabaseFascade {
+public class DatabaseFacade {
 
 	private DAOPersistenceFactory daoPersistenceFactory;
 
@@ -38,8 +38,8 @@ public class DatabaseFascade {
 		try {
 			if (model instanceof User) {
 				daoPersistenceFactory.getUserPersistence().save((User) model);
-			} else if (model instanceof Worker) {
-				daoPersistenceFactory.getWorkerPersistence().save((Worker) model);
+			} else if (model instanceof Employee) {
+				daoPersistenceFactory.getWorkerPersistence().save((Employee) model);
 			} else if (model instanceof RentalOffice) {
 				daoPersistenceFactory.getRentalOfficePersistence().save((RentalOffice) model);
 			} else if (model instanceof RentalNetwork) {
@@ -65,8 +65,8 @@ public class DatabaseFascade {
 		try {
 			if (model instanceof User) {
 				daoPersistenceFactory.getUserPersistence().update((User) model);
-			} else if (model instanceof Worker) {
-				daoPersistenceFactory.getWorkerPersistence().update((Worker) model);
+			} else if (model instanceof Employee) {
+				daoPersistenceFactory.getWorkerPersistence().update((Employee) model);
 			} else if (model instanceof RentalOffice) {
 				daoPersistenceFactory.getRentalOfficePersistence().update((RentalOffice) model);
 			} else if (model instanceof RentalNetwork) {
@@ -86,6 +86,10 @@ public class DatabaseFascade {
 			throw new PersistenceException(e);
 		}
 
+	}
+	
+	public List<RentalOffice> getRentalOfficeList(String rentalNetworkCode) throws PersistenceException{
+		return daoPersistenceFactory.getRentalOfficePersistence().getAll(rentalNetworkCode);
 	}
 
 }
