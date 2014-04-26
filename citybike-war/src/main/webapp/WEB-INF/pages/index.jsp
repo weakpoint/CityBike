@@ -11,5 +11,23 @@ jakis header
 jakies tlo
 jakas stopka
 logowanie
+
+<a href="/addNewBike">Dodaj rower</a>
+<a href="/addNewEmployee">Dodaj pracownika</a>
+<a href="/login.do">Logowanie</a>
+
+
+<%
+  java.util.Enumeration<String> sessEnum = request.getSession()
+    .getAttributeNames();
+  while (sessEnum.hasMoreElements()) {
+    String s = sessEnum.nextElement();
+    out.print(s);
+    edu.citybike.model.User user = (edu.citybike.model.User) request.getSession().getAttribute(s);
+    out.println("==" + user.getName());
+%><br />
+<%
+  }
+%>
 </body>
 </html>

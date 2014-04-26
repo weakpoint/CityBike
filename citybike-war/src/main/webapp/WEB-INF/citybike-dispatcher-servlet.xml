@@ -20,6 +20,16 @@
 	<bean class="edu.citybike.controller.AddNewBikeController">
 	<property name="facade" ref="facade"/>
 	</bean>
+	
+	<bean class="edu.citybike.controller.AddNewEmployeeController">
+	<property name="facade" ref="facade"/>
+	</bean>
+	
+	<bean class="edu.citybike.controller.IndexPageController"/>
+	
+	<bean class="edu.citybike.controller.UserAuthenticationController">
+	<property name="facade" ref="facade"/>
+	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

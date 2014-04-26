@@ -30,35 +30,34 @@ public class DatabaseFacadeTest {
 
 	@Test
 	public void testSave() throws PersistenceException {
-		DatabaseFacade fascade = new DatabaseFacade();
-		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
+		DatabaseFacade facade = new DatabaseFacade();
+		facade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();
 		user.setName("Test user");
 		user.setLastName("TTest");
-
-		fascade.save(user);
+		facade.save(user);
 	}
 
 	@Test(expected = PersistenceException.class)
 	public void testSaveWithException() throws PersistenceException {
-		DatabaseFacade fascade = new DatabaseFacade();
-		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
+		DatabaseFacade facade = new DatabaseFacade();
+		facade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();
 		user.setName("Test user");
 		user.setLastName("TTest");
 		user.setUserCode("007");
 
-		fascade.save(user);
-		fascade.save(user);
+		facade.save(user);
+		facade.save(user);
 	}
 
 	@Test
 	public void testGetUser() throws PersistenceException {
 
-		DatabaseFacade fascade = new DatabaseFacade();
-		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
+		DatabaseFacade facade = new DatabaseFacade();
+		facade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();
 		user.setName("Test user");
@@ -66,9 +65,9 @@ public class DatabaseFacadeTest {
 		user.setUserCode("007");
 		user.setRentalNetworkCode("00");
 
-		fascade.save(user);
+		facade.save(user);
 
-		User user2 = fascade.getUser("00", "007");
+		User user2 = facade.getUser("00", "007");
 
 		assertEquals("Test user", user2.getName());
 
@@ -76,8 +75,8 @@ public class DatabaseFacadeTest {
 
 	@Test
 	public void testUpdate() throws PersistenceException {
-		DatabaseFacade fascade = new DatabaseFacade();
-		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
+		DatabaseFacade facade = new DatabaseFacade();
+		facade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();
 		user.setName("Test user");
@@ -85,21 +84,21 @@ public class DatabaseFacadeTest {
 		user.setUserCode("007");
 		user.setRentalNetworkCode("00");
 
-		fascade.save(user);
+		facade.save(user);
 		
 		user.setName("Updated name");
 		
-		fascade.update(user);
+		facade.update(user);
 		
-		User user2 = fascade.getUser("00", "007");
+		User user2 = facade.getUser("00", "007");
 		
 		assertEquals("Updated name", user2.getName());
 	}
 	
 	@Test(expected=PersistenceException.class)
 	public void testUpdateWithModelNotExistsException() throws PersistenceException {
-		DatabaseFacade fascade = new DatabaseFacade();
-		fascade.setDaoPersistenceFactory(new NoSQLPersistence());
+		DatabaseFacade facade = new DatabaseFacade();
+		facade.setDaoPersistenceFactory(new NoSQLPersistence());
 
 		User user = new User();
 		user.setName("Test user");
@@ -107,7 +106,7 @@ public class DatabaseFacadeTest {
 		user.setUserCode("007");
 		user.setRentalNetworkCode("00");
 		
-		fascade.update(user);
+		facade.update(user);
 	}
 
 }

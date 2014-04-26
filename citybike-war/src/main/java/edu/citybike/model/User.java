@@ -1,29 +1,58 @@
 package edu.citybike.model;
 
-import com.google.appengine.api.datastore.PhoneNumber;
 import com.google.appengine.api.datastore.Text;
 
 public class User {
 	private String name;
 	private String lastName;
 	private Address address;
-	private PhoneNumber phoneNumber;
+	private String phoneNumber;
+	private String emailAddress;
 	private Text notes;
+	private String role;
 	private Long overallRentalTime;
 	private Long overallRentalCost;
 	private String userCode;
 	private String rentalNetworkCode;
 
+	public User(String name, String lastName, Address address, String phoneNumber, String emailAddress, Text notes,
+			String role, Long overallRentalTime, Long overallRentalCost, String userCode, String rentalNetworkCode) {
+
+		this.name = name;
+		this.lastName = lastName;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.emailAddress = emailAddress;
+		this.notes = notes;
+		this.role = role;
+		this.overallRentalTime = overallRentalTime;
+		this.overallRentalCost = overallRentalCost;
+		this.userCode = userCode;
+		this.rentalNetworkCode = rentalNetworkCode;
+
+	}
+
 	public User() {
 		this.name = "";
 		this.lastName = "";
 		this.address = new Address();
-		this.phoneNumber = new PhoneNumber("");
+		this.phoneNumber = "";
+		this.emailAddress = "";
 		this.notes = new Text("");
-		this.overallRentalTime = new Long(0);
-		this.overallRentalCost = new Long(0);
+		this.role = "";
+		this.overallRentalTime = (long) 0;
+		this.overallRentalCost = (long) 0;
 		this.userCode = "";
 		this.rentalNetworkCode = "";
+
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getName() {
@@ -50,12 +79,12 @@ public class User {
 		this.address = address;
 	}
 
-	public PhoneNumber getPhoneNumber() {
-		return phoneNumber;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
-	public void setPhoneNumber(PhoneNumber phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 	public Text getNotes() {
@@ -96,6 +125,14 @@ public class User {
 
 	public void setRentalNetworkCode(String rentalNetworkCode) {
 		this.rentalNetworkCode = rentalNetworkCode;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

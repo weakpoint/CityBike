@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-2"
     pageEncoding="ISO-8859-2"%>
+    <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +8,15 @@
 <title>Zaloguj siê</title>
 </head>
 <body>
-logowanie zwykle
-logowanie przez google
-logowanie przez facebooka
+logowanie zwykle<br/>
+logowanie przez google<br/>
+logowanie przez facebooka<br/>
 
-nie mozna zmieniac adresu mailowego - weryfikacja z tokenu oauth2
+nie mozna zmieniac adresu mailowego - weryfikacja z tokenu oauth2<br/>
+
+<form:form method="POST" commandName="currentUser"
+		action="/login.do">
+		<input type="submit" value="OK" />
+		</form:form>
 </body>
 </html>

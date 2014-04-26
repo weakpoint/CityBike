@@ -21,7 +21,7 @@
 			</tr>
 			<tr>
 				<td>Nazwisko :</td>
-				<td><form:textarea path="lastName" /></td>
+				<td><form:input path="lastName" /></td>
 				<td><form:errors path="lastName" cssClass="error" /></td>
 			</tr>
 			<tr>
@@ -67,7 +67,7 @@
 			</tr>
 			<tr>
 				<td>Wybór stanowiska</td>
-				<td><form:select path="employeeRole">
+				<td><form:select path="role">
 						<form:options items="${employeeRoleList}"></form:options>
 					</form:select></td>
 			</tr>

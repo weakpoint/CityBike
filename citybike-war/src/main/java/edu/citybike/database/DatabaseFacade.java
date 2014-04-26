@@ -12,7 +12,6 @@ import edu.citybike.model.Rent;
 import edu.citybike.model.RentalNetwork;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
-import edu.citybike.model.Employee;
 
 public class DatabaseFacade {
 
@@ -38,9 +37,11 @@ public class DatabaseFacade {
 		try {
 			if (model instanceof User) {
 				daoPersistenceFactory.getUserPersistence().save((User) model);
-			} else if (model instanceof Employee) {
+			} 
+/*			else if (model instanceof Employee) {
 				daoPersistenceFactory.getWorkerPersistence().save((Employee) model);
-			} else if (model instanceof RentalOffice) {
+			} 
+*/			else if (model instanceof RentalOffice) {
 				daoPersistenceFactory.getRentalOfficePersistence().save((RentalOffice) model);
 			} else if (model instanceof RentalNetwork) {
 				daoPersistenceFactory.getRentalNetworkPersistence().save((RentalNetwork) model);
@@ -65,9 +66,11 @@ public class DatabaseFacade {
 		try {
 			if (model instanceof User) {
 				daoPersistenceFactory.getUserPersistence().update((User) model);
-			} else if (model instanceof Employee) {
+			} 
+/*			else if (model instanceof Employee) {
 				daoPersistenceFactory.getWorkerPersistence().update((Employee) model);
-			} else if (model instanceof RentalOffice) {
+			} 
+*/			else if (model instanceof RentalOffice) {
 				daoPersistenceFactory.getRentalOfficePersistence().update((RentalOffice) model);
 			} else if (model instanceof RentalNetwork) {
 				daoPersistenceFactory.getRentalNetworkPersistence().update((RentalNetwork) model);

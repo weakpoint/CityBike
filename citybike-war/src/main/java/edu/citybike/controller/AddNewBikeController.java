@@ -1,5 +1,6 @@
 package edu.citybike.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
@@ -44,12 +44,12 @@ public class AddNewBikeController {
 		}
 		return "redirect:/addNewBike";
 	}
-
+/*
 	@RequestMapping("/addNewBike")
 	public ModelAndView showAddBikeForm() {
 		String rentalNetworkCode = ""; // ------------>TODO rental code
 		Map<String, String> rentalOfficeCodeList = new HashMap<String, String>();
-		try {
+		
 			rentalOfficeCodeList = createRentalOfficeCodeMap(rentalNetworkCode);
 		} catch (PersistenceException e) {
 			logger.error("Error during rental office map creation: " + e.getMessage());
@@ -61,16 +61,32 @@ public class AddNewBikeController {
 		modelAndView.addObject("newBike", new Bike());
 		return modelAndView;
 	}
-
-	private Map<String, String> createRentalOfficeCodeMap(String rentalNetworkCode) throws PersistenceException {
-		List<RentalOffice> rentalOfficeList = facade.getRentalOfficeList(rentalNetworkCode);
+*/
+@RequestMapping("/addNewBike")
+public String showAddBikeForm() {
+	return "addnewbike";
+}
+	@ModelAttribute("rentalOfficeCodeList")
+	public Map<String, String> createRentalOfficeCodeMap(String rentalNetworkCode) {
+		List<RentalOffice> rentalOfficeList = new ArrayList<>();
 		Map<String, String> rentalOfficeMap = new HashMap<String, String>();
-
+		
+		try {
+		rentalOfficeList = facade.getRentalOfficeList(rentalNetworkCode);
 		for (RentalOffice rentalOffice : rentalOfficeList) {
 			String address = rentalOffice.getAddress().getCity() + ", " + rentalOffice.getAddress().getStreet() + " "
 					+ rentalOffice.getAddress().getHouseNumber();
 			rentalOfficeMap.put(rentalOffice.getRentalOfficeCode(), address);
 		}
+		} catch (PersistenceException e) {
+			logger.error("Error during rental office map creation: " + e.getMessage());
+			rentalOfficeMap.put("", "---");
+		}
 		return rentalOfficeMap;
+	}
+	
+	@ModelAttribute("newBike")
+	public Bike addNewBike(){
+		return new Bike();
 	}
 }

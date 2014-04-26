@@ -23,7 +23,7 @@
 				<td><form:select path="rentalOfficeCode">
 						<form:options items="${rentalOfficeCodeList}"></form:options>
 					</form:select>
-				<td><a href="addNewRentalOffice.jsp">Nowa wypozyczalnia</a></td>
+				<td><a href="/addNewRentalOffice">Nowa wypozyczalnia</a></td>
 			</tr>
 
 			<tr>

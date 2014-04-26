@@ -10,12 +10,8 @@ import com.google.appengine.api.datastore.EmbeddedEntity;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PhoneNumber;
 import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Text;
-import com.google.appengine.api.datastore.Transaction;
 
 import edu.citybike.database.exception.ModelAlreadyExistsException;
 import edu.citybike.database.exception.ModelNotExistsException;
@@ -39,7 +35,9 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 		entity.setProperty("name", model.getName());
 		entity.setProperty("lastName", model.getLastName());
 		entity.setProperty("phoneNumber", model.getPhoneNumber());
+		entity.setProperty("emailAddress", model.getEmailAddress());
 		entity.setProperty("notes", model.getNotes());
+		entity.setProperty("role", model.getRole());
 		entity.setProperty("overallRentalTime", model.getOverallRentalTime());
 		entity.setProperty("overallRentalCost", model.getOverallRentalCost());
 		entity.setProperty("userCode", model.getUserCode());
@@ -76,7 +74,9 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 			entity.setProperty("name", model.getName());
 			entity.setProperty("lastName", model.getLastName());
 			entity.setProperty("phoneNumber", model.getPhoneNumber());
+			entity.setProperty("emailAddress", model.getEmailAddress());
 			entity.setProperty("notes", model.getNotes());
+			entity.setProperty("role", model.getRole());
 			entity.setProperty("overallRentalTime", model.getOverallRentalTime());
 			entity.setProperty("overallRentalCost", model.getOverallRentalCost());
 			entity.setProperty("userCode", model.getUserCode());
@@ -129,8 +129,10 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 			user.setAddress(address);
 			user.setName((String) en.getProperty("name"));
 			user.setLastName((String) en.getProperty("lastName"));
-			user.setPhoneNumber((PhoneNumber) en.getProperty("phoneNumber"));
+			user.setPhoneNumber((String) en.getProperty("phoneNumber"));
+			user.setEmailAddress((String) en.getProperty("emailAddress"));
 			user.setNotes((Text) en.getProperty("notes"));
+			user.setRole((String) en.getProperty("role"));
 			user.setOverallRentalTime((Long) en.getProperty("overallRentalTime"));
 			user.setOverallRentalCost((Long) en.getProperty("overallRentalCost"));
 			user.setUserCode((String) en.getProperty("userCode"));
