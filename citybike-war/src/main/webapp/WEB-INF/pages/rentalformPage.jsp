@@ -1,12 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
+	pageEncoding="ISO-8859-2"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="ISO-8859-2">
+<title>Wypozyczenie</title>
 </head>
 <body>
+	<section>
+		<header>
+			<h1>Nowe wypo¿yczenie</h1>
+		</header>
 
+		<form:form method="POST" commandName="newRental">
+			<form:errors path="*" cssClass="errorblock" element="div" />
+			<table>
+				<tr>
+					<td>Kod uzytkownika:</td>
+					<td><form:input path="userCode" /></td>
+					<td><button type="button">Pokaz profil</button></td> popup z userem
+					<td><form:errors path="userCode" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td>Kod roweru:</td>
+					<td><form:input path="bikeCode" /></td>
+					<td><button type="button">Pokaz dane</button></td>
+					<td><form:errors path="bikeCode" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td>Kod wypozyczalni</td>
+					<td><form:select path="rentalOfficeCode">
+							<form:options items="${rentalOfficeCodeList}"></form:options>
+						</form:select>
+				</tr>
+				<tr>
+				<td colspan="3"><input type="submit" value="Wypozycz" /></td>
+
+			</tr>
+			</table>
+		</form:form>
+
+	</section>
 </body>
 </html>

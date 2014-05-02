@@ -1,5 +1,7 @@
 package edu.citybike.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -38,10 +40,11 @@ public class UserAuthenticationController {
 	}
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String verifyUser(@ModelAttribute("currentUser") User user){
+	public String verifyUser(@ModelAttribute("currentUser") User user, HttpSession session){
 		logger.info("User: "+user+" verified");
 		user.setName("verified");
-		
+		user.setRentalNetworkCode("0001");
+
 		return "redirect:/";
 	}
 }

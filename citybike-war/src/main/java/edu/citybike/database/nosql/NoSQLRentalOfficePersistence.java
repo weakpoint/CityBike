@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.model.Address;
 import edu.citybike.model.RentalOffice;
 
 public class NoSQLRentalOfficePersistence extends NoSQLModelPersistence<RentalOffice> {
@@ -25,8 +26,21 @@ public class NoSQLRentalOfficePersistence extends NoSQLModelPersistence<RentalOf
 
 	public List<RentalOffice> getAll(String rentalNetworkCode)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		return new ArrayList<RentalOffice>();
+		RentalOffice office = new RentalOffice();
+		office.setRentalNetworkCode("0001");
+		office.setRentalOfficeCode("01");
+		office.setLatitude("21.1212");
+		office.setLongitude("52.5115");
+		Address address = new Address();
+		address.setCity("Lodz");
+		address.setStreet("Strykowska");
+		address.setHouseNumber("33/43");
+		address.setFlatNumber("");
+		address.setPostalCode("92-233");
+		office.setAddress(address);
+		List<RentalOffice> list = new ArrayList<RentalOffice>();
+		list.add(office);
+		return list;
 	}
 
 

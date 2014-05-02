@@ -7,13 +7,19 @@
 <title>System do zarz±dzania rowerem miejskim</title>
 </head>
 <body>
-jakis header
+jakis header i stopka wspolna dla wszystkich stron <br />
 jakies tlo
-jakas stopka
+
 logowanie
+
 
 <a href="/addNewBike">Dodaj rower</a>
 <a href="/addNewEmployee">Dodaj pracownika</a>
+
+<a href="/rentalInformation">O wypozyczeniu</a>
+<a href="/rentBike">Wypozycz rower</a>
+<a href="/returnBike">Oddawaj rowera!</a>
+<br/>
 <a href="/login.do">Logowanie</a>
 
 
@@ -25,6 +31,7 @@ logowanie
     out.print(s);
     edu.citybike.model.User user = (edu.citybike.model.User) request.getSession().getAttribute(s);
     out.println("==" + user.getName());
+    out.println("rentalNetworkCode => "+ user.getRentalNetworkCode());
 %><br />
 <%
   }

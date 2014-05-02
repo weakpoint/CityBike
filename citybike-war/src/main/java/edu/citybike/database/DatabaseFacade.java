@@ -1,5 +1,6 @@
 package edu.citybike.database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.citybike.database.exception.ModelNotExistsException;
@@ -22,26 +23,27 @@ public class DatabaseFacade {
 	}
 
 	public User getUser(String rentalNetworkCode, String userCode) throws PersistenceException {
-			List<User> users = daoPersistenceFactory.getUserPersistence().getAll(rentalNetworkCode);
-			System.out.println(users.size());
+		List<User> users = daoPersistenceFactory.getUserPersistence().getAll(rentalNetworkCode);
+		System.out.println(users.size());
 
-			for (User user : users) {
-				if (user.getUserCode().equals(userCode)) {
-					return user;
-				}
+		for (User user : users) {
+			if (user.getUserCode().equals(userCode)) {
+				return user;
 			}
-			throw new ModelNotExistsException("User does not exist");
+		}
+		throw new ModelNotExistsException("User does not exist");
 	}
 
 	public void save(Object model) throws PersistenceException {
 		try {
 			if (model instanceof User) {
 				daoPersistenceFactory.getUserPersistence().save((User) model);
-			} 
-/*			else if (model instanceof Employee) {
-				daoPersistenceFactory.getWorkerPersistence().save((Employee) model);
-			} 
-*/			else if (model instanceof RentalOffice) {
+			}
+			/*
+			 * else if (model instanceof Employee) {
+			 * daoPersistenceFactory.getWorkerPersistence().save((Employee)
+			 * model); }
+			 */else if (model instanceof RentalOffice) {
 				daoPersistenceFactory.getRentalOfficePersistence().save((RentalOffice) model);
 			} else if (model instanceof RentalNetwork) {
 				daoPersistenceFactory.getRentalNetworkPersistence().save((RentalNetwork) model);
@@ -61,16 +63,17 @@ public class DatabaseFacade {
 		}
 
 	}
-	
-	public void update(Object model) throws PersistenceException{
+
+	public void update(Object model) throws PersistenceException {
 		try {
 			if (model instanceof User) {
 				daoPersistenceFactory.getUserPersistence().update((User) model);
-			} 
-/*			else if (model instanceof Employee) {
-				daoPersistenceFactory.getWorkerPersistence().update((Employee) model);
-			} 
-*/			else if (model instanceof RentalOffice) {
+			}
+			/*
+			 * else if (model instanceof Employee) {
+			 * daoPersistenceFactory.getWorkerPersistence().update((Employee)
+			 * model); }
+			 */else if (model instanceof RentalOffice) {
 				daoPersistenceFactory.getRentalOfficePersistence().update((RentalOffice) model);
 			} else if (model instanceof RentalNetwork) {
 				daoPersistenceFactory.getRentalNetworkPersistence().update((RentalNetwork) model);
@@ -90,9 +93,21 @@ public class DatabaseFacade {
 		}
 
 	}
-	
-	public List<RentalOffice> getRentalOfficeList(String rentalNetworkCode) throws PersistenceException{
+
+	public List<RentalOffice> getRentalOfficeList(String rentalNetworkCode) throws PersistenceException {
 		return daoPersistenceFactory.getRentalOfficePersistence().getAll(rentalNetworkCode);
+	}
+
+	public List<Rent> getUserRentList(String userCode, String rentalNetworkCode) throws PersistenceException {
+		ArrayList<Rent> userList = new ArrayList<Rent>();
+		List<Rent> allRent = daoPersistenceFactory.getRentPersistence().getAll(rentalNetworkCode);
+
+		for (Rent rent : allRent) {
+			if (userCode.equals(rent.getUserCode())) {
+				userList.add(rent);
+			}
+		}
+		return userList;
 	}
 
 }

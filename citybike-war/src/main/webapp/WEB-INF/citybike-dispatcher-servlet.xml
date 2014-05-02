@@ -30,6 +30,22 @@
 	<bean class="edu.citybike.controller.UserAuthenticationController">
 	<property name="facade" ref="facade"/>
 	</bean>
+	
+	<bean class="edu.citybike.controller.AddNewRentalOfficeController">
+	<property name="facade" ref="facade"/>
+	</bean>
+	
+	<bean class="edu.citybike.controller.RentalInformationController">
+	<property name="facade" ref="facade"/>
+	</bean>
+	
+	<bean class="edu.citybike.controller.RentalPageController">
+	<property name="facade" ref="facade"/>
+	</bean>
+	
+	<bean class="edu.citybike.controller.ReturnBikeFormController">
+	<property name="facade" ref="facade"/>
+	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

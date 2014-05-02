@@ -1,5 +1,7 @@
 package edu.citybike.database.nosql;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -19,7 +21,7 @@ public class NoSQLRentPersistence extends NoSQLModelPersistence<Rent> {
 		Entity entity = new Entity("Rent");
 		
 
-		entity.setProperty("rentalDuration", model.getRentalDuration());
+		entity.setProperty("rentDuration", model.getRentDuration());
 		entity.setProperty("userCode", model.getUserCode());
 		entity.setProperty("rentalNetworkCode", model.getRentalNetworkCode());
 		entity.setProperty("rentCode", model.getRentCode());
@@ -48,8 +50,29 @@ public class NoSQLRentPersistence extends NoSQLModelPersistence<Rent> {
 
 	public List<Rent> getAll(String rentalNetworkCode)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+		Rent r = new Rent();
+		r.setUserCode("00");
+		r.setActive(true);
+		r.setBikeCode("00");
+		r.setStartDate(new Date(System.currentTimeMillis()-60*45000));
+		
+		Rent r2 = new Rent();
+		r2.setUserCode("00");
+		r2.setActive(true);
+		r2.setBikeCode("01");
+		r2.setStartDate(new Date(System.currentTimeMillis()-60*30000));
+		
+		Rent r3 = new Rent();
+		r3.setUserCode("00");
+		r3.setActive(false);
+		r3.setBikeCode("02");
+		r3.setStartDate(new Date(System.currentTimeMillis()-60*60000));
+		
+		List<Rent> list = new ArrayList<Rent>();
+		list.add(r);
+		list.add(r2);
+		list.add(r3);
+		return list;
 	}
 
 

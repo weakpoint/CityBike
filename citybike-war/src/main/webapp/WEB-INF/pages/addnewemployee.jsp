@@ -66,7 +66,7 @@
 				<td><form:errors path="address.city" cssClass="error" /></td>
 			</tr>
 			<tr>
-				<td>Wybór stanowiska</td>
+				<td>Wybór stanowiska</td> trzeba dodac wpisywanie rentalnetworkcode i dodawanie admina dla superadmina - dadawanie pracownikow dla admina
 				<td><form:select path="role">
 						<form:options items="${employeeRoleList}"></form:options>
 					</form:select></td>

@@ -1,8 +1,14 @@
 package edu.citybike.model;
 
+import java.io.Serializable;
+
 import com.google.appengine.api.datastore.Text;
 
-public class User {
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String lastName;
 	private Address address;

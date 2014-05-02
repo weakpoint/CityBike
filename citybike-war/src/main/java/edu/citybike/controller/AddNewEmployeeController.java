@@ -29,7 +29,7 @@ public class AddNewEmployeeController {
 	}
 	
 	@RequestMapping(value = "/addNewEmployee", method = RequestMethod.POST)
-	public String addNewBike(@ModelAttribute("newEmployee") User employee) {
+	public String addNewEmployee(@ModelAttribute("newEmployee") User employee) {
 		logger.info("Imie: " + employee.getName() + " \nNazwisko: "
 				+ employee.getLastName()+" \nStanowisko: "+employee.getRole());
 		

@@ -1,11 +1,11 @@
 package edu.citybike.model;
 
-import com.google.appengine.api.datastore.GeoPt;
 
 public class RentalOffice {
 
 	private Address address;
-	private GeoPt gpsCord;
+	private String longitude;
+	private String latitude;
 	private String rentalOfficeCode;
 	private String rentalNetworkCode;
 	public Address getAddress() {
@@ -14,11 +14,18 @@ public class RentalOffice {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public GeoPt getGpsCord() {
-		return gpsCord;
+
+	public String getLongitude() {
+		return longitude;
 	}
-	public void setGpsCord(GeoPt gpsCord) {
-		this.gpsCord = gpsCord;
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 	public String getRentalOfficeCode() {
 		return rentalOfficeCode;
