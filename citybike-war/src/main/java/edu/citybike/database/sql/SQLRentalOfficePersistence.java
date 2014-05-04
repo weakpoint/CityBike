@@ -8,26 +8,30 @@ import edu.citybike.model.RentalOffice;
 
 public class SQLRentalOfficePersistence extends NoSQLModelPersistence<RentalOffice> {
 
-	public void save(RentalOffice model) throws PersistenceException {
+	@Override
+	public RentalOffice save(RentalOffice model) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
+	@Override
 	public void update(RentalOffice model) throws PersistenceException {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
 	public void delete(RentalOffice model) throws PersistenceException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public List<RentalOffice> getAll(String rentalNetworkCode)
-			throws PersistenceException {
+	@Override
+	public List<RentalOffice> getAll(String rentalNetworkCode) throws PersistenceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 

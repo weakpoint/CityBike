@@ -14,7 +14,7 @@ import edu.citybike.database.DatabaseFacade;
 import edu.citybike.model.User;
 
 @Controller
-@SessionAttributes("currentUser")
+@SessionAttributes({"rentalNetworkCode", "currentUser"})
 public class UserAuthenticationController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserAuthenticationController.class);
@@ -44,7 +44,8 @@ public class UserAuthenticationController {
 		logger.info("User: "+user+" verified");
 		user.setName("verified");
 		user.setRentalNetworkCode("0001");
-
+		
+		session.setAttribute("rentalNetworkCode", "0001");
 		return "redirect:/";
 	}
 }

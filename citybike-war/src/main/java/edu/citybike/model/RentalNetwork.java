@@ -17,6 +17,4 @@ public class RentalNetwork {
 		this.name = name;
 	}
 
-
-
 }

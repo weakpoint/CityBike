@@ -26,6 +26,7 @@ import edu.citybike.model.User;
 public class AddNewBikeController {
 	private static final Logger logger = LoggerFactory.getLogger(AddNewBikeController.class);
 	private DatabaseFacade facade;
+	private List<RentalOffice> rentalOfficeList;
 
 	public DatabaseFacade getFacade() {
 		return facade;
@@ -36,10 +37,14 @@ public class AddNewBikeController {
 	}
 
 	@RequestMapping(value = "/addNewBike", method = RequestMethod.POST)
-	public String addNewBike(@ModelAttribute("newBike") Bike bike) {
+	public String addNewBike(@ModelAttribute("newBike") Bike bike, HttpSession session) {
+		//here rentalofficecode is an index of rentalofficelist
+		bike.setRentalOfficeCode(rentalOfficeList.get(Integer.parseInt(bike.getRentalOfficeCode())).getRentalOfficeCode());
+		bike.setRentalNetworkCode(((User) session.getAttribute("currentUser")).getRentalNetworkCode());
+		
 		logger.info("Nazwa: " + bike.getTechnicalDetails().getName() + " \nNumer wypozyczalni: "
 				+ bike.getRentalOfficeCode());
-		// System.out.println("Nazwa: "+bike.getTechnicalDetails().getName()+" \nNumer wypozyczalni: "+bike.getRentalOfficeCode());
+		
 		try {
 			facade.save(bike);
 		} catch (PersistenceException e) {
@@ -54,21 +59,22 @@ public class AddNewBikeController {
 	}
 
 	@ModelAttribute("rentalOfficeCodeList")
-	public Map<String, String> createRentalOfficeCodeMap(HttpSession session) {
+	public Map<Integer, String> createRentalOfficeCodeMap(HttpSession session) {
 		String rentalNetworkCode = ((User) session.getAttribute("currentUser")).getRentalNetworkCode(); 
-		List<RentalOffice> rentalOfficeList = new ArrayList<>();
-		Map<String, String> rentalOfficeMap = new HashMap<String, String>();
+		rentalOfficeList = new ArrayList<RentalOffice>();
+		Map<Integer, String> rentalOfficeMap = new HashMap<Integer, String>();
 
 		try {
 			rentalOfficeList = facade.getRentalOfficeList(rentalNetworkCode);
-			for (RentalOffice rentalOffice : rentalOfficeList) {
+			RentalOffice rentalOffice;
+			for (int i = 0; i < rentalOfficeList.size();i++) {
+				rentalOffice = rentalOfficeList.get(i);
 				String address = rentalOffice.getAddress().getCity() + ", " + rentalOffice.getAddress().getStreet()
 						+ " " + rentalOffice.getAddress().getHouseNumber();
-				rentalOfficeMap.put(rentalOffice.getRentalOfficeCode(), address);
+				rentalOfficeMap.put(i, address);
 			}
 		} catch (PersistenceException e) {
 			logger.error("Error during rental office map creation: " + e.getMessage());
-			rentalOfficeMap.put("", "---");
 		}
 		return rentalOfficeMap;
 	}

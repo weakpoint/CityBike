@@ -11,21 +11,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.model.Bike.STATUS;
+import edu.citybike.model.Bike;
 import edu.citybike.model.Rent;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
+import edu.citybike.utilities.ControllerUtilities;
 
 @Controller
 public class RentalPageController {
 	private static final Logger logger = LoggerFactory.getLogger(RentalPageController.class);
 	private DatabaseFacade facade;
-
+	private List<RentalOffice> rentalOfficeList;
+	
 	public DatabaseFacade getFacade() {
 		return facade;
 	}
@@ -35,21 +38,22 @@ public class RentalPageController {
 	}
 
 	@ModelAttribute("rentalOfficeCodeList")
-	public Map<String, String> createRentalOfficeCodeMap(HttpSession session) {
-		String rentalNetworkCode = ((User) session.getAttribute("currentUser")).getRentalNetworkCode();
-		List<RentalOffice> rentalOfficeList = new ArrayList<>();
-		Map<String, String> rentalOfficeMap = new HashMap<String, String>();
+	public Map<Integer, String> createRentalOfficeCodeMap(HttpSession session) {
+		String rentalNetworkCode = ((User) session.getAttribute("currentUser")).getRentalNetworkCode(); 
+		rentalOfficeList = new ArrayList<RentalOffice>();
+		Map<Integer, String> rentalOfficeMap = new HashMap<Integer, String>();
 
 		try {
 			rentalOfficeList = facade.getRentalOfficeList(rentalNetworkCode);
-			for (RentalOffice rentalOffice : rentalOfficeList) {
+			RentalOffice rentalOffice;
+			for (int i = 0; i < rentalOfficeList.size();i++) {
+				rentalOffice = rentalOfficeList.get(i);
 				String address = rentalOffice.getAddress().getCity() + ", " + rentalOffice.getAddress().getStreet()
 						+ " " + rentalOffice.getAddress().getHouseNumber();
-				rentalOfficeMap.put(rentalOffice.getRentalOfficeCode(), address);
+				rentalOfficeMap.put(i, address);
 			}
 		} catch (PersistenceException e) {
 			logger.error("Error during rental office map creation: " + e.getMessage());
-			rentalOfficeMap.put("", "---");
 		}
 		return rentalOfficeMap;
 	}
@@ -67,11 +71,15 @@ public class RentalPageController {
 
 	@RequestMapping(value = "/rentBike", method = RequestMethod.POST)
 	public String showRentalForm(@ModelAttribute("newRental") Rent rent, HttpSession session) {
-		logger.info("Nowa wypozyczenie");
 		String rentalNetworkCode = ((User) session.getAttribute("currentUser")).getRentalNetworkCode();
 		rent.setRentalNetworkCode(rentalNetworkCode);
-
+		
 		try {
+			//ControllerUtils
+			Bike bike = facade.getBike( rentalNetworkCode,rent.getBikeCode());
+			bike.setStatus(STATUS.RENTED);
+			facade.update(bike);
+			
 			facade.save(rent);
 		} catch (PersistenceException e) {
 			logger.error("Error during rental office storing: " + e.getMessage());

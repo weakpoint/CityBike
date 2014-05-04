@@ -47,9 +47,8 @@ public class DatabaseFacadeTest {
 		User user = new User();
 		user.setName("Test user");
 		user.setLastName("TTest");
-		user.setUserCode("007");
 
-		facade.save(user);
+		user = (User) facade.save(user);
 		facade.save(user);
 	}
 
@@ -62,12 +61,11 @@ public class DatabaseFacadeTest {
 		User user = new User();
 		user.setName("Test user");
 		user.setLastName("TTest");
-		user.setUserCode("007");
 		user.setRentalNetworkCode("00");
 
-		facade.save(user);
+		user = (User) facade.save(user);
 
-		User user2 = facade.getUser("00", "007");
+		User user2 = facade.getUser("00", user.getUserCode());
 
 		assertEquals("Test user", user2.getName());
 
@@ -84,13 +82,13 @@ public class DatabaseFacadeTest {
 		user.setUserCode("007");
 		user.setRentalNetworkCode("00");
 
-		facade.save(user);
+		user = (User) facade.save(user);
 		
 		user.setName("Updated name");
 		
 		facade.update(user);
 		
-		User user2 = facade.getUser("00", "007");
+		User user2 = facade.getUser("00", user.getUserCode());
 		
 		assertEquals("Updated name", user2.getName());
 	}

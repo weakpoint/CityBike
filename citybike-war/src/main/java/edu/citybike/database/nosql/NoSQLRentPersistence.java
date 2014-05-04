@@ -17,7 +17,7 @@ import edu.citybike.model.Rent;
 
 public class NoSQLRentPersistence extends NoSQLModelPersistence<Rent> {
 
-	public void save(Rent model) throws PersistenceException {
+	public Rent save(Rent model) throws PersistenceException {
 		Entity entity = new Entity("Rent");
 		
 
@@ -35,7 +35,7 @@ public class NoSQLRentPersistence extends NoSQLModelPersistence<Rent> {
 		}
 		save(entity);	
 		
-		
+		return model;
 	}
 
 	public void update(Rent model) throws PersistenceException {

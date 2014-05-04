@@ -9,7 +9,8 @@ import edu.citybike.model.RentalOffice;
 
 public class NoSQLRentalOfficePersistence extends NoSQLModelPersistence<RentalOffice> {
 
-	public void save(RentalOffice model) throws PersistenceException {
+	public RentalOffice save(RentalOffice model) throws PersistenceException {
+		return model;
 		// TODO Auto-generated method stub
 		
 	}

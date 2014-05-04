@@ -19,22 +19,10 @@ logowanie
 <a href="/rentalInformation">O wypozyczeniu</a>
 <a href="/rentBike">Wypozycz rower</a>
 <a href="/returnBike">Oddawaj rowera!</a>
+<a href="/feeManager">Oplaty</a>
 <br/>
 <a href="/login.do">Logowanie</a>
 
 
-<%
-  java.util.Enumeration<String> sessEnum = request.getSession()
-    .getAttributeNames();
-  while (sessEnum.hasMoreElements()) {
-    String s = sessEnum.nextElement();
-    out.print(s);
-    edu.citybike.model.User user = (edu.citybike.model.User) request.getSession().getAttribute(s);
-    out.println("==" + user.getName());
-    out.println("rentalNetworkCode => "+ user.getRentalNetworkCode());
-%><br />
-<%
-  }
-%>
 </body>
 </html>

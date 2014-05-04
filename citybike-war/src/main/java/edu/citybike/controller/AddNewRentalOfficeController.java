@@ -45,7 +45,6 @@ public class AddNewRentalOfficeController {
 	
 	@RequestMapping(value = "/addNewRentalOffice", method = RequestMethod.POST)
 	public String addNewRentalOffice(@ModelAttribute("newRentalOffice") RentalOffice rentalOffice, HttpSession session) {
-		logger.info("Nowa wypozyczalnia");
 		String rentalNetworkCode = ((User) session.getAttribute("currentUser")).getRentalNetworkCode(); 
 		rentalOffice.setRentalNetworkCode(rentalNetworkCode);
 		

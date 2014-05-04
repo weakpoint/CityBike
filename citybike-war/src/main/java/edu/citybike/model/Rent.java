@@ -30,7 +30,7 @@ public class Rent {
 	}
 
 	public Integer getRentDuration() {
-		return Math.round((endDate.getTime()-startDate.getTime()/MILS_IN_MIN));
+		return rentDuration;
 	}
 
 	public Date getStartDate() {
@@ -47,6 +47,7 @@ public class Rent {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+		rentDuration = Math.round(((endDate.getTime()-startDate.getTime())/MILS_IN_MIN));
 	}
 
 	public boolean isActive() {

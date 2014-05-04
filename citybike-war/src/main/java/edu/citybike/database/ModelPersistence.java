@@ -6,7 +6,7 @@ import edu.citybike.database.exception.PersistenceException;
 
 public interface ModelPersistence<T> {
 
-	public void save(T model) throws PersistenceException;
+	public T save(T model) throws PersistenceException;
 
 	public void update(T model) throws PersistenceException;
 

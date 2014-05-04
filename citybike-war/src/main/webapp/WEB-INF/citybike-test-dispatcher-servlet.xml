@@ -22,18 +22,7 @@
 	<bean id="facade" class="edu.citybike.database.DatabaseFacade">
 		<property name="daoPersistenceFactory" ref="nosqlpersistence"/>
 	</bean>
-	
-	<bean id="entityGen" class="edu.citybike.controller.EntityGenerator">
-	<property name="fascade" ref="facade"></property>
-	</bean>
 
-
-	<bean class="edu.citybike.controller.TestPageController">
-		<property name="message">
-			<value>Hello World</value>
-		</property>
-		<property name="entityGen" ref="entityGen"></property>
-	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -3,6 +3,8 @@ package edu.citybike.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -29,9 +31,10 @@ public class AddNewEmployeeController {
 	}
 	
 	@RequestMapping(value = "/addNewEmployee", method = RequestMethod.POST)
-	public String addNewEmployee(@ModelAttribute("newEmployee") User employee) {
+	public String addNewEmployee(@ModelAttribute("newEmployee") User employee, HttpSession session) {
 		logger.info("Imie: " + employee.getName() + " \nNazwisko: "
 				+ employee.getLastName()+" \nStanowisko: "+employee.getRole());
+		employee.setRentalNetworkCode((String)session.getAttribute("rentalNetworkCode"));
 		
 		try {
 			facade.save(employee);

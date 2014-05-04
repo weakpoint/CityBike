@@ -8,27 +8,28 @@ import edu.citybike.model.Bike;
 
 public class SQLBikePersistence extends NoSQLModelPersistence<Bike> {
 
-	public void save(Bike model) throws PersistenceException {
+	@Override
+	public Bike save(Bike model) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
+	@Override
 	public void update(Bike model) throws PersistenceException {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
 	public void delete(Bike model) throws PersistenceException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public List<Bike> getAll(String rentalNetworkCode)
-			throws PersistenceException {
+	@Override
+	public List<Bike> getAll(String rentalNetworkCode) throws PersistenceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }

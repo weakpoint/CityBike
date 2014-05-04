@@ -17,6 +17,10 @@
 		<property name="daoPersistenceFactory" ref="nosqlpersistence" />
 	</bean>
 	
+	<bean class="edu.citybike.utilities.ControllerUtilities">
+	<property name="facade" ref="facade"/>
+	</bean>
+	
 	<bean class="edu.citybike.controller.AddNewBikeController">
 	<property name="facade" ref="facade"/>
 	</bean>
@@ -44,6 +48,10 @@
 	</bean>
 	
 	<bean class="edu.citybike.controller.ReturnBikeFormController">
+	<property name="facade" ref="facade"/>
+	</bean>
+	
+	<bean class="edu.citybike.controller.FeeManageController">
 	<property name="facade" ref="facade"/>
 	</bean>
 

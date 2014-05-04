@@ -41,6 +41,11 @@
 			<h2>Podsumowanie wypozyczenia</h2>
 		</header>
 		<span>Nalezna oplata:</span><span id="payment"></span><br />
+		<br />
+		<form:form method="POST" action="/returnApporval">
+		<input type="submit" value="Zatwierdz"/>
+		<button type="button" onclick="location.reload(true);">Odrzuć</button>
+		</form:form>
 	</section>
 
 	<script>
