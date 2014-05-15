@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
-    pageEncoding="ISO-8859-2"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-2">
-<title>System do zarz�dzania rowerem miejskim</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>System do zarządzania rowerem miejskim</title>
 </head>
 <body>
 jakis header i stopka wspolna dla wszystkich stron <br />
@@ -20,6 +20,7 @@ logowanie
 <a href="/rentBike">Wypozycz rower</a>
 <a href="/returnBike">Oddawaj rowera!</a>
 <a href="/feeManager">Oplaty</a>
+<a href="/userInfo">Coś więcej o sobie</a>
 <br/>
 <a href="/login.do">Logowanie</a>
 

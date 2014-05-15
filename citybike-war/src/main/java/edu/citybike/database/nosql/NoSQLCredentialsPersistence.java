@@ -1,5 +1,6 @@
 package edu.citybike.database.nosql;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.citybike.database.exception.PersistenceException;
@@ -27,8 +28,13 @@ public class NoSQLCredentialsPersistence extends NoSQLModelPersistence<Credentia
 
 	@Override
 	public List<Credentials> getAll(String rentalNetworkCode) throws PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Credentials> list = new ArrayList<Credentials>();
+		Credentials c = new Credentials();
+		c.setEmailAddress("emil.1990@interia.pl");
+		c.setPassword("test");
+		c.setRentalNetworkCode("0001");
+		list.add(c);
+		return list;
 	}
 
 }

@@ -10,7 +10,7 @@
 <script>
 	function initialize() {
 		var mapProp = {
-			center : new google.maps.LatLng(51.508742, -0.120850),
+			center : new google.maps.LatLng(52.508742, 21.120850),
 			zoom : 5,
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		};

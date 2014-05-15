@@ -37,7 +37,7 @@ public class AddNewEmployeeController {
 		employee.setRentalNetworkCode((String)session.getAttribute("rentalNetworkCode"));
 		
 		try {
-			facade.save(employee);
+			facade.add(employee);
 		} catch (PersistenceException e) {
 			logger.error("Error during employee storing: "+e.getMessage());
 		}
@@ -45,7 +45,7 @@ public class AddNewEmployeeController {
 	}
 	
 	@RequestMapping("/addNewEmployee")
-	public ModelAndView showAddBikeForm() {
+	public ModelAndView showNewEmployeeForm() {
 		Map<String, String> employeeRoleList = new HashMap<String, String>();
 		
 		employeeRoleList.put("EMPLOYEE", "Employee");

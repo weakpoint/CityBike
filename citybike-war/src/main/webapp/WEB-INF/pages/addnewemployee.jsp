@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
-	pageEncoding="ISO-8859-2"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-2">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Dodawanie nowego pracownika</title>
 </head>
 <body>
@@ -66,7 +66,7 @@
 				<td><form:errors path="address.city" cssClass="error" /></td>
 			</tr>
 			<tr>
-				<td>Wybór stanowiska</td> trzeba dodac wpisywanie rentalnetworkcode i dodawanie admina dla superadmina - dadawanie pracownikow dla admina
+				<td>WybĂłr stanowiska</td> trzeba dodac wpisywanie rentalnetworkcode i dodawanie admina dla superadmina - dadawanie pracownikow dla admina
 				<td><form:select path="role">
 						<form:options items="${employeeRoleList}"></form:options>
 					</form:select></td>

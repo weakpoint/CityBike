@@ -36,7 +36,7 @@ public class DatabaseFacadeTest {
 		User user = new User();
 		user.setName("Test user");
 		user.setLastName("TTest");
-		facade.save(user);
+		facade.add(user);
 	}
 
 	@Test(expected = PersistenceException.class)
@@ -48,8 +48,8 @@ public class DatabaseFacadeTest {
 		user.setName("Test user");
 		user.setLastName("TTest");
 
-		user = (User) facade.save(user);
-		facade.save(user);
+		user = (User) facade.add(user);
+		facade.add(user);
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class DatabaseFacadeTest {
 		user.setLastName("TTest");
 		user.setRentalNetworkCode("00");
 
-		user = (User) facade.save(user);
+		user = (User) facade.add(user);
 
 		User user2 = facade.getUser("00", user.getUserCode());
 
@@ -82,7 +82,7 @@ public class DatabaseFacadeTest {
 		user.setUserCode("007");
 		user.setRentalNetworkCode("00");
 
-		user = (User) facade.save(user);
+		user = (User) facade.add(user);
 		
 		user.setName("Updated name");
 		

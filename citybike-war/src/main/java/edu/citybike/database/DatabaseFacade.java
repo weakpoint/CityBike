@@ -6,7 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.citybike.controller.AddNewBikeController;
 import edu.citybike.database.exception.ModelNotExistsException;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.database.exception.UnsupportedModelType;
@@ -38,7 +37,7 @@ public class DatabaseFacade {
 		throw new ModelNotExistsException("User does not exist");
 	}
 
-	public Object save(Object model) throws PersistenceException {
+	public Object add(Object model) throws PersistenceException {
 		try {
 			if (model instanceof User) {
 				return daoPersistenceFactory.getUserPersistence().save((User) model);
@@ -121,15 +120,34 @@ public class DatabaseFacade {
 
 	public Bike getBike(String rentalNetworkCode, String bikeCode) throws PersistenceException {
 		List<Bike> bikes = daoPersistenceFactory.getBikePersistence().getAll(rentalNetworkCode);
-		logger.info("bikes: "+bikes.size());
 		for (Bike bike : bikes) {
-			logger.info("*************** "+bike.getBikeCode()+" bikecode "+bikeCode);
 			if (bike.getBikeCode().equals(bikeCode)) {
 				return bike;
 			}
 		}
 		throw new ModelNotExistsException("Bike does not exist");
 		
+	}
+	
+	public Credentials getCredentials(String rentalNetworkCode, String userEmail) throws PersistenceException{
+		List<Credentials> all = daoPersistenceFactory.getCredentialsPersistence().getAll(rentalNetworkCode);
+		for(Credentials c : all){
+			if(c.getEmailAddress().equals(userEmail)){
+				return c;
+			}
+		}
+		throw new ModelNotExistsException("Wrong email");
+	}
+	
+	public User getUser(Credentials credentials) throws PersistenceException{
+		List<User> all = daoPersistenceFactory.getUserPersistence().getAll(credentials.getRentalNetworkCode());
+		
+		for(User u : all){
+			if(u.getEmailAddress().equals(credentials.getEmailAddress())){
+				return u;
+			}
+		}
+		throw new ModelNotExistsException("Wrong email");
 	}
 
 }

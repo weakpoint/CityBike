@@ -2,33 +2,25 @@ package edu.citybike.model;
 
 public class Credentials {
 
-	private String login;
+	private String emailAddress;
 	private String password;
-	private String userCode;
 	private String rentalNetworkCode;
+	
 
-	public String getLogin() {
-		return login;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getUserCode() {
-		return userCode;
-	}
-
-	public void setUserCode(String userCode) {
-		this.userCode = userCode;
 	}
 
 	public String getRentalNetworkCode() {

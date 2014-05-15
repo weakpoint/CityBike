@@ -49,7 +49,7 @@ public class AddNewRentalOfficeController {
 		rentalOffice.setRentalNetworkCode(rentalNetworkCode);
 		
 		try {
-			facade.save(rentalOffice);
+			facade.add(rentalOffice);
 		} catch (PersistenceException e) {
 			logger.error("Error during rental office storing: "+e.getMessage());
 		}

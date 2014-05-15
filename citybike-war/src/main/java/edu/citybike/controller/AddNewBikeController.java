@@ -46,7 +46,7 @@ public class AddNewBikeController {
 				+ bike.getRentalOfficeCode());
 		
 		try {
-			facade.save(bike);
+			facade.add(bike);
 		} catch (PersistenceException e) {
 			logger.error("Error during bike storing: " + e.getMessage());
 		}

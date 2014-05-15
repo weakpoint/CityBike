@@ -80,7 +80,7 @@ public class RentalPageController {
 			bike.setStatus(STATUS.RENTED);
 			facade.update(bike);
 			
-			facade.save(rent);
+			facade.add(rent);
 		} catch (PersistenceException e) {
 			logger.error("Error during rental office storing: " + e.getMessage());
 		}
