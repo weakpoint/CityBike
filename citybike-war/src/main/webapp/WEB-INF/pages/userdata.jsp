@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="edu.citybike.model.User"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,8 +12,8 @@
 </head>
 <body>
 	<h2>Dane użytkownika</h2>
-	<form:form method="POST" commandName="userInfo"
-		action="/userInfo">
+
+	<form:form method="POST" commandName="userInfo" action="${formAction}">
 		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 			<tr>
@@ -34,16 +36,18 @@
 				<td><form:input path="emailAddress" /></td>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
 			</tr>
-			<tr>
-				<td>Hasło :</td>
-				<td><form:input path="password" /></td>
-				<td><form:errors path="password" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Powtórz hasło :</td>
-				<td><form:input path="password" /></td>
-				<td><form:errors path="password" cssClass="error" /></td>
-			</tr>
+			<c:if test="${currentUser.role == 'USER' || userInfo.role == 'EMPLOYEE' || userInfo.role == 'USER'}">
+				<tr>
+					<td>Hasło :</td>
+					<td><form:input path="password" /></td>
+					<td><form:errors path="password" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td>Powtórz hasło :</td>
+					<td><form:password path="password" /></td>
+					<td><form:errors path="password" cssClass="error" /></td>
+				</tr>
+			</c:if>
 			<tr>
 				<td><h2>Adres</h2></td>
 			</tr>
@@ -76,6 +80,15 @@
 				<td><form:errors path="address.city" cssClass="error" /></td>
 			</tr>
 
+			<c:if test="${currentUser.role == 'EMPLOYEE' }">
+				<tr>
+				<td><h3>Informacje</h3></td>
+				</tr>
+				<tr>
+					<td>Informacje :</td>
+					<td><form:textarea path="notes" rows="5" cols="30"/></td>
+				</tr>
+			</c:if>
 			<tr>
 				<td colspan="3"><input type="submit" value="OK" /></td>
 
@@ -87,4 +100,4 @@
 
 </body>
 
-</html> 
+</html>

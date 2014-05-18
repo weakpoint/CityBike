@@ -42,7 +42,7 @@ public class IndexPageController {
 			u.setPhoneNumber("500 000 000");
 			u.setRentalNetworkCode("0001");
 			u.setUserCode("1");
-			u.setRole("USER");
+			u.setRole("EMPLOYEE");
 			facade.add(u);
 		}
 

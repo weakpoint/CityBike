@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.appengine.api.datastore.Transaction;
+
 import edu.citybike.database.exception.ModelNotExistsException;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.database.exception.UnsupportedModelType;
@@ -25,6 +27,11 @@ public class DatabaseFacade {
 	public void setDaoPersistenceFactory(DAOPersistenceFactory daoPersistenceFactory) {
 		this.daoPersistenceFactory = daoPersistenceFactory;
 	}
+	
+	public Transaction getTransaction(){
+		return daoPersistenceFactory.getUserPersistence().getTransaction();
+	}
+
 
 	public User getUser(String rentalNetworkCode, String userCode) throws PersistenceException {
 		List<User> users = daoPersistenceFactory.getUserPersistence().getAll(rentalNetworkCode);

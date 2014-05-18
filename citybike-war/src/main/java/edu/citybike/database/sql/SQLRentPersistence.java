@@ -6,7 +6,7 @@ import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.database.nosql.NoSQLModelPersistence;
 import edu.citybike.model.Rent;
 
-public class SQLRentPersistence extends NoSQLModelPersistence<Rent> {
+public class SQLRentPersistence extends SQLModelPersistence<Rent> {
 
 	@Override
 	public Rent save(Rent model) throws PersistenceException {

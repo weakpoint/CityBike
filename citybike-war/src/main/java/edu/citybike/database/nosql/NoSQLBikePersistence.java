@@ -13,6 +13,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Transaction;
 
 import edu.citybike.database.exception.ModelAlreadyExistsException;
 import edu.citybike.database.exception.ModelNotExistsException;
@@ -93,7 +94,7 @@ public class NoSQLBikePersistence extends NoSQLModelPersistence<Bike> {
 		List<Bike> bikes = new ArrayList<Bike>();
 		for (Entity en : pq.asIterable()) {
 			Bike bike = new Bike();
-			System.out.println("-*-*-*-**-*-*-*-*-*-*-*");
+
 			TechnicalDetails technicalDetails = new TechnicalDetails();
 			EmbeddedEntity emb = (EmbeddedEntity) en.getProperty("technicalDetails");
 			
@@ -109,9 +110,8 @@ public class NoSQLBikePersistence extends NoSQLModelPersistence<Bike> {
 			
 			bikes.add(bike);
 		}
-		System.out.println("getall: "+bikes.size());
+
 		return Collections.unmodifiableList(bikes);
 	}
-
 
 }

@@ -1,5 +1,7 @@
 package edu.citybike.database;
 
+import com.google.appengine.api.datastore.Transaction;
+
 import edu.citybike.model.Bike;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.Fee;

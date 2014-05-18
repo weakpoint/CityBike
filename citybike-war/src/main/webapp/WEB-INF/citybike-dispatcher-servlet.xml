@@ -60,6 +60,12 @@
 	<bean class="edu.citybike.controller.UserInfoController">
 	<property name="facade" ref="facade"/>
 	</bean>
+	
+	<bean class="edu.citybike.controller.AddNewRentalNetworkController"/>
+	
+	<bean class="edu.citybike.controller.RegistrationController">
+	<property name="facade" ref="facade"/>
+	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

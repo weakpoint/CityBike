@@ -6,12 +6,12 @@ import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.database.nosql.NoSQLModelPersistence;
 import edu.citybike.model.Fee;
 
-public class SQLFeePersistence extends NoSQLModelPersistence<Fee> {
+public class SQLFeePersistence extends SQLModelPersistence<Fee> {
 
 	@Override
 	public Fee save(Fee model) throws PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Fee: "+model.getFee()+" "+model.getTime());
+		return model;
 	}
 
 	@Override

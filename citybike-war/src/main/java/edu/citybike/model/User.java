@@ -20,6 +20,10 @@ public class User implements Serializable{
 	private Long overallRentalCost;
 	private String userCode;
 	private String rentalNetworkCode;
+	public static String USER = "USER";
+	public static String EMPLOYEE = "EMPLOYEE";
+	public static String ADMINISTRATOR = "ADMINISTRATOR"; 
+	public static String SUPERADMIN = "SUPERADMIN";
 
 	public User(String name, String lastName, Address address, String phoneNumber, String emailAddress, Text notes,
 			String role, Long overallRentalTime, Long overallRentalCost, String userCode, String rentalNetworkCode) {
@@ -45,7 +49,7 @@ public class User implements Serializable{
 		this.phoneNumber = "";
 		this.emailAddress = "";
 		this.notes = new Text("");
-		this.role = "";
+		this.role = USER;
 		this.overallRentalTime = (long) 0;
 		this.overallRentalCost = (long) 0;
 		this.userCode = "";
@@ -140,5 +144,6 @@ public class User implements Serializable{
 	public void setRole(String role) {
 		this.role = role;
 	}
+
 
 }

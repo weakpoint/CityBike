@@ -16,7 +16,7 @@ public abstract class NoSQLModelPersistence<T> implements ModelPersistence<T> {
 	protected void save(Entity entity) throws PersistenceException {
 		try {
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-			Transaction transaction = datastore.beginTransaction();
+			Transaction transaction = getTransaction();
 			datastore.put(transaction, entity);
 			transaction.commit();
 		} catch (Exception e) {
@@ -27,6 +27,11 @@ public abstract class NoSQLModelPersistence<T> implements ModelPersistence<T> {
 	protected Query generateQuery(String entityKind, String propertyName, FilterOperator filterOperator, Object value) {
 		return new Query(entityKind).setFilter(new FilterPredicate(propertyName, filterOperator, value));
 		
+	}
+
+	@Override
+	public Transaction getTransaction() {
+		return DatastoreServiceFactory.getDatastoreService().beginTransaction();
 	}
 
 }

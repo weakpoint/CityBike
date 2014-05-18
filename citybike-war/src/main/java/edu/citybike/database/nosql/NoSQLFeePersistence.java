@@ -3,6 +3,8 @@ package edu.citybike.database.nosql;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.appengine.api.datastore.Transaction;
+
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Fee;
 
@@ -10,8 +12,8 @@ public class NoSQLFeePersistence extends NoSQLModelPersistence<Fee> {
 
 	@Override
 	public Fee save(Fee model) throws PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Fee: "+model.getFee()+" "+model.getTime());
+		return model;
 	}
 
 	@Override

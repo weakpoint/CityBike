@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,8 +30,8 @@ public class UserInfoController {
 	}
 
 	@RequestMapping("/userInfo")
-	public String showAddBikeForm() {
-
+	public String showAddBikeForm(ModelMap map) {
+		map.addAttribute("formAction", "/userInfo");
 		return "userdata";
 	}
 	

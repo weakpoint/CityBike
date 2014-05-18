@@ -6,7 +6,7 @@ import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.database.nosql.NoSQLModelPersistence;
 import edu.citybike.model.Credentials;
 
-public class SQLCredentialsPersistence extends NoSQLModelPersistence<Credentials> {
+public class SQLCredentialsPersistence extends SQLModelPersistence<Credentials> {
 
 	@Override
 	public Credentials save(Credentials model) throws PersistenceException {

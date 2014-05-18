@@ -3,10 +3,9 @@ package edu.citybike.database.sql;
 import java.util.List;
 
 import edu.citybike.database.exception.PersistenceException;
-import edu.citybike.database.nosql.NoSQLModelPersistence;
 import edu.citybike.model.User;
 
-public class SQLUserPersistence extends NoSQLModelPersistence<User> {
+public class SQLUserPersistence extends SQLModelPersistence<User> {
 
 	@Override
 	public User save(User model) throws PersistenceException {

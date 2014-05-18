@@ -5,7 +5,13 @@ public class Credentials {
 	private String emailAddress;
 	private String password;
 	private String rentalNetworkCode;
-	
+
+	public Credentials() {
+		this.emailAddress = "";
+		this.password = "";
+		this.rentalNetworkCode = "";
+	}
+
 
 	public String getEmailAddress() {
 		return emailAddress;

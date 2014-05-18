@@ -65,7 +65,7 @@ public class UserAuthenticationController {
 			logger.error("Wrong e-mail/password");
 			return "redirect:/login.do";
 		}
-		logger.info("User: "+user+" verified");
+		logger.info("User: "+user.getName()+" "+user.getLastName()+" verified");
 		model.addAttribute("currentUser", user);
 		return "redirect:/";
 	}

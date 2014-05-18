@@ -1,4 +1,4 @@
-package edu.citybike.database.nosql;
+package edu.citybike.database.sql;
 
 import edu.citybike.database.DAOPersistenceFactory;
 import edu.citybike.database.ModelPersistence;
@@ -10,38 +10,48 @@ import edu.citybike.model.RentalNetwork;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
 
-public class NoSQLPersistence implements DAOPersistenceFactory {
+public class SQLPersistence implements DAOPersistenceFactory {
 
+	@Override
 	public ModelPersistence<User> getUserPersistence() {
-		return new NoSQLUserPersistence();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-/*	public ModelPersistence<Employee> getWorkerPersistence() {
-		return new NoSQLEmployeePersistence();
-	}
-*/
+	@Override
 	public ModelPersistence<RentalOffice> getRentalOfficePersistence() {
-		return new NoSQLRentalOfficePersistence();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
 	public ModelPersistence<RentalNetwork> getRentalNetworkPersistence() {
-		return new NoSQLRentalNetworkPersistence();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
 	public ModelPersistence<Bike> getBikePersistence() {
-		return new NoSQLBikePersistence();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
 	public ModelPersistence<Fee> getFeePersistence() {
-		return new NoSQLFeePersistence();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
 	public ModelPersistence<Rent> getRentPersistence() {
-		return new NoSQLRentPersistence();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
 	public ModelPersistence<Credentials> getCredentialsPersistence() {
-		return new NoSQLCredentialsPersistence();
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
 }

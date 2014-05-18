@@ -6,7 +6,7 @@ import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.database.nosql.NoSQLModelPersistence;
 import edu.citybike.model.Bike;
 
-public class SQLBikePersistence extends NoSQLModelPersistence<Bike> {
+public class SQLBikePersistence extends SQLModelPersistence<Bike> {
 
 	@Override
 	public Bike save(Bike model) throws PersistenceException {
