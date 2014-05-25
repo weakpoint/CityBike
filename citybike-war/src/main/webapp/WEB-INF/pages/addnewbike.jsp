@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
-	pageEncoding="ISO-8859-2"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE HTML>
@@ -8,6 +8,9 @@
 <title>Nowy rower</title>
 </head>
 <body>
+	<header>
+		<%@include file="header.jsp"%>
+	</header>
 	<h2>Dane Roweru</h2>
 	<form:form method="POST" commandName="newBike" action="/addNewBike">
 		<form:errors path="*" cssClass="errorblock" element="div" />
@@ -34,6 +37,8 @@
 		</table>
 
 	</form:form>
-
+	<footer>
+		<%@include file="footer.jsp"%>
+	</footer>
 </body>
 </html>

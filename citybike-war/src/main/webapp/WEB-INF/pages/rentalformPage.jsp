@@ -1,16 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
-	pageEncoding="ISO-8859-2"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="ISO-8859-2">
+<meta charset="utf-8">
 <title>Wypozyczenie</title>
 </head>
 <body>
+	<header>
+		<%@include file="header.jsp"%>
+	</header>
 	<section>
 		<header>
-			<h1>Nowe wypożyczenie</h1>
+			<h1>Nowe wypoĹźyczenie</h1>
 		</header>
 
 		<form:form method="POST" commandName="newRental">
@@ -35,12 +38,15 @@
 						</form:select>
 				</tr>
 				<tr>
-				<td colspan="3"><input type="submit" value="Wypozycz" /></td>
+					<td colspan="3"><input type="submit" value="Wypozycz" /></td>
 
-			</tr>
+				</tr>
 			</table>
 		</form:form>
 
 	</section>
+	<footer>
+		<%@include file="footer.jsp"%>
+	</footer>
 </body>
 </html>

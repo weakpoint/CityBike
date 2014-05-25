@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
@@ -9,6 +9,9 @@
 <title>Dodawanie nowej sieci wypożyczalni</title>
 </head>
 <body>
+	<header>
+		<%@include file="header.jsp"%>
+	</header>
 	<h2>Dane nowej wypożyczalni</h2>
 	<form:form method="POST" commandName="newRentalNetwork"
 		action="/addRentalNetwork">
@@ -32,6 +35,8 @@
 		</table>
 
 	</form:form>
-
+	<footer>
+		<%@include file="footer.jsp"%>
+	</footer>
 </body>
 </html>

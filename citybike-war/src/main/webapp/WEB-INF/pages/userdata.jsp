@@ -11,6 +11,9 @@
 <title>Dane użytkownika</title>
 </head>
 <body>
+	<header>
+		<%@include file="header.jsp"%>
+	</header>
 	<h2>Dane użytkownika</h2>
 
 	<form:form method="POST" commandName="userInfo" action="${formAction}">
@@ -36,7 +39,8 @@
 				<td><form:input path="emailAddress" /></td>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
 			</tr>
-			<c:if test="${currentUser.role == 'USER' || userInfo.role == 'EMPLOYEE' || userInfo.role == 'USER'}">
+			<c:if
+				test="${currentUser.role == 'USER' || userInfo.role == 'EMPLOYEE' || userInfo.role == 'USER'}">
 				<tr>
 					<td>Hasło :</td>
 					<td><form:input path="password" /></td>
@@ -82,11 +86,11 @@
 
 			<c:if test="${currentUser.role == 'EMPLOYEE' }">
 				<tr>
-				<td><h3>Informacje</h3></td>
+					<td><h3>Informacje</h3></td>
 				</tr>
 				<tr>
 					<td>Informacje :</td>
-					<td><form:textarea path="notes" rows="5" cols="30"/></td>
+					<td><form:textarea path="notes" rows="5" cols="30" /></td>
 				</tr>
 			</c:if>
 			<tr>
@@ -97,7 +101,8 @@
 		</table>
 
 	</form:form>
-
+	<footer>
+		<%@include file="footer.jsp"%>
+	</footer>
 </body>
-
 </html>

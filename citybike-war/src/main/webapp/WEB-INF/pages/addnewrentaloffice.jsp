@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-    <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+	pageEncoding="utf-8"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE HTML>
 <html>
 <head>
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
+<script
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
+	
 </script>
 <script>
-
 	var lat = 19.456177;
 	var lon = 51.774632;
 
@@ -44,72 +45,73 @@
 <title>Nowa wypożyczalnia</title>
 </head>
 <body>
-<h2>Dane wypożyczalni</h2>
-<form:form method="POST" commandName="newRentalOffice">
-		<form:errors path="*" cssClass="errorblock" element="div" />
-				<table>
+	<header>
+		<%@include file="/pages/header.jsp"%>
+	</header>
 
-<tr>
-<td><h2>Adres</h2></td>
-</tr>
+	<h2>Dane wypożyczalni</h2>
+	<form:form method="POST" commandName="newRentalOffice">
+		<form:errors path="*" cssClass="errorblock" element="div" />
+		<table>
+
+			<tr>
+				<td><h2>Adres</h2></td>
+			</tr>
 			<tr>
 				<td>Ulica :</td>
-				<td><form:input path="address.street" />
-				</td>
-				<td><form:errors path="address.street" cssClass="error" />
-				</td>
+				<td><form:input path="address.street" /></td>
+				<td><form:errors path="address.street" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Numer domu :</td>
-				<td><form:input path="address.houseNumber" />
-				</td>
+				<td><form:input path="address.houseNumber" /></td>
 				<td><form:errors path="address.houseNumber" cssClass="error" />
 				</td>
 			</tr>
 			<tr>
 				<td>Numer mieszkania :</td>
-				<td><form:input path="address.flatNumber" />
-				</td>
+				<td><form:input path="address.flatNumber" /></td>
 				<td><form:errors path="address.flatNumber" cssClass="error" />
 				</td>
 			</tr>
 			<tr>
 				<td>Kod pocztowy :</td>
-				<td><form:input path="address.postalCode" />
-				</td>
+				<td><form:input path="address.postalCode" /></td>
 				<td><form:errors path="address.postalCode" cssClass="error" />
 				</td>
 			</tr>
 			<tr>
 				<td>Miasto :</td>
-				<td><form:input path="address.city" />
-				</td>
-				<td><form:errors path="address.city" cssClass="error" />
-				</td>
+				<td><form:input path="address.city" /></td>
+				<td><form:errors path="address.city" cssClass="error" /></td>
 			</tr>
-			
+
 			<tr>
 				<td>Szerokość geograficzna</td>
-				<td><form:input path="latitude" id="latitudeField"/></td>		
+				<td><form:input path="latitude" id="latitudeField" /></td>
 			</tr>
 			<tr>
 				<td>Długość geograficzna</td>
-				<td><form:input path="longitude" id="longitudeField"/></td>	
-				
-				<td><input type="button" value="Pobierz z mapy" onclick="getCoordinates();"/></td>	
+				<td><form:input path="longitude" id="longitudeField" /></td>
+
+				<td><input type="button" value="Pobierz z mapy"
+					onclick="getCoordinates();" /></td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="submit" value="OK"/></td>
-				
-			</tr>
-			
-		</table>
-		
-	</form:form>
-	
-<section style="align: center"> <!-- mapa -->
-<div id="googleMap" style="width:500px;height:380px;"></div>
-</section>
+				<td colspan="3"><input type="submit" value="OK" /></td>
 
+			</tr>
+
+		</table>
+
+	</form:form>
+
+	<section style="align: center">
+		<!-- mapa -->
+		<div id="googleMap" style="width: 500px; height: 380px;"></div>
+	</section>
+	<footer>
+		<%@include file="footer.jsp"%>
+	</footer>
 </body>
-</html> 
+</html>

@@ -35,8 +35,8 @@ public class UserAuthenticationController {
 	@ModelAttribute("credentials")
 	public Credentials addUserObject(){
 		Credentials c = new Credentials();
-		c.setEmailAddress("emil.1990@interia.pl");
-		c.setPassword("test");
+		//c.setEmailAddress("emil.1990@interia.pl");
+		//c.setPassword("test");
 		return c;
 	}
 	
@@ -49,24 +49,25 @@ public class UserAuthenticationController {
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String verifyUser(@ModelAttribute("credentials") Credentials credentials, ModelMap model){
 		Credentials crd = null;
+		User user = null;
 		try {
 			crd = facade.getCredentials(RENTAL_NETWORK_CODE, credentials.getEmailAddress());
+			if(crd.getPassword().equals(credentials.getPassword())){
+				try {
+					user = facade.getUser(crd);
+				} catch (PersistenceException e) {
+					logger.error(e.getMessage());
+				}
+				logger.info("User: "+user.getName()+" "+user.getLastName()+" verified");
+				model.addAttribute("currentUser", user);
+				return "redirect:/";
+				
+			} else{
+				logger.error("Wrong e-mail/password");	
+			}
 		} catch (PersistenceException e) {
 			logger.error("Wrong e-mail/password");
-		}
-		User user = null;
-		if(crd.getPassword().equals(credentials.getPassword())){
-			try {
-				user = facade.getUser(crd);
-			} catch (PersistenceException e) {
-				logger.error(e.getMessage());
-			}
-		} else{
-			logger.error("Wrong e-mail/password");
-			return "redirect:/login.do";
-		}
-		logger.info("User: "+user.getName()+" "+user.getLastName()+" verified");
-		model.addAttribute("currentUser", user);
-		return "redirect:/";
+		}		
+		return "redirect:/login.do";
 	}
 }

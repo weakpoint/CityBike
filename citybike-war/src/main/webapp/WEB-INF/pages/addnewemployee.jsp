@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="edu.citybike.model.User"%>
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +10,9 @@
 <title>Dodawanie nowego pracownika</title>
 </head>
 <body>
+	<header>
+		<%@include file="header.jsp"%>
+	</header>
 	<h2>Dane pracownika</h2>
 	<form:form method="POST" commandName="newEmployee"
 		action="/addNewEmployee">
@@ -73,12 +75,13 @@
 						<form:options items="${employeeRoleList}"></form:options>
 					</form:select></td>
 			</tr>
+
 			<c:if test="${currentUser.role == 'SUPERADMIN'}">
-			<tr>
-				<td>Kod sieci wypożyczalnii :</td>
-				<td><form:input path="rentalNetworkCode" /></td>
-				<td><form:errors path="rentalNetworkCode" cssClass="error" /></td>
-			</tr>
+				<tr>
+					<td>Kod sieci wypożyczalnii :</td>
+					<td><form:input path="rentalNetworkCode" /></td>
+					<td><form:errors path="rentalNetworkCode" cssClass="error" /></td>
+				</tr>
 			</c:if>
 			<tr>
 				<td colspan="3"><input type="submit" value="OK" /></td>
@@ -88,6 +91,8 @@
 		</table>
 
 	</form:form>
-
+	<footer>
+		<%@include file="footer.jsp"%>
+	</footer>
 </body>
 </html>

@@ -51,9 +51,7 @@ public class RentalInformationController {
 			userRent = facade.getLastUserRent(user.getRentalNetworkCode(), user.getUserCode());
 		
 		if(userRent  == null || (userRent.getEndDate().compareTo(new Date())) < 0){
-			//schowac panel aktualnych danych
-			model.addObject("hideActualSection", "hidden");
-			
+			//schowac panel aktualnych danych			
 		} else {
 			actualTime = (userRent.getStartDate().getTime() - new Date().getTime())/(1000*60);
 			actualCost = ControllerUtilities.calculatePayment(facade.getFeeList(user.getRentalNetworkCode()), actualTime);
