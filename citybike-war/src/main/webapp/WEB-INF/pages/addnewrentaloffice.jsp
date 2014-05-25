@@ -46,7 +46,7 @@
 </head>
 <body>
 	<header>
-		<%@include file="/pages/header.jsp"%>
+		<%@include file="header.jsp"%>
 	</header>
 
 	<h2>Dane wypożyczalni</h2>

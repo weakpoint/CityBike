@@ -38,6 +38,7 @@
 				<td><form:input path="emailAddress" /></td>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
 			</tr>
+			<!-- pass 123456 -->
 			<tr>
 				<td><h2>Adres</h2></td>
 			</tr>

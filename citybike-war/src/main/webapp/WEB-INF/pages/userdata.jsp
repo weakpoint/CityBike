@@ -40,15 +40,15 @@
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
 			</tr>
 			<c:if
-				test="${currentUser.role == 'USER' || userInfo.role == 'EMPLOYEE' || userInfo.role == 'USER'}">
+				test="${(currentUser.emailAddress == userInfo.emailAddress)}">
 				<tr>
 					<td>Hasło :</td>
-					<td><form:input path="password" /></td>
+					<td><form:input path="password" type="password"/></td>
 					<td><form:errors path="password" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td>Powtórz hasło :</td>
-					<td><form:password path="password" /></td>
+					<td><form:input path="password" type="password"/></td>
 					<td><form:errors path="password" cssClass="error" /></td>
 				</tr>
 			</c:if>

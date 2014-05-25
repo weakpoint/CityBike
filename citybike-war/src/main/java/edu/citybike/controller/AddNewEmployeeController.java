@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.model.Credentials;
 import edu.citybike.model.User;
 
 @Controller
@@ -38,6 +39,11 @@ public class AddNewEmployeeController {
 		
 		try {
 			facade.add(employee);
+			Credentials cred = new Credentials();
+			cred.setEmailAddress(employee.getEmailAddress());
+			cred.setPassword("123456");
+			cred.setRentalNetworkCode(employee.getRentalNetworkCode());
+			facade.add(cred);
 		} catch (PersistenceException e) {
 			logger.error("Error during employee storing: "+e.getMessage());
 		}
@@ -51,9 +57,10 @@ public class AddNewEmployeeController {
 		
 		if(User.SUPERADMIN.equals(user.getRole())){
 			employeeRoleList.put(User.ADMINISTRATOR, "Administrator");
-		} 
-		employeeRoleList.put(User.EMPLOYEE, "Employee");
-
+		} else {
+			employeeRoleList.put(User.EMPLOYEE, "Employee");
+		}
+		
 		ModelAndView modelAndView = new ModelAndView("addnewemployee");
 		modelAndView.addObject("employeeRoleList", employeeRoleList);
 		modelAndView.addObject("newEmployee", new User());
