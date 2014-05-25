@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
-	pageEncoding="ISO-8859-2"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!DOCTYPE HTML>
 <html>
 <head>
 <script
-	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
-	
-</script>
-<script>
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">	
+
 	function initialize() {
 		var mapProp = {
 			center : new google.maps.LatLng(52.508742, 21.120850),
@@ -26,19 +24,18 @@
 <body>
 	<section>
 		<!-- dane -->
-		to sie powinno schowac jak nie ma zadnych wypozyczonych aktualnie
-		<section>
+		<section ${hideActualSection}>
 			<header>
-				<h1>Statystyki aktualnego wypoøyczenia</h1>
+				<h1>Statystyki aktualnego wypo≈ºyczenia</h1>
 			</header>
-			<span>Czas:</span><span>${actualRentTime}</span></br> <span>Koszt:</span><span>${actualRentCost}</span>
+			<span>Czas:</span><span>${actualRentTime}</span><br /> <span>Koszt:</span><span>${actualRentCost}</span>
 		</section>
 
 		<section>
 			<header>
-				<h1>OgÛlne statystyki wypozyczenia</h1>
+				<h1>Og√≥lne statystyki wypo≈ºyczenia</h1>
 			</header>
-			<span>Czas:</span><span>${overallRentalTime}</span></br> <span>Koszt:</span><span>${overallRentalCost}</span>
+			<span>Czas:</span><span>${overallRentalTime}</span><br /> <span>Koszt:</span><span>${overallRentalCost}</span>
 		</section>
 	</section>
 

@@ -17,7 +17,7 @@ public class UserInfo {
 	private Text notes;
 	private String role;
 	private Long overallRentalTime;
-	private Long overallRentalCost;
+	private Double overallRentalCost;
 	private String userCode;
 	private String rentalNetworkCode;
 	private User user;
@@ -136,11 +136,11 @@ public class UserInfo {
 		this.overallRentalTime = overallRentalTime;
 	}
 
-	public Long getOverallRentalCost() {
+	public Double getOverallRentalCost() {
 		return overallRentalCost;
 	}
 
-	public void setOverallRentalCost(Long overallRentalCost) {
+	public void setOverallRentalCost(Double overallRentalCost) {
 		this.overallRentalCost = overallRentalCost;
 	}
 

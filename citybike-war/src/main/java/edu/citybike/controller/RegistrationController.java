@@ -19,7 +19,7 @@ import edu.citybike.model.view.UserInfo;
 public class RegistrationController {
 
 	private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
-	@Autowired
+
 	private DatabaseFacade facade;
 
 	public DatabaseFacade getFacade() {

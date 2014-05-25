@@ -10,19 +10,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Zarządzanie opłatami</title>
-<script>
-var newElementIndex = -1;
-var addNewRow = function(){
-	var table = document.getElementById("feeTable");
-	  {
-	  var row = table.insertRow(Math.abs(newElementIndex));
-	  row.insertCell(0).innerHTML="<td><input type='checkbox' name='selected' value='"+(newElementIndex--)+"'/></td>";
-	  row.insertCell(1).innerHTML="<input type'text' name='time'/>";
-	  row.insertCell(2).innerHTML="<input type'text' name='fee'/>";
-	  }
-	}
-
-</script>
 </head>
 <body>
 <h2>Zarządzanie opłatami</h2>
@@ -30,6 +17,7 @@ var addNewRow = function(){
 <form:form method="post" action="/feeManager" modelAttribute="feeList">
 <table id="feeTable">
 <tr>
+<th></th>
 <th></th>
 <th>Czas [min]</th>
 <th>Koszt [zł]</th>
@@ -44,7 +32,8 @@ var addNewRow = function(){
             
         </tr>
     </c:forEach>
-
+</table>
+<table>
 <tr>
 <td><button type="submit" name="submitbtn" value="add">Dodaj opłatę</button></td>
 <td><button type="submit" name="submitbtn" value="save">Zapisz</button></td>

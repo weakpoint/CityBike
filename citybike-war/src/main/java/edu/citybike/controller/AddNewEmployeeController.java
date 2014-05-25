@@ -45,15 +45,19 @@ public class AddNewEmployeeController {
 	}
 	
 	@RequestMapping("/addNewEmployee")
-	public ModelAndView showNewEmployeeForm() {
+	public ModelAndView showNewEmployeeForm(HttpSession session) {
 		Map<String, String> employeeRoleList = new HashMap<String, String>();
+		User user = (User)session.getAttribute("currentUser");
 		
-		employeeRoleList.put("EMPLOYEE", "Employee");
-		employeeRoleList.put("ADMINISTRATOR", "Administrator");
+		if(User.SUPERADMIN.equals(user.getRole())){
+			employeeRoleList.put(User.ADMINISTRATOR, "Administrator");
+		} 
+		employeeRoleList.put(User.EMPLOYEE, "Employee");
 
 		ModelAndView modelAndView = new ModelAndView("addnewemployee");
 		modelAndView.addObject("employeeRoleList", employeeRoleList);
 		modelAndView.addObject("newEmployee", new User());
+		modelAndView.addObject("currentUser", user);
 		return modelAndView;
 	}
 	

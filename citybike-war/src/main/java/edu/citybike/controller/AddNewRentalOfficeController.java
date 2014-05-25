@@ -38,8 +38,6 @@ public class AddNewRentalOfficeController {
 	@RequestMapping(value ="/addNewRentalOffice")
 	public String showNewRentalOfficeForm(@RequestHeader(value = "referer", required = false) String referer) {
 		this.referer = referer;
-		logger.info("Referer: "+referer);
-		
 		return "addnewrentaloffice";
 	}
 	

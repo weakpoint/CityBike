@@ -156,5 +156,22 @@ public class DatabaseFacade {
 		}
 		throw new ModelNotExistsException("Wrong email");
 	}
+	
+	public Rent getLastUserRent(String rentalNetworkCode, String userCode) throws PersistenceException{
+		List<Rent> all = daoPersistenceFactory.getRentPersistence().getAll(rentalNetworkCode);
+		Rent lastRent = null;
+		
+		for(Rent rent : all){
+			if(rent.getUserCode().equals(userCode)){
+				if(lastRent == null){
+					lastRent = rent;
+				}
+				if(lastRent.getStartDate().compareTo(rent.getStartDate()) > 0){
+					lastRent = rent;
+				}
+			}
+		}
+		return lastRent;
+	}
 
 }

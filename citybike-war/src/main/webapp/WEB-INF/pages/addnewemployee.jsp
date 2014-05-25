@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="edu.citybike.model.User"%>
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +17,7 @@
 		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 			<tr>
-				<td>Imie :</td>
+				<td>Imię :</td>
 				<td><form:input path="name" /></td>
 				<td><form:errors path="name" cssClass="error" /></td>
 			</tr>
@@ -66,11 +68,18 @@
 				<td><form:errors path="address.city" cssClass="error" /></td>
 			</tr>
 			<tr>
-				<td>Wybór stanowiska</td> trzeba dodac wpisywanie rentalnetworkcode i dodawanie admina dla superadmina - dadawanie pracownikow dla admina
+				<td>Wybór stanowiska</td>
 				<td><form:select path="role">
 						<form:options items="${employeeRoleList}"></form:options>
 					</form:select></td>
 			</tr>
+			<c:if test="${currentUser.role == 'SUPERADMIN'}">
+			<tr>
+				<td>Kod sieci wypożyczalnii :</td>
+				<td><form:input path="rentalNetworkCode" /></td>
+				<td><form:errors path="rentalNetworkCode" cssClass="error" /></td>
+			</tr>
+			</c:if>
 			<tr>
 				<td colspan="3"><input type="submit" value="OK" /></td>
 

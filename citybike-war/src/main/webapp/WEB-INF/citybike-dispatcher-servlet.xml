@@ -37,7 +37,7 @@
 	<property name="facade" ref="facade"/>
 	</bean>
 	
-	<bean class="edu.citybike.controller.AddNewRentalOfficeController">
+	<bean class="edu.citybike.controller.AddNewRentalOfficeController" scope="session">
 	<property name="facade" ref="facade"/>
 	</bean>
 	
@@ -49,7 +49,7 @@
 	<property name="facade" ref="facade"/>
 	</bean>
 	
-	<bean class="edu.citybike.controller.ReturnBikeFormController">
+	<bean class="edu.citybike.controller.ReturnBikeFormController" scope="session">
 	<property name="facade" ref="facade"/>
 	</bean>
 	

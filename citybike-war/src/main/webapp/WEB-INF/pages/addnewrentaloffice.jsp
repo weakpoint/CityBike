@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
-    pageEncoding="ISO-8859-2"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
     <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE HTML>
@@ -8,24 +8,43 @@
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
 </script>
 <script>
-function initialize()
-{
-var mapProp = {
-  center:new google.maps.LatLng(52.508742,21.120850),
-  zoom:5,
-  mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
 
-google.maps.event.addDomListener(window, 'load', initialize);
+	var lat = 19.456177;
+	var lon = 51.774632;
+
+	function initialize() {
+		var latlng = new google.maps.LatLng(lon, lat);
+		var mapProp = {
+			center : latlng,
+			zoom : 12,
+			mapTypeId : google.maps.MapTypeId.ROADMAP
+		};
+		var map = new google.maps.Map(document.getElementById("googleMap"),
+				mapProp);
+		var marker = new google.maps.Marker({
+			position : latlng,
+			map : map,
+			title : 'Wyznacz położenie',
+			draggable : true
+		});
+		google.maps.event.addListener(marker, 'dragend', function(a) {
+			console.log(a.latLng);
+			lon = a.latLng.A;
+			lat = a.latLng.k;
+		});
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+	function getCoordinates() {
+		document.getElementById("longitudeField").value = lon;
+		document.getElementById("latitudeField").value = lat;
+	}
 </script>
-
-<meta charset="ISO-8859-2">
-<title>Nowa wypozyczalnia</title>
+<title>Nowa wypożyczalnia</title>
 </head>
 <body>
-<h2>Dane wypozyczalni</h2>
+<h2>Dane wypożyczalni</h2>
 <form:form method="POST" commandName="newRentalOffice">
 		<form:errors path="*" cssClass="errorblock" element="div" />
 				<table>
@@ -68,15 +87,16 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				<td><form:errors path="address.city" cssClass="error" />
 				</td>
 			</tr>
+			
 			<tr>
-				<td>Dlugosc geograficzna</td>
-				<td><form:input path="longitude"/></td>		
+				<td>Szerokość geograficzna</td>
+				<td><form:input path="latitude" id="latitudeField"/></td>		
 			</tr>
 			<tr>
-				<td>Szerokosc geograficzna</td>
-				<td><form:input path="latitude"/></td>		
-			
-			<td><input type="button" value="Pobierz z mapy"/></td>
+				<td>Długość geograficzna</td>
+				<td><form:input path="longitude" id="longitudeField"/></td>	
+				
+				<td><input type="button" value="Pobierz z mapy" onclick="getCoordinates();"/></td>	
 			</tr>
 			<tr>
 				<td colspan="3"><input type="submit" value="OK"/></td>
@@ -87,7 +107,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		
 	</form:form>
 	
-<section> <!-- mapa -->
+<section style="align: center"> <!-- mapa -->
 <div id="googleMap" style="width:500px;height:380px;"></div>
 </section>
 

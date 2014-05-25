@@ -17,7 +17,7 @@ public class User implements Serializable{
 	private Text notes;
 	private String role;
 	private Long overallRentalTime;
-	private Long overallRentalCost;
+	private Double overallRentalCost;
 	private String userCode;
 	private String rentalNetworkCode;
 	public static String USER = "USER";
@@ -26,7 +26,7 @@ public class User implements Serializable{
 	public static String SUPERADMIN = "SUPERADMIN";
 
 	public User(String name, String lastName, Address address, String phoneNumber, String emailAddress, Text notes,
-			String role, Long overallRentalTime, Long overallRentalCost, String userCode, String rentalNetworkCode) {
+			String role, Long overallRentalTime, Double overallRentalCost, String userCode, String rentalNetworkCode) {
 
 		this.name = name;
 		this.lastName = lastName;
@@ -51,7 +51,7 @@ public class User implements Serializable{
 		this.notes = new Text("");
 		this.role = USER;
 		this.overallRentalTime = (long) 0;
-		this.overallRentalCost = (long) 0;
+		this.overallRentalCost =  (double) 0;
 		this.userCode = "";
 		this.rentalNetworkCode = "";
 
@@ -113,11 +113,12 @@ public class User implements Serializable{
 		this.overallRentalTime = overallRentalTime;
 	}
 
-	public Long getOverallRentalCost() {
+
+	public Double getOverallRentalCost() {
 		return overallRentalCost;
 	}
 
-	public void setOverallRentalCost(Long overallRentalCost) {
+	public void setOverallRentalCost(Double overallRentalCost) {
 		this.overallRentalCost = overallRentalCost;
 	}
 

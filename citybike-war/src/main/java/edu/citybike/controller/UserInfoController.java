@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Credentials;
+import edu.citybike.model.Rent;
 import edu.citybike.model.User;
 import edu.citybike.model.view.UserInfo;
 
@@ -30,8 +32,18 @@ public class UserInfoController {
 	}
 
 	@RequestMapping("/userInfo")
-	public String showAddBikeForm(ModelMap map) {
+	public String showUserInfoForm(ModelMap map) {
 		map.addAttribute("formAction", "/userInfo");
+		return "userdata";
+	}
+	
+	@RequestMapping(value="/userInfo", method= RequestMethod.POST)
+	public String saveForm(@ModelAttribute("currentUser") User user) {
+		try {
+			facade.update(user);
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage(), e);
+		}
 		return "userdata";
 	}
 	

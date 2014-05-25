@@ -33,8 +33,10 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 		}
 		
 		Entity entity = new Entity("User");
-		save(entity);
-		model.setUserCode(""+entity.getKey().getId());
+		if("".equals(model.getUserCode())){
+			save(entity);
+			model.setUserCode(""+entity.getKey().getId());
+		}
 
 		EmbeddedEntity address = new EmbeddedEntity();
 		address.setProperty("city", model.getAddress().getCity());
@@ -55,7 +57,6 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 		entity.setProperty("userCode", model.getUserCode());
 		entity.setProperty("rentalNetworkCode", model.getRentalNetworkCode());
 
-		
 		save(entity);
 		return model;
 	}
@@ -131,7 +132,7 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 			user.setNotes((Text) en.getProperty("notes"));
 			user.setRole((String) en.getProperty("role"));
 			user.setOverallRentalTime((Long) en.getProperty("overallRentalTime"));
-			user.setOverallRentalCost((Long) en.getProperty("overallRentalCost"));
+			user.setOverallRentalCost((Double) en.getProperty("overallRentalCost"));
 			user.setUserCode((String) en.getProperty("userCode"));
 			user.setRentalNetworkCode((String) en.getProperty("rentalNetworkCode"));
 

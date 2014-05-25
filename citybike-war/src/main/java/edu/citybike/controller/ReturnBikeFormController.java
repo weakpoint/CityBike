@@ -1,8 +1,6 @@
 package edu.citybike.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -79,7 +77,7 @@ public class ReturnBikeFormController {
 
 	@RequestMapping(value = "/summarize.do", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String summarize(@RequestBody String selected) {
+	public String summarize(@RequestBody String selected, HttpSession session) {
 		selected = selected.replace("{\"selected\":\"", "").replace("\"}", "").trim();
 		indexes = selected.split(",");
 		logger.info("Ilosc zamowien " + indexes.length);
@@ -87,7 +85,8 @@ public class ReturnBikeFormController {
 		setRentTemporarilyInactive(indexes); //make them inactive
 		List<Fee> feeList = new ArrayList<Fee>();
 		try {
-			feeList = getSortedFeeList(rentalNetworkCode);
+			feeList = facade.getFeeList(rentalNetworkCode);
+			feeList = ControllerUtilities.sortFeeList(feeList, ControllerUtilities.ASC);
 		} catch (PersistenceException e) {
 			logger.error("Error getting fee list: "+e.getMessage());
 		}
@@ -95,24 +94,29 @@ public class ReturnBikeFormController {
 		
 		for(String i : indexes){
 			int index = Integer.parseInt(i);
-			double pay = calculatePayment(feeList, rentList.get(index).getRentDuration());
+			double pay = ControllerUtilities.calculatePayment(feeList, rentList.get(index).getRentDuration());
 			rentList.get(index).setRentCost(pay);
 			payment += pay;	
 		}
-
+		User user = (User) session.getAttribute("currentUser");
+		user.setOverallRentalCost(user.getOverallRentalCost()+payment);
 		String s = new Gson().toJson(payment+" zł");
 		logger.info(s);
 		return s;
 	}
 	
 	@RequestMapping(value = "/returnApporval")
-	public String returnApproval() {
+	public String returnApproval(HttpSession session) {
 		ControllerUtilities utils = new ControllerUtilities();
 		for(String i : indexes){
 			int index = Integer.parseInt(i);
 			try {
 				utils.changeBikeStatus(rentList.get(index).getBikeCode(), rentList.get(index).getRentalNetworkCode(), STATUS.AVAILABLE);
+				User user = (User) session.getAttribute("currentUser");
+				user.setOverallRentalTime(user.getOverallRentalTime()+rentList.get(index).getRentDuration());
+				System.out.println(""+user.getName()+": "+user.getOverallRentalCost());
 				facade.update(rentList.get(index));
+				facade.update(user);
 			} catch (PersistenceException e) {
 				logger.error("Error during bike returning: "+e.getMessage());
 			}
@@ -129,42 +133,5 @@ public class ReturnBikeFormController {
 			
 		}
 	}
-	
-	private List<Fee> getSortedFeeList(String rentalNetworkCode) throws PersistenceException{
-		List<Fee> feeList = facade.getFeeList(rentalNetworkCode);
-		
-		Collections.sort(feeList, new Comparator<Fee>(){
-
-			@Override
-			public int compare(Fee fee1, Fee fee2) {			
-				return fee2.getTime() - fee1.getTime();
-			}
-			
-		});
-		return feeList;
-	}
-	
-	private double calculatePayment(List<Fee> feeList, int rentDuration){
-		int i  = feeList.size()-1;
-		double payment = 0;
-		boolean found = false;
-		
-		if(rentDuration >= feeList.get(i).getTime()){
-			return feeList.get(i).getFee();
-		}
-		
-		for(; i < 0;i--){
-			if(found){
-				payment += payment = Math.ceil((feeList.get(i).getTime() - feeList.get(i-1).getTime())/60)*feeList.get(i-1).getFee();
-			}
-			
-			if(feeList.get(i).getTime() > rentDuration && feeList.get(i-1).getTime() > rentDuration && !found){
-				found = true;
-				payment = Math.ceil((rentDuration - feeList.get(i-1).getTime())/60)*feeList.get(i-1).getFee();
-			}			
-		}
-		return payment;
-	}
-	
 
 }
