@@ -31,7 +31,6 @@ public class AddNewRentalNetworkController {
 	@ModelAttribute("newRentalNetwork")
 	public RentalNetwork addRentalNetwork() {
 		return new RentalNetwork();
-
 	}
 
 	@RequestMapping("/addRentalNetwork")

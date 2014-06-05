@@ -1,8 +1,6 @@
 package edu.citybike.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -11,14 +9,16 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
-import edu.citybike.model.Fee;
 import edu.citybike.model.Rent;
+import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
+import edu.citybike.model.view.Coordinates;
 import edu.citybike.utilities.ControllerUtilities;
 
 @Controller
@@ -33,6 +33,30 @@ public class RentalInformationController {
 	public void setFacade(DatabaseFacade facade) {
 		this.facade = facade;
 	}
+	
+	@ModelAttribute("coordinates")
+	public List<Coordinates> addCoordinates(HttpSession session) {
+		
+		List<RentalOffice> rentalOfficeList = null;
+		try {
+			rentalOfficeList = facade.getRentalOfficeList("0001");
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage(), e);
+		}
+		if(rentalOfficeList == null){
+			rentalOfficeList = new ArrayList<RentalOffice>();
+		}
+		List<Coordinates> coordinates = new ArrayList<Coordinates>();
+		for(RentalOffice ro : rentalOfficeList){
+			Coordinates c = new Coordinates();
+			c.latitude = ro.getLatitude();
+			c.longitude = ro.getLongitude();
+			coordinates.add(c);
+		}
+		return coordinates;
+		
+	}
+	
 	
 	@RequestMapping(value ="/rentalInformation")
 	public ModelAndView showUserRentalInformation(HttpSession session) {

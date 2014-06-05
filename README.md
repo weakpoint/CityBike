@@ -1,4 +1,3 @@
-appengine-skeleton
-=============================
+City Bike
 
-This is a generated application from the appengine-skeleton archetype.
+Emil Płuciennikowski Technical University of Lodz

@@ -11,11 +11,13 @@
 <script>
 	var lat = 19.456177;
 	var lon = 51.774632;
-
+	var map;
+	
 	function initialize() {
-		var map;
+		
 		var mapProp;
 		var latlng;
+		var markers = [];
 
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
@@ -24,8 +26,7 @@
 
 				latlng = new google.maps.LatLng(lat, lon);
 				mapProp.center = latlng;
-				map = new google.maps.Map(document.getElementById("googleMap"),
-						mapProp);
+				map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 			});
 
 		}
@@ -35,11 +36,40 @@
 			zoom : 12,
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		};
+		
 		map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+		}
 
-	}
+		// Add a marker to the map and push to the array.
+		function addMarker(location) {
+		  var marker = new google.maps.Marker({
+		    position: location,
+		    map: map
+		  });
+		  markers.push(marker);
+		}
 
-	google.maps.event.addDomListener(window, 'load', initialize);
+		// Sets the map on all markers in the array.
+		function setAllMap(map) {
+		  for (var i = 0; i < markers.length; i++) {
+		    markers[i].setMap(map);
+		  }
+		}
+
+		// Shows any markers currently in the array.
+		function showMarkers() {
+		  setAllMap(map);
+		}
+		
+		 function add() {
+			<%for(edu.citybike.model.view.Coordinates coord : (java.util.ArrayList<edu.citybike.model.view.Coordinates>) request.getAttribute("coordinates")){%>
+		  	addMarker(new google.maps.LatLng(<%=coord.longitude%>, <%=coord.latitude%>));
+		  <%}%>
+		  setAllMap(map);
+		  showMarkers();
+		  }
+		
+		google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
 <title>Dane wypożyczeń</title>
@@ -79,6 +109,7 @@
 		<h2>Znajdź najbliższą wypożyczalnie</h2>
 		<!-- mapa -->
 		<div id="googleMap" style="width: 500px; height: 380px;"></div>
+		<input type="button" onclick="add();" value="Pokaż wypożyczalnie"/>
 	</section>
 	<footer>
 		<%@include file="footer.jsp"%>

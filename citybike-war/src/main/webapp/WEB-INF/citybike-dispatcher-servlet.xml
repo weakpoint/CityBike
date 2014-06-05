@@ -34,11 +34,11 @@
 	<bean class="edu.citybike.controller.IndexPageController">
 	<property name="facade" ref="facade"/>
 	</bean>
-	
+ 
 	<bean class="edu.citybike.controller.UserAuthenticationController">
 	<property name="facade" ref="facade"/>
 	</bean>
-	
+
 	<bean class="edu.citybike.controller.AddNewRentalOfficeController" scope="session">
 	<property name="facade" ref="facade"/>
 	</bean>
@@ -69,6 +69,20 @@
 	<property name="facade" ref="facade"/>
 	</bean>
 
+
+	<!-- security -->
+	<bean id="simpleAuthenticationSuccessHandler" class="edu.citybike.security.SimpleAuthenticationSuccessHandler">
+	<property name="facade" ref="facade"/>
+	</bean>
+	
+	<bean id="localAuthenticationProvider" class="edu.citybike.security.LocalAuthenticationProvider">
+	<property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean id="userService" class="edu.citybike.security.LocalUserDetailsService">
+	<property name="facade" ref="facade"/>
+	</bean>
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">

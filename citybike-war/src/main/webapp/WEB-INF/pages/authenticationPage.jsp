@@ -6,6 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Zaloguj się</title>
+<style>
+.body {
+	position: relative;
+}
+</style>
 </head>
 <body>
 	logowanie zwykle
@@ -17,19 +22,31 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
-	<form:form method="POST" commandName="credentials" action="/login.do">
-		<tr>
-			<td>Adres e-mail :</td>
-			<td><form:input path="emailAddress" /></td>
-			<td><form:errors path="emailAddress" cssClass="error" /></td>
-		</tr>
-		<tr>
-			<td>Hasło :</td>
-			<td><form:input path="password" type="password"/></td>
-			<td><form:errors path="password" cssClass="error" /></td>
-		</tr>
-		<input type="submit" value="OK" />
-	</form:form>
+	<section>
+
+	<form method="POST" action="/j_spring_security_check">
+    <table>
+        <tbody>
+            <tr>
+                <td>Login:</td>
+                <td><input type="text" name="j_username" /></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="j_password" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Zaloguj" /></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+	</section>
+	<div id="verticalLine" style="height: 500px; border-left: thick solid #ff0000;"></div>
+	<section>
+	<!-- external login -->
+	
+	</section>
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>

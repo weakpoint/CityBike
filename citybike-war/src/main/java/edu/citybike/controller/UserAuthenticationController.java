@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.User;
+import edu.citybike.model.view.UserInfo;
 
 @Controller
 @SessionAttributes("currentUser")
@@ -46,6 +48,7 @@ public class UserAuthenticationController {
 		return "authenticationPage";
 	}
 	
+/*	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String verifyUser(@ModelAttribute("credentials") Credentials credentials, ModelMap model){
 		Credentials crd = null;
@@ -70,4 +73,5 @@ public class UserAuthenticationController {
 		}		
 		return "redirect:/login.do";
 	}
+	*/
 }

@@ -30,8 +30,8 @@ public class NoSQLRentalOfficePersistence extends NoSQLModelPersistence<RentalOf
 		RentalOffice office = new RentalOffice();
 		office.setRentalNetworkCode("0001");
 		office.setRentalOfficeCode("01");
-		office.setLatitude("21.1212");
-		office.setLongitude("52.5115");
+		office.setLatitude("19.156177");
+		office.setLongitude("51.704632");
 		Address address = new Address();
 		address.setCity("Lodz");
 		address.setStreet("Strykowska");

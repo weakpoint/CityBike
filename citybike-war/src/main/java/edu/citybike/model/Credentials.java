@@ -37,4 +37,13 @@ public class Credentials {
 		this.rentalNetworkCode = rentalNetworkCode;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Credentials [emailAddress=" + emailAddress + ", password=" + password + ", rentalNetworkCode="
+				+ rentalNetworkCode + "]";
+	}
+	
+	
+
 }

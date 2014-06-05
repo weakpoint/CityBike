@@ -13,7 +13,7 @@
 			</c:if>
 			<c:if test="${currentUser != null}">
 				<li><a href="/userInfo">${currentUser.name} ${currentUser.lastName}</a></li>
-				<li><a href="">Wyloguj</a></li>
+				<li><a href="/j_spring_security_logout">Wyloguj</a></li>
 			</c:if>
 		</ul>
 	</nav>

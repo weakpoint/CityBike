@@ -154,7 +154,7 @@ public class DatabaseFacade {
 				return u;
 			}
 		}
-		throw new ModelNotExistsException("Wrong email");
+		throw new ModelNotExistsException("User does not exist");
 	}
 	
 	public Rent getLastUserRent(String rentalNetworkCode, String userCode) throws PersistenceException{

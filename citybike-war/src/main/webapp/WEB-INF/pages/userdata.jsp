@@ -36,19 +36,25 @@
 			</tr>
 			<tr>
 				<td>Adres e-mail :</td>
-				<td><form:input path="emailAddress" /></td>
+				<c:choose>
+				<c:when test="${(currentUser.emailAddress == '')}">
+					<td><form:input path="emailAddress" /></td>
+				</c:when>
+				<c:otherwise>
+					<td>${currentUser.emailAddress}</td>
+				</c:otherwise>
+				</c:choose>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
 			</tr>
-			<c:if
-				test="${(currentUser.emailAddress == userInfo.emailAddress)}">
+			<c:if test="${(currentUser.emailAddress == userInfo.emailAddress)}">
 				<tr>
 					<td>Hasło :</td>
-					<td><form:input path="password" type="password"/></td>
+					<td><form:input path="password" type="password" /></td>
 					<td><form:errors path="password" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td>Powtórz hasło :</td>
-					<td><form:input path="password" type="password"/></td>
+					<td><form:input path="password" type="password" /></td>
 					<td><form:errors path="password" cssClass="error" /></td>
 				</tr>
 			</c:if>

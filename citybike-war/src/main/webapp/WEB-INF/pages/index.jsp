@@ -5,13 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>System do zarządzania rowerem miejskim</title>
+
 </head>
 <body>
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
 
-<--------------------- mapa wypozyczalnii ----------------------->
+	
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>
