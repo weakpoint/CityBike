@@ -12,7 +12,7 @@
 		<%@include file="header.jsp"%>
 	</header>
 
-	
+	<a href="/startup">START UP!</a>
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>

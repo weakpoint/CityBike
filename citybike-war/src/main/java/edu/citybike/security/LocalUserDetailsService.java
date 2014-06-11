@@ -33,6 +33,7 @@ public class LocalUserDetailsService implements UserDetailsService{
 			credentials = facade.getCredentials(rentalNetworkCode, email);
 			user = facade.getUser(credentials);
 		} catch (PersistenceException e) {
+			System.out.println(e.getMessage());
 			throw new UsernameNotFoundException("Username not found!");
 		}
 		return new UserInfo(user, credentials);

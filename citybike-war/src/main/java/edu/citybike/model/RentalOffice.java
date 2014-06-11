@@ -8,6 +8,15 @@ public class RentalOffice {
 	private String latitude;
 	private String rentalOfficeCode;
 	private String rentalNetworkCode;
+	
+	
+	public RentalOffice() {
+		this.address = new Address();
+		this.longitude = "";
+		this.latitude = "";
+		this.rentalOfficeCode = "";
+		this.rentalNetworkCode = "";
+	}
 	public Address getAddress() {
 		return address;
 	}

@@ -12,8 +12,11 @@ import com.google.appengine.api.datastore.EmbeddedEntity;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 import edu.citybike.database.exception.ModelAlreadyExistsException;
 import edu.citybike.database.exception.ModelNotExistsException;
@@ -24,17 +27,24 @@ import edu.citybike.model.TechnicalDetails;
 public class NoSQLBikePersistence extends NoSQLModelPersistence<Bike> {
 
 	public Bike save(Bike model) throws PersistenceException {
+		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		PreparedQuery pq = datastore.prepare(generateQuery("Bike", "bikeCode", FilterOperator.EQUAL,
-				model.getBikeCode()));
+		Filter modelFilter = new FilterPredicate("bikeCode", FilterOperator.EQUAL, model.getBikeCode());
+		Filter rentalNetworkFilter = new FilterPredicate("rentalNetworkCode", FilterOperator.EQUAL, model.getRentalNetworkCode());
+		
+		PreparedQuery pq = datastore.prepare(new Query("Bike").setFilter(CompositeFilterOperator.and(rentalNetworkFilter, modelFilter)));
+		
 
 		if (pq.asSingleEntity() != null) {
-			throw new ModelAlreadyExistsException("Model already exists");
+			throw new ModelAlreadyExistsException("Bike ("+model.getBikeCode()+") already exists");
 		}	
 		
 		Entity entity = new Entity("Bike");
-		save(entity);	
-		model.setBikeCode(""+entity.getKey().getId());
+			if("".equals(model.getBikeCode())){
+			save(entity);	
+			model.setBikeCode(""+entity.getKey().getId());
+		}
+
 		
 		EmbeddedEntity technicalDetails = new EmbeddedEntity();
 		technicalDetails.setProperty("name", model.getTechnicalDetails().getName());
@@ -55,7 +65,10 @@ public class NoSQLBikePersistence extends NoSQLModelPersistence<Bike> {
 	public void update(Bike model) throws PersistenceException {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-		PreparedQuery pq = datastore.prepare(generateQuery("Bike", "bikeCode", FilterOperator.EQUAL,model.getBikeCode()));
+		Filter modelFilter = new FilterPredicate("bikeCode", FilterOperator.EQUAL, model.getBikeCode());
+		Filter rentalNetworkFilter = new FilterPredicate("rentalNetworkCode", FilterOperator.EQUAL, model.getRentalNetworkCode());
+		
+		PreparedQuery pq = datastore.prepare(new Query("Bike").setFilter(CompositeFilterOperator.and(rentalNetworkFilter, modelFilter)));
 		if (pq.asSingleEntity() == null) {
 			throw new ModelNotExistsException("Bike ("+model.getBikeCode()+") does not exist");
 		}
@@ -77,11 +90,11 @@ public class NoSQLBikePersistence extends NoSQLModelPersistence<Bike> {
 	}
 
 	public void delete(Bike model) throws PersistenceException {
-		try{
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		datastore.delete(KeyFactory.createKey("Bike", model.getBikeCode()));
-		}catch(DatastoreFailureException e){
-			throw new PersistenceException("Error during model deletion: "+e.getMessage());
+		try {
+			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+			datastore.delete(KeyFactory.createKey("Bike", model.getBikeCode()));
+		} catch (DatastoreFailureException e) {
+			throw new PersistenceException("Error during model deletion: " + e.getMessage());
 		}
 	}
 
@@ -91,7 +104,7 @@ public class NoSQLBikePersistence extends NoSQLModelPersistence<Bike> {
 		PreparedQuery pq = datastore.prepare(generateQuery("Bike", "rentalNetworkCode", FilterOperator.EQUAL, 
 				rentalNetworkCode));
 		
-		List<Bike> bikes = new ArrayList<Bike>();
+		List<Bike> list = new ArrayList<Bike>();
 		for (Entity en : pq.asIterable()) {
 			Bike bike = new Bike();
 
@@ -108,10 +121,10 @@ public class NoSQLBikePersistence extends NoSQLModelPersistence<Bike> {
 			bike.setRentalOfficeCode((String) en.getProperty("rentalOfficeCode"));
 			bike.setRentalNetworkCode((String) en.getProperty("rentalNetworkCode"));
 			
-			bikes.add(bike);
+			list.add(bike);
 		}
 
-		return Collections.unmodifiableList(bikes);
+		return Collections.unmodifiableList(list);
 	}
 
 }

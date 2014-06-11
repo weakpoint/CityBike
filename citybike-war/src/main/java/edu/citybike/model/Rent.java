@@ -11,9 +11,10 @@ public class Rent {
 	private double rentCost;
 	private String userCode;
 	private String bikeCode;
+	private String rentCode;
 	private String rentalOfficeCode;
 	private String rentalNetworkCode;
-	private String rentCode;
+	
 
 	
 	public Rent() {

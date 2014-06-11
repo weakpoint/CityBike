@@ -4,6 +4,11 @@ public class RentalNetwork {
 
 	private String rentalNetworkCode;
 	private String name;
+
+	public RentalNetwork() {
+		this.rentalNetworkCode = "";
+		this.name = "";
+	}
 	public String getRentalNetworkCode() {
 		return rentalNetworkCode;
 	}

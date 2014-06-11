@@ -9,11 +9,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Credentials;
-import edu.citybike.model.Rent;
 import edu.citybike.model.User;
 import edu.citybike.model.view.UserInfo;
 
@@ -38,13 +38,19 @@ public class UserInfoController {
 	}
 	
 	@RequestMapping(value="/userInfo", method= RequestMethod.POST)
-	public String saveForm(@ModelAttribute("currentUser") User user) {
+	public ModelAndView saveForm(@ModelAttribute("userInfo") UserInfo user, HttpSession session) {
+		ModelAndView mav = new ModelAndView("userdata");
 		try {
-			facade.update(user);
+			facade.update(user.getUser());
+			facade.update(user.getCredentials());
+			
+			mav.addObject("userInfo", user);
+			session.setAttribute("currentUser", user.getUser());
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage(), e);
 		}
-		return "userdata";
+
+		return mav;
 	}
 	
 	@ModelAttribute("userInfo")
@@ -57,11 +63,10 @@ public class UserInfoController {
 		}
 		Credentials credential = null;
 		try {
-			credential = facade.getCredentials(currentUser.getEmailAddress(), currentUser.getEmailAddress());
+			credential = facade.getCredentials(currentUser.getRentalNetworkCode(), currentUser.getEmailAddress());
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
 		}
-		
 		return new UserInfo(currentUser, credential);
 		
 	}

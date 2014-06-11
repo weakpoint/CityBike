@@ -47,6 +47,7 @@ public class DatabaseFacadeTest {
 		User user = new User();
 		user.setName("Test user");
 		user.setLastName("TTest");
+		user.setRentalNetworkCode("0001");
 
 		user = (User) facade.add(user);
 		facade.add(user);

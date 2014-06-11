@@ -35,32 +35,6 @@ public class IndexPageController {
 	
 	@RequestMapping("/")
 	public String showIndexView() throws PersistenceException {
-		try {
-			facade.getUser("0001", "1");
-		} catch (PersistenceException e) {
-			User u = new User();
-			Address address = new Address();
-			address.setCity("Dobra");
-			address.setHouseNumber("50");
-			address.setPostalCode("95-010");
-			address.setStreet("Witanówek");
-			u.setAddress(address);
-			u.setEmailAddress("test");
-			u.setLastName("Płuciennikowski");
-			u.setName("Emil");
-			u.setNotes(new Text("Goooood guy!"));
-			u.setPhoneNumber("500 000 000");
-			u.setRentalNetworkCode("0001");
-			u.setUserCode("1");
-			u.setRole(User.USER);
-			facade.add(u);
-			
-			Credentials cred = new Credentials();
-			cred.setEmailAddress(u.getEmailAddress());
-			cred.setPassword("test");
-			cred.setRentalNetworkCode(u.getRentalNetworkCode());
-			facade.add(cred);
-		}
 
 		return "index";
 	}

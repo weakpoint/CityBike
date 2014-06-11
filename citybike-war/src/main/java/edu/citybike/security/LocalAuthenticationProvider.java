@@ -35,17 +35,17 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
         String password = (String) authentication.getCredentials();
 
         UserInfo user = (UserInfo) userService.loadUserByUsername(email);
-
+        
         if (user == null) {
             throw new BadCredentialsException("Username not found.");
         }
- 
+        
         if (!password.equals(user.getPassword())) {
             throw new BadCredentialsException("Wrong password.");
         }
  
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-
+       
         return new UsernamePasswordAuthenticationToken(user.getUser(), password, authorities);
     }
 	

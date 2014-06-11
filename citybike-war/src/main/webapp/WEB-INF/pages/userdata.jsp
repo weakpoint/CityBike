@@ -37,11 +37,11 @@
 			<tr>
 				<td>Adres e-mail :</td>
 				<c:choose>
-				<c:when test="${(currentUser.emailAddress == '')}">
+				<c:when test="${(userInfo.emailAddress == '')}">
 					<td><form:input path="emailAddress" /></td>
 				</c:when>
 				<c:otherwise>
-					<td>${currentUser.emailAddress}</td>
+					<td>${userInfo.emailAddress}</td>
 				</c:otherwise>
 				</c:choose>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
@@ -54,7 +54,7 @@
 				</tr>
 				<tr>
 					<td>Powtórz hasło :</td>
-					<td><form:input path="password" type="password" /></td>
+					<td><form:input path="password"  /></td>
 					<td><form:errors path="password" cssClass="error" /></td>
 				</tr>
 			</c:if>

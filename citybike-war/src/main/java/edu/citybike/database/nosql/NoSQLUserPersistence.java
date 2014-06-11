@@ -11,7 +11,11 @@ import com.google.appengine.api.datastore.EmbeddedEntity;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Text;
 
 import edu.citybike.database.exception.ModelAlreadyExistsException;
@@ -25,11 +29,13 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 	public User save(User model) throws PersistenceException {
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		PreparedQuery pq = datastore.prepare(generateQuery("User", "userCode", FilterOperator.EQUAL,
-				model.getUserCode()));
+		Filter modelFilter = new FilterPredicate("userCode", FilterOperator.EQUAL, model.getUserCode());
+		Filter rentalNetworkFilter = new FilterPredicate("rentalNetworkCode", FilterOperator.EQUAL, model.getRentalNetworkCode());
+		
+		PreparedQuery pq = datastore.prepare(new Query("User").setFilter(CompositeFilterOperator.and(rentalNetworkFilter, modelFilter)));
 
 		if (pq.asSingleEntity() != null) {
-			throw new ModelAlreadyExistsException("Model already exists");
+			throw new ModelAlreadyExistsException("User - "+model.getUserCode()+" - already exists");
 		}
 		
 		Entity entity = new Entity("User");
@@ -37,7 +43,7 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 			save(entity);
 			model.setUserCode(""+entity.getKey().getId());
 		}
-
+System.out.println("Save : "+model);
 		EmbeddedEntity address = new EmbeddedEntity();
 		address.setProperty("city", model.getAddress().getCity());
 		address.setProperty("street", model.getAddress().getStreet());
@@ -64,10 +70,13 @@ public class NoSQLUserPersistence extends NoSQLModelPersistence<User> {
 	public void update(User model) throws PersistenceException {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-		PreparedQuery pq = datastore.prepare(generateQuery("User", "userCode", FilterOperator.EQUAL,model.getUserCode()));
+		Filter modelFilter = new FilterPredicate("userCode", FilterOperator.EQUAL, model.getUserCode());
+		Filter rentalNetworkFilter = new FilterPredicate("rentalNetworkCode", FilterOperator.EQUAL, model.getRentalNetworkCode());
+		System.out.println(model);
+		PreparedQuery pq = datastore.prepare(new Query("User").setFilter(CompositeFilterOperator.and(rentalNetworkFilter, modelFilter)));
 		try {
 			if (pq.asSingleEntity() == null) {
-				throw new ModelNotExistsException("Model does not exist");
+				throw new ModelNotExistsException("User "+model.getName()+" "+model.getLastName()+" does not exist");
 			}
 
 			Entity entity = pq.asSingleEntity();
