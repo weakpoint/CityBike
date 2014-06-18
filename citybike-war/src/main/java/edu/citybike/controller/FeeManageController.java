@@ -45,6 +45,7 @@ public class FeeManageController {
 			for(Fee fee : feeList){
 				rows.add(new FeeManagerView(fee));
 			}
+			System.out.println(rows.size());
 		} catch (PersistenceException e) {
 			logger.error("Error during getting fee list: "+e.getMessage());
 		}

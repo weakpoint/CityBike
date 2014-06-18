@@ -26,7 +26,7 @@ public class NoSQLFeePersistence extends NoSQLModelPersistence<Fee> {
 	@Override
 	public Fee save(Fee model) throws PersistenceException {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		Filter modelFilter = new FilterPredicate("feeCode", FilterOperator.EQUAL, model.getFeeCode());
+		Filter modelFilter = new FilterPredicate("fee", FilterOperator.EQUAL, model.getFee());
 		Filter rentalNetworkFilter = new FilterPredicate("rentalNetworkCode", FilterOperator.EQUAL, model.getRentalNetworkCode());
 		
 		PreparedQuery pq = datastore.prepare(new Query("Fee").setFilter(CompositeFilterOperator.and(rentalNetworkFilter, modelFilter)));

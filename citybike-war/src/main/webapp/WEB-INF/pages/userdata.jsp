@@ -20,7 +20,7 @@
 		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 			<tr>
-				<td>Imie :</td>
+				<td>Imię :</td>
 				<td><form:input path="name" /></td>
 				<td><form:errors path="name" cssClass="error" /></td>
 			</tr>
@@ -89,7 +89,10 @@
 				<td><form:input path="address.city" /></td>
 				<td><form:errors path="address.city" cssClass="error" /></td>
 			</tr>
-
+			<tr>
+			<td><form:input path="userCode" /></td>
+			<td><form:input path="rentalNetworkCode" /></td>
+</tr>
 			<c:if test="${currentUser.role == 'EMPLOYEE' }">
 				<tr>
 					<td><h3>Informacje</h3></td>

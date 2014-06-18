@@ -16,7 +16,7 @@ import edu.citybike.model.User;
 
 public class UserInfo implements UserDetails{
 
-	private String name;
+/*	private String name;
 	private String lastName;
 	private Address address;
 	private String phoneNumber;
@@ -28,7 +28,7 @@ public class UserInfo implements UserDetails{
 	private Double overallRentalCost;
 	private String userCode;
 	private String rentalNetworkCode;
-	private User user;
+*/	private User user;
 	private Credentials credentials;
 	
     private List<GrantedAuthority> authorities;
@@ -40,7 +40,7 @@ public class UserInfo implements UserDetails{
 	public UserInfo(User user, Credentials credentials) {
 		this.user = user;
 		this.credentials = credentials;
-		this.name = user.getName();
+/*		this.name = user.getName();
 		this.lastName = user.getLastName();
 		this.address = user.getAddress();
 		this.phoneNumber = user.getPhoneNumber();
@@ -52,9 +52,9 @@ public class UserInfo implements UserDetails{
 		this.overallRentalCost = user.getOverallRentalCost();
 		this.userCode = user.getUserCode();
 		this.rentalNetworkCode = user.getRentalNetworkCode();
-		
+*/		
 		authorities = new ArrayList<>();
-		authorities.add(new GrantedAuthorityImpl(this.role));
+		authorities.add(new GrantedAuthorityImpl(user.getRole()));
 
 	}
 
@@ -63,12 +63,12 @@ public class UserInfo implements UserDetails{
 	}
 	
 	public User getUser(){
-		if(user.getUserCode().equals("")){
-			
+		///if(user.getUserCode().equals("")){
+		/*	
 			user.setAddress(address);
 			user.setEmailAddress(emailAddress);
-			user.setName(lastName);
-			user.setName(lastName);
+			user.setLastName(lastName);
+			user.setName(name);
 			user.setNotes(notes);
 			user.setOverallRentalCost(overallRentalCost);
 			user.setOverallRentalTime(overallRentalTime);
@@ -76,113 +76,114 @@ public class UserInfo implements UserDetails{
 			user.setRole(role);
 			user.setUserCode(userCode);
 			user.setRentalNetworkCode(rentalNetworkCode);
-		}
+		*/
+		//}
 		return user;
 	}
 	
 	public Credentials getCredentials(){
-		if(credentials.getPassword().equals("")){
+/*		//if(credentials.getPassword().equals("")){
 			credentials.setEmailAddress(emailAddress);
 			credentials.setPassword(password);
 			credentials.setRentalNetworkCode(rentalNetworkCode);
-		}
-		return credentials;
+		//}
+*/		return credentials;
 	}
 	
 	public String getPassword() {
-		return password;
+		return credentials.getPassword();
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		credentials.setPassword(password);
 	}
 	
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return user.getPhoneNumber();
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		user.setPhoneNumber(phoneNumber);
 	}
 
 	public String getName() {
-		return name;
+		return user.getName();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		user.setName(name);
 	}
 
 	public String getLastName() {
-		return lastName;
+		return user.getLastName();
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		user.setLastName(lastName);
 	}
 
 	public Address getAddress() {
-		return address;
+		return user.getAddress();
 	}
 
 	public void setAddress(Address address) {
-		this.address = address;
+		user.setAddress(address);
 	}
 
 	public String getEmailAddress() {
-		return emailAddress;
+		return user.getEmailAddress();
 	}
 
 	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+		user.setEmailAddress(emailAddress);
 	}
 
 	public String getNotes() {
-		return notes.getValue();
+		return user.getNotes().getValue();
 	}
 
 	public void setNotes(String notes) {
-		this.notes = new Text(notes);
+		user.setNotes(new Text(notes));
 	}
 
 	public Long getOverallRentalTime() {
-		return overallRentalTime;
+		return user.getOverallRentalTime();
 	}
 
 	public void setOverallRentalTime(Long overallRentalTime) {
-		this.overallRentalTime = overallRentalTime;
+		user.setOverallRentalTime(overallRentalTime);
 	}
 
 	public Double getOverallRentalCost() {
-		return overallRentalCost;
+		return user.getOverallRentalCost();
 	}
 
 	public void setOverallRentalCost(Double overallRentalCost) {
-		this.overallRentalCost = overallRentalCost;
+		user.setOverallRentalCost(overallRentalCost);
 	}
 
 	public String getUserCode() {
-		return userCode;
+		return user.getUserCode();
 	}
 
 	public void setUserCode(String userCode) {
-		this.userCode = userCode;
+		user.setUserCode(userCode);
 	}
 
 	public String getRentalNetworkCode() {
-		return rentalNetworkCode;
+		return user.getRentalNetworkCode();
 	}
 
 	public void setRentalNetworkCode(String rentalNetworkCode) {
-		this.rentalNetworkCode = rentalNetworkCode;
+		user.setRentalNetworkCode(rentalNetworkCode);
 	}
 
 	public String getRole() {
-		return role;
+		return user.getRole();
 	}
 
 	public void setRole(String role) {
-		this.role = role;
+		user.setRole(role);
 	}
 
 	@Override
@@ -232,7 +233,14 @@ public class UserInfo implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		return emailAddress;
+		return user.getEmailAddress();
 	}
 
+	@Override
+	public String toString() {
+		return "UserInfo [user=" + user + ", credentials=" + credentials + ", authorities=" + authorities
+				+ ", accountNonExpired=" + accountNonExpired + ", accountNonLocked=" + accountNonLocked
+				+ ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + "]";
+	}
+	
 }

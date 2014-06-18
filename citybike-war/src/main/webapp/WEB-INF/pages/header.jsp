@@ -33,9 +33,6 @@
 <li><a href="/addNewEmployee">Dodaj pracownika</a></li>
 <li><a href="/addNewRentalOffice">Dodaj wypożyczalnie</a></li>
 <li><a href="/feeManager">Zarządzanie opłatami</a></li>
-<li></li>
-<li></li>
-<li></li>
 <li><a href="/statistics">Statystyki</a></li>
 </c:if>
 <c:if test="${currentUser.role == 'SUPERADMIN'}">

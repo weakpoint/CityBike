@@ -34,7 +34,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-		
+		System.out.println("AU: " +authentication);
 		if(authentication.getPrincipal() instanceof User){	
 			request.getSession().setAttribute("currentUser", authentication.getPrincipal());
 		} else {
@@ -48,6 +48,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 				logger.error("Error during current User setting: "+e.getMessage(), e);
 			}
 		}
+		System.out.println("PPPPPPPPPPPPPPP: "+request.getSession().getAttribute("currentUser"));
 		redirectStrategy.sendRedirect(request, response, "/");
 	}
 
