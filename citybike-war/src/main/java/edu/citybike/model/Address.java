@@ -2,7 +2,17 @@ package edu.citybike.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.google.appengine.api.datastore.Key;
+
+@Embeddable
 public class Address implements Serializable{
+	
 	private String city;
 	private String street;
 	private String houseNumber;
@@ -56,5 +66,4 @@ public class Address implements Serializable{
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
-
 }

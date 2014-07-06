@@ -1,5 +1,8 @@
 package edu.citybike.model;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class TechnicalDetails {
 
 	private String name;

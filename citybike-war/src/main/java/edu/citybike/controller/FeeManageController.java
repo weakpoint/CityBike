@@ -126,7 +126,7 @@ public class FeeManageController {
 			row = rows.get(i);
 			if(row.isNewRow()){
 				//System.out.println("row to be saved (new): "+i);
-				row.setFee((Fee)facade.add(row.getFee()));
+				row.setFee(row.getFee());
 				row.setNewRow(false);
 			} else if(changedRows.get(i)){
 				//System.out.println("row to be saved: "+i);

@@ -38,7 +38,7 @@ public class StarterController {
 	@RequestMapping(value = "/startup", method = RequestMethod.GET)
 	public String setUpDatabase(){
 		List<Object> list = new ArrayList<Object>();
-		
+/*		
 		//Credentials
 		Credentials c = new Credentials();
 		c.setEmailAddress("admin");
@@ -46,7 +46,7 @@ public class StarterController {
 		c.setRentalNetworkCode("0001");
 		list.add(c);
 		
-		//user
+*/		//user
 		User admin = new User();
 		Address adminaddress = new Address();
 		adminaddress.setCity("Dobra");
@@ -59,11 +59,9 @@ public class StarterController {
 		admin.setName("Emil");
 		admin.setNotes(new Text("Goooood guy!"));
 		admin.setPhoneNumber("500 000 000");
-		admin.setRentalNetworkCode("0001");
-		admin.setUserCode("1");
 		admin.setRole(User.ADMINISTRATOR);
 		list.add(admin);
-		
+/*		
 		// Credentials
 		Credentials c2 = new Credentials();
 		c2.setEmailAddress("user");
@@ -146,13 +144,12 @@ public class StarterController {
 		office.setAddress(adminaddress);
 		
 		list.add(office);
-		
+*/		
 		//Bike
 		Bike bike = new Bike();
-		bike.setBikeCode("00");
 		
 		list.add(bike);
-		
+/*		
 		//rent
 		Rent r = new Rent();
 		r.setUserCode("1");
@@ -176,7 +173,7 @@ public class StarterController {
 		list.add(r2);
 		list.add(r3);
 		
-		
+*/		
 		for(Object model : list){
 			try {
 				facade.add(model);

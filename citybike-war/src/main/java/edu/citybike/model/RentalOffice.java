@@ -1,22 +1,31 @@
 package edu.citybike.model;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+import com.google.appengine.api.datastore.Key;
+
+@Entity
 public class RentalOffice {
 
+	@Id  
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	private Key rentalOfficeKey;
+	
+	@Embedded
 	private Address address;
 	private String longitude;
 	private String latitude;
-	private String rentalOfficeCode;
-	private String rentalNetworkCode;
-	
-	
+		
 	public RentalOffice() {
 		this.address = new Address();
 		this.longitude = "";
 		this.latitude = "";
-		this.rentalOfficeCode = "";
-		this.rentalNetworkCode = "";
 	}
+	
 	public Address getAddress() {
 		return address;
 	}
@@ -36,19 +45,4 @@ public class RentalOffice {
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-	public String getRentalOfficeCode() {
-		return rentalOfficeCode;
-	}
-	public void setRentalOfficeCode(String rentalOfficeCode) {
-		this.rentalOfficeCode = rentalOfficeCode;
-	}
-	public String getRentalNetworkCode() {
-		return rentalNetworkCode;
-	}
-	public void setRentalNetworkCode(String rentalNetworkCode) {
-		this.rentalNetworkCode = rentalNetworkCode;
-	}
-
-
-
 }

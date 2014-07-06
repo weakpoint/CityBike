@@ -40,7 +40,6 @@ public class AddNewBikeController {
 	public String addNewBike(@ModelAttribute("newBike") Bike bike, HttpSession session) {
 		//here rentalofficecode is an index of rentalofficelist
 		bike.setRentalOfficeCode(rentalOfficeList.get(Integer.parseInt(bike.getRentalOfficeCode())).getRentalOfficeCode());
-		bike.setRentalNetworkCode(((User) session.getAttribute("currentUser")).getRentalNetworkCode());
 		
 		logger.info("Nazwa: " + bike.getTechnicalDetails().getName() + " \nNumer wypozyczalni: "
 				+ bike.getRentalOfficeCode());
@@ -60,12 +59,11 @@ public class AddNewBikeController {
 
 	@ModelAttribute("rentalOfficeCodeList")
 	public Map<Integer, String> createRentalOfficeCodeMap(HttpSession session) {
-		String rentalNetworkCode = ((User) session.getAttribute("currentUser")).getRentalNetworkCode(); 
 		rentalOfficeList = new ArrayList<RentalOffice>();
 		Map<Integer, String> rentalOfficeMap = new HashMap<Integer, String>();
 
 		try {
-			rentalOfficeList = facade.getRentalOfficeList(rentalNetworkCode);
+			rentalOfficeList = facade.getRentalOfficeList("");
 			RentalOffice rentalOffice;
 			for (int i = 0; i < rentalOfficeList.size();i++) {
 				rentalOffice = rentalOfficeList.get(i);

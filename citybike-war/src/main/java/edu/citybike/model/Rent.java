@@ -2,20 +2,30 @@ package edu.citybike.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import com.google.appengine.api.datastore.Key;
+
+@Entity
 public class Rent {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Key rentKey;
+	@Transient
 	private final int MILS_IN_MIN = (1000*60);
-	private Integer rentDuration;
+	private int rentDuration;
 	private Date startDate;
 	private Date endDate;
 	private boolean active;
 	private double rentCost;
-	private String userCode;
-	private String bikeCode;
-	private String rentCode;
-	private String rentalOfficeCode;
-	private String rentalNetworkCode;
-	
-
+	private Key userCode;
+	private Key bikeCode;
+	private Key rentalOfficeCode;
 	
 	public Rent() {
 		this.rentDuration = 0;
@@ -23,14 +33,9 @@ public class Rent {
 		this.endDate = new Date();
 		this.active = false;
 		this.rentCost = 0;
-		this.userCode = "";
-		this.bikeCode = "";
-		this.rentalOfficeCode = "";
-		this.rentalNetworkCode = "";
-		this.rentCode = "";
 	}
 
-	public Integer getRentDuration() {
+	public int getRentDuration() {
 		return rentDuration;
 	}
 
@@ -67,44 +72,40 @@ public class Rent {
 		this.rentCost = rentCost;
 	}
 
-	public String getBikeCode() {
-		return bikeCode;
+	public Key getRentKey() {
+		return rentKey;
 	}
 
-	public void setBikeCode(String bikeCode) {
-		this.bikeCode = bikeCode;
+	public void setRentKey(Key rentKey) {
+		this.rentKey = rentKey;
 	}
 
-	public String getUserCode() {
+	public Key getUserCode() {
 		return userCode;
 	}
 
-	public void setUserCode(String userCode) {
+	public void setUserCode(Key userCode) {
 		this.userCode = userCode;
 	}
 
-	public String getRentalOfficeCode() {
+	public Key getBikeCode() {
+		return bikeCode;
+	}
+
+	public void setBikeCode(Key bikeCode) {
+		this.bikeCode = bikeCode;
+	}
+
+	public Key getRentalOfficeCode() {
 		return rentalOfficeCode;
 	}
 
-	public void setRentalOfficeCode(String rentalOfficeCode) {
+	public void setRentalOfficeCode(Key rentalOfficeCode) {
 		this.rentalOfficeCode = rentalOfficeCode;
 	}
 
-	public String getRentalNetworkCode() {
-		return rentalNetworkCode;
-	}
-
-	public void setRentalNetworkCode(String rentalNetworkCode) {
-		this.rentalNetworkCode = rentalNetworkCode;
-	}
-
-	public String getRentCode() {
-		return rentCode;
-	}
-
-	public void setRentCode(String rentCode) {
-		this.rentCode = rentCode;
+	public void setRentDuration(int rentDuration) {
+		this.rentDuration = rentDuration;
 	}
 
 }

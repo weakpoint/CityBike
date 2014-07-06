@@ -1,17 +1,25 @@
 package edu.citybike.model;
 
+import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.google.appengine.api.datastore.Key;
+
+@Entity
 public class Fee {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Key feeKey;
 	private int time;
 	private double fee;
-	private String feeCode;
-	private String rentalNetworkCode;
 
 	public Fee() {
 		this.time = 0;
 		this.fee = 0;
-		this.feeCode = "";
-		this.rentalNetworkCode = "";
 	}
 	
 	public int getTime() {
@@ -26,16 +34,13 @@ public class Fee {
 	public void setFee(double fee) {
 		this.fee = fee;
 	}
-	public String getFeeCode() {
-		return feeCode;
+
+	public Key getFeeKey() {
+		return feeKey;
 	}
-	public void setFeeCode(String feeCode) {
-		this.feeCode = feeCode;
+
+	public void setFeeKey(Key feeKey) {
+		this.feeKey = feeKey;
 	}
-	public String getRentalNetworkCode() {
-		return rentalNetworkCode;
-	}
-	public void setRentalNetworkCode(String rentalNetworkCode) {
-		this.rentalNetworkCode = rentalNetworkCode;
-	}
+	
 }

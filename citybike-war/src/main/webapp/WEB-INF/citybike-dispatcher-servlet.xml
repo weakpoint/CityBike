@@ -12,9 +12,6 @@
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/images/**" location="/images/" />
 	
-	<bean id="nosqlpersistence" class="edu.citybike.database.nosql.NoSQLPersistence">
-	</bean>
-	
 	<bean id="entityManagerFactory" class="javax.persistence.Persistence" factory-method="createEntityManagerFactory">
 	<constructor-arg value="transactions-optional"/>
 	</bean>

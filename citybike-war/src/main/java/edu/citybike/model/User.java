@@ -2,45 +2,39 @@ package edu.citybike.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Text;
 
+@Entity
 public class User implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Key userKey;
+
 	private String name;
 	private String lastName;
+	@Embedded
 	private Address address;
 	private String phoneNumber;
 	private String emailAddress;
 	private Text notes;
 	private String role;
-	private Long overallRentalTime;
-	private Double overallRentalCost;
-	private String userCode;
-	private String rentalNetworkCode;
+	//private Long overallRentalTime;
+	//private Double overallRentalCost;
+	@Transient
 	public static String USER = "USER";
-	public static String EMPLOYEE = "EMPLOYEE";
+	@Transient
 	public static String ADMINISTRATOR = "ADMINISTRATOR"; 
-	public static String SUPERADMIN = "SUPERADMIN";
-
-	public User(String name, String lastName, Address address, String phoneNumber, String emailAddress, Text notes,
-			String role, Long overallRentalTime, Double overallRentalCost, String userCode, String rentalNetworkCode) {
-
-		this.name = name;
-		this.lastName = lastName;
-		this.address = address;
-		this.phoneNumber = phoneNumber;
-		this.emailAddress = emailAddress;
-		this.notes = notes;
-		this.role = role;
-		this.overallRentalTime = overallRentalTime;
-		this.overallRentalCost = overallRentalCost;
-		this.userCode = userCode;
-		this.rentalNetworkCode = rentalNetworkCode;
-
-	}
 
 	public User() {
 		this.name = "";
@@ -50,11 +44,8 @@ public class User implements Serializable{
 		this.emailAddress = "";
 		this.notes = new Text("");
 		this.role = USER;
-		this.overallRentalTime = (long) 0;
-		this.overallRentalCost =  (double) 0;
-		this.userCode = "";
-		this.rentalNetworkCode = "";
-
+		//this.overallRentalTime = (long) 0;
+		//this.overallRentalCost =  (double) 0;
 	}
 
 	public String getPhoneNumber() {
@@ -105,39 +96,6 @@ public class User implements Serializable{
 		this.notes = notes;
 	}
 
-	public Long getOverallRentalTime() {
-		return overallRentalTime;
-	}
-
-	public void setOverallRentalTime(Long overallRentalTime) {
-		this.overallRentalTime = overallRentalTime;
-	}
-
-
-	public Double getOverallRentalCost() {
-		return overallRentalCost;
-	}
-
-	public void setOverallRentalCost(Double overallRentalCost) {
-		this.overallRentalCost = overallRentalCost;
-	}
-
-	public String getUserCode() {
-		return userCode;
-	}
-
-	public void setUserCode(String userCode) {
-		this.userCode = userCode;
-	}
-
-	public String getRentalNetworkCode() {
-		return rentalNetworkCode;
-	}
-
-	public void setRentalNetworkCode(String rentalNetworkCode) {
-		this.rentalNetworkCode = rentalNetworkCode;
-	}
-
 	public String getRole() {
 		return role;
 	}
@@ -146,13 +104,19 @@ public class User implements Serializable{
 		this.role = role;
 	}
 
-	@Override
-	public String toString() {
-		return "User [name=" + name + ", lastName=" + lastName + ", address=" + address + ", phoneNumber="
-				+ phoneNumber + ", emailAddress=" + emailAddress + ", notes=" + notes + ", role=" + role
-				+ ", overallRentalTime=" + overallRentalTime + ", overallRentalCost=" + overallRentalCost
-				+ ", userCode=" + userCode + ", rentalNetworkCode=" + rentalNetworkCode + "]";
+	public Key getUserKey() {
+		return userKey;
 	}
 
+	public void setUserKey(Key userKey) {
+		this.userKey = userKey;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userKey=" + userKey + ", name=" + name + ", lastName=" + lastName + ", address=" + address
+				+ ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress + ", notes=" + notes + ", role="
+				+ role + "]";
+	}
 
 }

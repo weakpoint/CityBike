@@ -1,5 +1,7 @@
 package edu.citybike.controller;
 
+import javax.persistence.EntityTransaction;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -7,8 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.google.appengine.api.datastore.Transaction;
 
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
@@ -46,7 +46,7 @@ public class RegistrationController {
 		//sprawdzanie czy mail sie nie powtarza
 		
 		//
-		Transaction tr = facade.getTransaction();
+		EntityTransaction tr = facade.getTransaction();
 		try {
 			facade.add(userInfo.getCredentials());
 			facade.add(userInfo.getUser());

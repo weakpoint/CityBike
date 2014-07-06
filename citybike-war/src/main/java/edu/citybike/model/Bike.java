@@ -2,27 +2,36 @@ package edu.citybike.model;
 
 import java.util.Date;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.google.appengine.api.datastore.Key;
+
+@Entity
 public class Bike {
 
+	@Id  
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Key bikeKey;
+	@Embedded
 	private TechnicalDetails technicalDetails;
 	private STATUS status;
-	//private Integer rentalCount;
-	private Long rentalCount;
+	private int rentalCount;
 	private Date lastServiceDate;
-	private String bikeCode;
 	private String rentalOfficeCode;
-	private String rentalNetworkCode;
 	
 	public enum STATUS {OUT_OF_ORDER, RENTED, IN_REPAIR, AVAILABLE};
 	
 	public Bike() {
 		this.technicalDetails = new TechnicalDetails();
 		this.status = STATUS.AVAILABLE;
-		this.rentalCount = (long) 0;
+		this.rentalCount =  0;
 		this.lastServiceDate = new Date();
-		this.bikeCode = "";
 		this.rentalOfficeCode = "";
-		this.rentalNetworkCode = "";
+
 	}
 	public TechnicalDetails getTechnicalDetails() {
 		return technicalDetails;
@@ -66,18 +75,11 @@ public class Bike {
 	public void setStatus(STATUS status) {
 		this.status = status;
 	}
-/*
-	public Integer getRentalCount() {
+	
+	public int getRentalCount() {
 		return rentalCount;
 	}
-	public void setRentalCount(Integer rentalCount) {
-		this.rentalCount = rentalCount;
-	}
-	*/
-	public Long getRentalCount() {
-		return rentalCount;
-	}
-	public void setRentalCount(Long rentalCount) {
+	public void setRentalCount(int rentalCount) {
 		this.rentalCount = rentalCount;
 	}
 	
@@ -88,24 +90,20 @@ public class Bike {
 	public void setLastServiceDate(Date lastServiceDate) {
 		this.lastServiceDate = lastServiceDate;
 	}
-	public String getBikeCode() {
-		return bikeCode;
-	}
-	public void setBikeCode(String bikeCode) {
-		this.bikeCode = bikeCode;
-	}
+
 	public String getRentalOfficeCode() {
 		return rentalOfficeCode;
 	}
 	public void setRentalOfficeCode(String rentalOfficeCode) {
 		this.rentalOfficeCode = rentalOfficeCode;
 	}
-	public String getRentalNetworkCode() {
-		return rentalNetworkCode;
+	public Key getBikeKey() {
+		return bikeKey;
 	}
-	public void setRentalNetworkCode(String rentalNetworkCode) {
-		this.rentalNetworkCode = rentalNetworkCode;
+	public void setBikeKey(Key bikeKey) {
+		this.bikeKey = bikeKey;
 	}
+
 
 	
 }
