@@ -14,9 +14,13 @@
 	
 	<bean id="nosqlpersistence" class="edu.citybike.database.nosql.NoSQLPersistence">
 	</bean>
+	
+	<bean id="entityManagerFactory" class="javax.persistence.Persistence" factory-method="createEntityManagerFactory">
+	<constructor-arg value="transactions-optional"/>
+	</bean>
 
 	<bean id="facade" class="edu.citybike.database.DatabaseFacade">
-		<property name="daoPersistenceFactory" ref="nosqlpersistence" />
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 	
 	<bean class="edu.citybike.utilities.ControllerUtilities">

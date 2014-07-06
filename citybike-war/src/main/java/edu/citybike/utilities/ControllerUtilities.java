@@ -10,10 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
-import edu.citybike.database.nosql.NoSQLPersistence;
 import edu.citybike.model.Bike;
-import edu.citybike.model.Fee;
 import edu.citybike.model.Bike.STATUS;
+import edu.citybike.model.Fee;
 
 public class ControllerUtilities {
 	private static final Logger logger = LoggerFactory.getLogger(ControllerUtilities.class);
@@ -31,7 +30,7 @@ public class ControllerUtilities {
 	
 	public ControllerUtilities() {
 		facade = new DatabaseFacade();
-		facade.setDaoPersistenceFactory(new NoSQLPersistence());
+		//facade.setDaoPersistenceFactory(new NoSQLPersistence());
 	}
 
 	public Bike changeBikeStatus(String bikeCode, String rentalNetworkCode, STATUS status) throws PersistenceException{
