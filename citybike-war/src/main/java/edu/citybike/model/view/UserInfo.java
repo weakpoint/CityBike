@@ -146,38 +146,6 @@ public class UserInfo implements UserDetails{
 		user.setNotes(new Text(notes));
 	}
 
-	public Long getOverallRentalTime() {
-		return user.getOverallRentalTime();
-	}
-
-	public void setOverallRentalTime(Long overallRentalTime) {
-		user.setOverallRentalTime(overallRentalTime);
-	}
-
-	public Double getOverallRentalCost() {
-		return user.getOverallRentalCost();
-	}
-
-	public void setOverallRentalCost(Double overallRentalCost) {
-		user.setOverallRentalCost(overallRentalCost);
-	}
-
-	public String getUserCode() {
-		return user.getUserCode();
-	}
-
-	public void setUserCode(String userCode) {
-		user.setUserCode(userCode);
-	}
-
-	public String getRentalNetworkCode() {
-		return user.getRentalNetworkCode();
-	}
-
-	public void setRentalNetworkCode(String rentalNetworkCode) {
-		user.setRentalNetworkCode(rentalNetworkCode);
-	}
-
 	public String getRole() {
 		return user.getRole();
 	}

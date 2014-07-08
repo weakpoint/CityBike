@@ -15,7 +15,7 @@ public class Bike {
 
 	@Id  
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private Key bikeKey;
+	private Key key;
 	@Embedded
 	private TechnicalDetails technicalDetails;
 	private STATUS status;
@@ -97,11 +97,11 @@ public class Bike {
 	public void setRentalOfficeCode(String rentalOfficeCode) {
 		this.rentalOfficeCode = rentalOfficeCode;
 	}
-	public Key getBikeKey() {
-		return bikeKey;
+	public Key getKey() {
+		return key;
 	}
-	public void setBikeKey(Key bikeKey) {
-		this.bikeKey = bikeKey;
+	public void setKey(Key bikeKey) {
+		this.key = bikeKey;
 	}
 
 

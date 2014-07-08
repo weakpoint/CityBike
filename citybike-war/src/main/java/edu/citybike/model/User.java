@@ -1,6 +1,7 @@
 package edu.citybike.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ public class User implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key userKey;
+	private Key key;
 
 	private String name;
 	private String lastName;
@@ -29,8 +30,10 @@ public class User implements Serializable{
 	private String emailAddress;
 	private Text notes;
 	private String role;
-	//private Long overallRentalTime;
-	//private Double overallRentalCost;
+	private Date registrationDate;
+	private Date lastSuccessLogin;
+	private Date lastFailedLogin;
+	
 	@Transient
 	public static String USER = "USER";
 	@Transient
@@ -44,8 +47,6 @@ public class User implements Serializable{
 		this.emailAddress = "";
 		this.notes = new Text("");
 		this.role = USER;
-		//this.overallRentalTime = (long) 0;
-		//this.overallRentalCost =  (double) 0;
 	}
 
 	public String getPhoneNumber() {
@@ -104,17 +105,41 @@ public class User implements Serializable{
 		this.role = role;
 	}
 
-	public Key getUserKey() {
-		return userKey;
+	public Date getRegistrationDate() {
+		return registrationDate;
 	}
 
-	public void setUserKey(Key userKey) {
-		this.userKey = userKey;
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	public Date getLastSuccessLogin() {
+		return lastSuccessLogin;
+	}
+
+	public void setLastSuccessLogin(Date lastSuccessLogin) {
+		this.lastSuccessLogin = lastSuccessLogin;
+	}
+
+	public Date getLastFailedLogin() {
+		return lastFailedLogin;
+	}
+
+	public void setLastFailedLogin(Date lastFailedLogin) {
+		this.lastFailedLogin = lastFailedLogin;
+	}
+
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key userKey) {
+		this.key = userKey;
 	}
 
 	@Override
 	public String toString() {
-		return "User [userKey=" + userKey + ", name=" + name + ", lastName=" + lastName + ", address=" + address
+		return "User [userKey=" + key + ", name=" + name + ", lastName=" + lastName + ", address=" + address
 				+ ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress + ", notes=" + notes + ", role="
 				+ role + "]";
 	}

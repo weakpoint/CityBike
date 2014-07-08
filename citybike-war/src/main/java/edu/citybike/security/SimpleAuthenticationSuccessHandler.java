@@ -13,10 +13,9 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.google.appengine.api.datastore.Key;
+
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
-import edu.citybike.model.Credentials;
-import edu.citybike.model.User;
 
 public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -34,10 +33,11 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-		System.out.println("AU: " +authentication);
-		if(authentication.getPrincipal() instanceof User){	
-			request.getSession().setAttribute("currentUser", authentication.getPrincipal());
-		} else {
+
+		if(authentication.getPrincipal() instanceof Key){	
+			request.getSession().setAttribute("currentUserKey", authentication.getPrincipal());
+		} 
+/*		else {
 			Credentials credentials = new Credentials();
 			credentials.setEmailAddress(authentication.getName());
 			credentials.setPassword((String) authentication.getCredentials());
@@ -48,7 +48,8 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 				logger.error("Error during current User setting: "+e.getMessage(), e);
 			}
 		}
-		System.out.println("PPPPPPPPPPPPPPP: "+request.getSession().getAttribute("currentUser"));
+		*/
+		System.out.println("PPPPPPPPPPPPPPP: "+request.getSession().getAttribute("currentUserKey"));
 		redirectStrategy.sendRedirect(request, response, "/");
 	}
 

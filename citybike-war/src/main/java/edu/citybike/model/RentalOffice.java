@@ -13,7 +13,7 @@ public class RentalOffice {
 
 	@Id  
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
-	private Key rentalOfficeKey;
+	private Key key;
 	
 	@Embedded
 	private Address address;
@@ -45,4 +45,13 @@ public class RentalOffice {
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
+
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+	
 }

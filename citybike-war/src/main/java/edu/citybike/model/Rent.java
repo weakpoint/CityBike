@@ -15,7 +15,7 @@ public class Rent {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key rentKey;
+	private Key key;
 	@Transient
 	private final int MILS_IN_MIN = (1000*60);
 	private int rentDuration;
@@ -72,12 +72,12 @@ public class Rent {
 		this.rentCost = rentCost;
 	}
 
-	public Key getRentKey() {
-		return rentKey;
+	public Key getKey() {
+		return key;
 	}
 
-	public void setRentKey(Key rentKey) {
-		this.rentKey = rentKey;
+	public void setKey(Key rentKey) {
+		this.key = rentKey;
 	}
 
 	public Key getUserCode() {

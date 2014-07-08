@@ -12,7 +12,7 @@ public class Credentials {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key credentialKey;
+	private Key key;
 	private String username;
 	private String password;
 
@@ -38,12 +38,12 @@ public class Credentials {
 		this.password = password;
 	}
 
-	public Key getCredentialKey() {
-		return credentialKey;
+	public Key getKey() {
+		return key;
 	}
 
 	public void setCredentialKey(Key credentialKey) {
-		this.credentialKey = credentialKey;
+		this.key = credentialKey;
 	}
 
 	@Override

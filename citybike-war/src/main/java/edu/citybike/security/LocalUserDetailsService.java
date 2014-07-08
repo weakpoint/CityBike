@@ -1,6 +1,11 @@
 package edu.citybike.security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,7 +14,7 @@ import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.User;
-import edu.citybike.model.view.UserInfo;
+import edu.citybike.model.view.CurrentUser;
 
 public class LocalUserDetailsService implements UserDetailsService{
 
@@ -25,18 +30,19 @@ public class LocalUserDetailsService implements UserDetailsService{
 	}
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		String rentalNetworkCode = "0001"; //!!
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Credentials credentials = null;
 		User user = null;
 		try {
-			credentials = facade.getCredentials(rentalNetworkCode, email);
-			user = facade.getUser(credentials);
+			credentials = facade.getCredentials(username);
+			user = facade.getUserByLogin(username);
 		} catch (PersistenceException e) {
-			System.out.println(e.getMessage());
 			throw new UsernameNotFoundException("Username not found!");
 		}
-		return new UserInfo(user, credentials);
+		
+		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+		roles.add(new SimpleGrantedAuthority(user.getRole()));
+		return new CurrentUser(user.getKey(), username, credentials.getPassword(), roles);
 	}
 
 }

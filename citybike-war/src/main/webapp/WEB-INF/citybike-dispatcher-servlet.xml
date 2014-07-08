@@ -16,7 +16,7 @@
 	<constructor-arg value="transactions-optional"/>
 	</bean>
 
-	<bean id="facade" class="edu.citybike.database.DatabaseFacade">
+	<bean id="facade" class="edu.citybike.database.DatabaseFacadeImpl">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 	

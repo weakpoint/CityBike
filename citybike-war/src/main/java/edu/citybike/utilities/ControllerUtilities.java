@@ -8,7 +8,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.appengine.api.datastore.Key;
+
 import edu.citybike.database.DatabaseFacade;
+import edu.citybike.database.DatabaseFacadeImpl;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Bike.STATUS;
@@ -29,13 +32,13 @@ public class ControllerUtilities {
 	}
 	
 	public ControllerUtilities() {
-		facade = new DatabaseFacade();
+		facade = new DatabaseFacadeImpl();
 		//facade.setDaoPersistenceFactory(new NoSQLPersistence());
 	}
 
-	public Bike changeBikeStatus(String bikeCode, String rentalNetworkCode, STATUS status) throws PersistenceException{
+	public Bike changeBikeStatus(Key bikeKey, STATUS status) throws PersistenceException{
 		logger.info("facade "+facade);
-		Bike bike = facade.getBike(rentalNetworkCode, bikeCode);
+		Bike bike = facade.getBikeByKey(bikeKey);
 		
 		bike.setStatus(status);
 		facade.update(bike);

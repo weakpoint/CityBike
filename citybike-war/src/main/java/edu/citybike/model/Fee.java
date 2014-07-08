@@ -13,7 +13,7 @@ public class Fee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key feeKey;
+	private Key key;
 	private int time;
 	private double fee;
 
@@ -35,12 +35,12 @@ public class Fee {
 		this.fee = fee;
 	}
 
-	public Key getFeeKey() {
-		return feeKey;
+	public Key getKey() {
+		return key;
 	}
 
-	public void setFeeKey(Key feeKey) {
-		this.feeKey = feeKey;
+	public void setKey(Key feeKey) {
+		this.key = feeKey;
 	}
 	
 }

@@ -38,15 +38,14 @@ public class StarterController {
 	@RequestMapping(value = "/startup", method = RequestMethod.GET)
 	public String setUpDatabase(){
 		List<Object> list = new ArrayList<Object>();
-/*		
+		
 		//Credentials
 		Credentials c = new Credentials();
-		c.setEmailAddress("admin");
+		c.setUsername("admin");
 		c.setPassword("admin");
-		c.setRentalNetworkCode("0001");
 		list.add(c);
 		
-*/		//user
+		//user
 		User admin = new User();
 		Address adminaddress = new Address();
 		adminaddress.setCity("Dobra");
@@ -60,13 +59,13 @@ public class StarterController {
 		admin.setNotes(new Text("Goooood guy!"));
 		admin.setPhoneNumber("500 000 000");
 		admin.setRole(User.ADMINISTRATOR);
+		admin.setRegistrationDate(new Date());
 		list.add(admin);
-/*		
+		
 		// Credentials
 		Credentials c2 = new Credentials();
-		c2.setEmailAddress("user");
+		c2.setUsername("user");
 		c2.setPassword("user");
-		c2.setRentalNetworkCode("0001");
 		list.add(c2);
 
 		// user
@@ -82,16 +81,14 @@ public class StarterController {
 		user.setName("Imię Usera");
 		user.setNotes(new Text(""));
 		user.setPhoneNumber("500 600 700");
-		user.setRentalNetworkCode("0001");
-		user.setUserCode("2");
+		user.setRegistrationDate(new Date());
 		user.setRole(User.USER);
 		list.add(user);
 		
-		// Credentials
+/*		// Credentials
 		Credentials c3 = new Credentials();
-		c3.setEmailAddress("super");
+		c3.setUsername("super");
 		c3.setPassword("super");
-		c3.setRentalNetworkCode("0001");
 		list.add(c3);
 
 		// user
@@ -111,7 +108,7 @@ public class StarterController {
 		superuser.setUserCode("3");
 		superuser.setRole(User.SUPERADMIN);
 		list.add(superuser);
-		
+*/		
 		//Fee
 		Fee f1 = new Fee();
 		f1.setFee(1);
@@ -131,8 +128,6 @@ public class StarterController {
 		
 		// rental office
 		RentalOffice office = new RentalOffice();
-		office.setRentalNetworkCode("0001");
-		office.setRentalOfficeCode("01");
 		office.setLatitude("19.156177");
 		office.setLongitude("51.704632");
 		adminaddress = new Address();
@@ -144,10 +139,9 @@ public class StarterController {
 		office.setAddress(adminaddress);
 		
 		list.add(office);
-*/		
-		//Bike
-		Bike bike = new Bike();
 		
+		//Bike
+		Bike bike = new Bike();	
 		list.add(bike);
 /*		
 		//rent
