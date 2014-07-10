@@ -1,6 +1,5 @@
 package edu.citybike.database;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -46,17 +45,17 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 
 	public User getUserByLogin(String login) throws PersistenceException {
 		
-		 Query userQuery = entityManager.createNativeQuery("select user from User u where u.emailAddress=?1", User.class);
-		 userQuery.setParameter(1, login);
-		 
-		 try{
-		  User user = (User) userQuery.getSingleResult();
-		  return user;
-		 }catch(NoResultException e){
-			 throw new ModelNotExistsException("User does not exist");
-		 }catch(NonUniqueResultException e){
-			 throw new TooManyResults("Too many users");
-		 }
+		Query userQuery = entityManager.createQuery("select u from User u where u.emailAddress=?1");
+		userQuery.setParameter(1, login);
+		
+		try {
+			User user = (User) userQuery.getSingleResult();
+			return user;
+		} catch (NoResultException e) {
+			throw new ModelNotExistsException("User does not exist");
+		} catch (NonUniqueResultException e) {
+			throw new TooManyResults("Too many users");
+		}
 	}
 	
 	public User getUserByKey(Key key){
@@ -92,11 +91,12 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	}
 
 	public Credentials getCredentials(String username) throws PersistenceException{
-		 Query userQuery = entityManager.createNativeQuery("select cred from Credentials cred where cred.username=?1", Credentials.class);
-		 userQuery.setParameter(1, username);
+		// Query userQuery = entityManager.createNativeQuery("select cred from Credentials cred where cred.username=?1", Credentials.class);
+		 Query credentialsQuery = entityManager.createQuery("select cred from Credentials cred where cred.username=?1");
+		 credentialsQuery.setParameter(1, username);
 		 
 		 try{
-		  Credentials credentials = (Credentials) userQuery.getSingleResult();
+		  Credentials credentials = (Credentials) credentialsQuery.getSingleResult();
 		  return credentials;
 		 }catch(NoResultException e){
 			 throw new ModelNotExistsException("Wrong credentials");

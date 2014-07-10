@@ -26,6 +26,7 @@ public class CurrentUser implements UserDetails {
 	}
     
 	public CurrentUser(Key userKey, String username, String password, List<GrantedAuthority> authorities) {
+		this.userKey = userKey;
 		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
@@ -102,4 +103,12 @@ public class CurrentUser implements UserDetails {
 		this.userKey = userKey;
 	}
 
+	@Override
+	public String toString() {
+		return "CurrentUser [userKey=" + userKey + ", username=" + username + ", password=" + password
+				+ ", authorities=" + authorities + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked="
+				+ accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + "]";
+	}
+
+	
 }

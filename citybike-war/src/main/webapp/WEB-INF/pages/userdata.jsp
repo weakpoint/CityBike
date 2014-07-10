@@ -37,16 +37,16 @@
 			<tr>
 				<td>Adres e-mail :</td>
 				<c:choose>
-				<c:when test="${(userInfo.emailAddress == '')}">
-					<td><form:input path="emailAddress" /></td>
-				</c:when>
-				<c:otherwise>
-					<td>${userInfo.emailAddress}</td>
-				</c:otherwise>
+					<c:when test="${(userInfo.emailAddress == '')}">
+						<td><form:input path="emailAddress" /></td>
+					</c:when>
+					<c:otherwise>
+						<td>${userInfo.emailAddress}</td>
+					</c:otherwise>
 				</c:choose>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
 			</tr>
-			<c:if test="${(currentUser.emailAddress == userInfo.emailAddress)}">
+			<c:if test="${(currentUser.username == userInfo.username)}">
 				<tr>
 					<td>Hasło :</td>
 					<td><form:input path="password" type="password" /></td>
@@ -54,7 +54,7 @@
 				</tr>
 				<tr>
 					<td>Powtórz hasło :</td>
-					<td><form:input path="password"  /></td>
+					<td><form:input path="password" /></td>
 					<td><form:errors path="password" cssClass="error" /></td>
 				</tr>
 			</c:if>
@@ -89,19 +89,7 @@
 				<td><form:input path="address.city" /></td>
 				<td><form:errors path="address.city" cssClass="error" /></td>
 			</tr>
-			<tr>
-			<td><form:input path="userCode" /></td>
-			<td><form:input path="rentalNetworkCode" /></td>
-</tr>
-			<c:if test="${currentUser.role == 'EMPLOYEE' }">
-				<tr>
-					<td><h3>Informacje</h3></td>
-				</tr>
-				<tr>
-					<td>Informacje :</td>
-					<td><form:textarea path="notes" rows="5" cols="30" /></td>
-				</tr>
-			</c:if>
+
 			<tr>
 				<td colspan="3"><input type="submit" value="OK" /></td>
 

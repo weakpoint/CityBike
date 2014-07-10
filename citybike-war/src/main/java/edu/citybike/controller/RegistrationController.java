@@ -30,7 +30,7 @@ public class RegistrationController {
 	}
 	
 	@RequestMapping("/registration")
-	public String showAddBikeForm(ModelMap map) {
+	public String showAddRegistrationForm(ModelMap map) {
 		map.addAttribute("formAction", "/register.do");
 		return "userdata";
 	}

@@ -43,10 +43,9 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
         if (!password.equals(user.getPassword())) {
             throw new BadCredentialsException("Wrong password.");
         }
- 
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
        
-        return new UsernamePasswordAuthenticationToken(user.getUserKey(), password, authorities);
+        return new UsernamePasswordAuthenticationToken(user, password, authorities);
     }
 	
 

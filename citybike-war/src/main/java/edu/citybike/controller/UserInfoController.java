@@ -19,6 +19,7 @@ import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.User;
+import edu.citybike.model.view.CurrentUser;
 import edu.citybike.model.view.UserInfo;
 
 @Controller
@@ -38,16 +39,16 @@ public class UserInfoController {
 	@RequestMapping("/userInfo")
 	public String showUserInfoForm(ModelMap map, HttpServletRequest request) {
 
-User currentUser = ((User) request.getSession().getAttribute("currentUser"));
-
-
+		CurrentUser currentUser = (CurrentUser)request.getSession().getAttribute("currentUser");
 		if(currentUser == null){
-			logger.error("Current user is null");
-			 currentUser = new User();
+			//!!!!!!!!!!
 		}
+		
+		User user = facade.getUserByKey(currentUser.getUserKey());
+
 		Credentials credential = null;
 		try {
-			credential = facade.getCredentials(currentUser.getRentalNetworkCode(), currentUser.getEmailAddress());
+			credential = facade.getCredentials(user.getEmailAddress());
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
 		}
