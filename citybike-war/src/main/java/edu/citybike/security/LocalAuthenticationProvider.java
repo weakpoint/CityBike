@@ -1,6 +1,7 @@
 package edu.citybike.security;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -12,12 +13,27 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import edu.citybike.database.DatabaseFacade;
+import edu.citybike.database.DatabaseFacadeImpl;
+import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.model.User;
 import edu.citybike.model.view.CurrentUser;
 
 @Component
 public class LocalAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
     private UserDetailsService userService;
+	private DatabaseFacade facade;
+
+	public DatabaseFacade getFacade() {
+		return facade;
+	}
+
+
+	public void setFacade(DatabaseFacade facade) {
+		this.facade = facade;
+	}
+
 
 	public UserDetailsService getUserService() {
 		return userService;
@@ -41,6 +57,13 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
         }
 
         if (!password.equals(user.getPassword())) {
+        	try {
+				User possibleUser = facade.getUserByLogin(email);
+				possibleUser.setLastFailedLogin(new Date());
+				facade.update(possibleUser);
+			} catch (PersistenceException e) {
+			}
+        	
             throw new BadCredentialsException("Wrong password.");
         }
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();

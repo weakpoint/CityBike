@@ -1,13 +1,10 @@
 package edu.citybike.controller;
 
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +18,7 @@ import edu.citybike.model.Credentials;
 import edu.citybike.model.User;
 import edu.citybike.model.view.CurrentUser;
 import edu.citybike.model.view.UserInfo;
+import edu.citybike.utilities.ControllerUtilities;
 
 @Controller
 public class UserInfoController {
@@ -52,7 +50,7 @@ public class UserInfoController {
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
 		}
-		UserInfo userInfo = new UserInfo(currentUser, credential);
+		UserInfo userInfo = new UserInfo(user, credential);
 
 		map.addAttribute("userInfo", userInfo);
 		
@@ -62,42 +60,21 @@ public class UserInfoController {
 	
 	@RequestMapping(value="/userInfo", method= RequestMethod.POST)
 	public ModelAndView saveForm(@ModelAttribute("userInfo") UserInfo user,ModelMap map, HttpSession session) {
-		Object uu = map.get("UserInfo");
-		System.out.println("PPPPP: "+uu);
 		ModelAndView mav = new ModelAndView("userdata");
 		try {
 			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-			System.out.println("user: "+user.getUser());
-			facade.update(user.getUser());
+			User userAfterChanges = ControllerUtilities.retriveChangedUser(facade, user);
+			facade.update(userAfterChanges);
 			System.out.println("???????????????????????????????");
+			System.out.println("USER INFO "+user);
 			facade.update(user.getCredentials());
-
-			mav.addObject("userInfo", user);
-			session.setAttribute("currentUser", user.getUser());
+			System.out.println("creden "+user.getCredentials());
+			mav.addObject("userInfo", new UserInfo(userAfterChanges, user.getCredentials()));
+			//session.setAttribute("currentUser", user.getUser());
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage(), e);
 		}
 
 		return mav;
 	}
-/*	
-	@ModelAttribute("userInfo")
-	public UserInfo addUserModel(HttpSession session){
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		User currentUser = ((User) session.getAttribute("currentUser"));
-		
-		if(currentUser == null){
-			logger.error("Current user is null");
-			 currentUser = new User();
-		}
-		Credentials credential = null;
-		try {
-			credential = facade.getCredentials(currentUser.getRentalNetworkCode(), currentUser.getEmailAddress());
-		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-		}
-		return new UserInfo(currentUser, credential);
-		
-	}
-	*/
 }

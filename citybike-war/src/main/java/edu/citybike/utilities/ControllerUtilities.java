@@ -16,6 +16,8 @@ import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Bike.STATUS;
 import edu.citybike.model.Fee;
+import edu.citybike.model.User;
+import edu.citybike.model.view.UserInfo;
 
 public class ControllerUtilities {
 	private static final Logger logger = LoggerFactory.getLogger(ControllerUtilities.class);
@@ -33,7 +35,6 @@ public class ControllerUtilities {
 	
 	public ControllerUtilities() {
 		facade = new DatabaseFacadeImpl();
-		//facade.setDaoPersistenceFactory(new NoSQLPersistence());
 	}
 
 	public Bike changeBikeStatus(Key bikeKey, STATUS status) throws PersistenceException{
@@ -89,5 +90,13 @@ public class ControllerUtilities {
 		});
 		return list;
 	}	
+	public static User retriveChangedUser(DatabaseFacade facade, UserInfo userInfo) throws PersistenceException{
+		User userFromDatabase = facade.getUserByLogin(userInfo.getEmailAddress());
+		userFromDatabase.setAddress(userInfo.getAddress());
+		userFromDatabase.setName(userInfo.getName());
+		userFromDatabase.setLastName(userInfo.getLastName());
+		userFromDatabase.setPhoneNumber(userInfo.getPhoneNumber());
+		return userFromDatabase;
+	}
 }
 

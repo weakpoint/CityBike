@@ -35,18 +35,18 @@
 				<td><form:errors path="phoneNumber" cssClass="error" /></td>
 			</tr>
 			<tr>
-				<td>Adres e-mail :</td>
+				<td>Adres e-mail (login):</td>
 				<c:choose>
 					<c:when test="${(userInfo.emailAddress == '')}">
 						<td><form:input path="emailAddress" /></td>
 					</c:when>
 					<c:otherwise>
-						<td>${userInfo.emailAddress}</td>
+						<td><form:input path="emailAddress" readonly="true"/></td>
 					</c:otherwise>
 				</c:choose>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
 			</tr>
-			<c:if test="${(currentUser.username == userInfo.username)}">
+			<c:if test="${(currentUser.username == userInfo.emailAddress)}">
 				<tr>
 					<td>Hasło :</td>
 					<td><form:input path="password" type="password" /></td>

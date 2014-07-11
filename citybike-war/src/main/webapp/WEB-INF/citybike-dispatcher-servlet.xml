@@ -82,6 +82,7 @@
 	
 	<bean id="localAuthenticationProvider" class="edu.citybike.security.LocalAuthenticationProvider">
 	<property name="userService" ref="userService"/>
+	<property name="facade" ref="facade"/>
 	</bean>
 	
 	<bean id="userService" class="edu.citybike.security.LocalUserDetailsService">

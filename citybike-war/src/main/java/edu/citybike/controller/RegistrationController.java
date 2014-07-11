@@ -1,5 +1,7 @@
 package edu.citybike.controller;
 
+import java.util.Date;
+
 import javax.persistence.EntityTransaction;
 
 import org.slf4j.Logger;
@@ -49,8 +51,10 @@ public class RegistrationController {
 		EntityTransaction tr = facade.getTransaction();
 		try {
 			facade.add(userInfo.getCredentials());
+			userInfo.getUser().setRegistrationDate(new Date());
 			facade.add(userInfo.getUser());
 			tr.commit();
+			
 			return "redirect:/";
 		} catch (PersistenceException e) {
 			logger.error("Error during registration: "+e.getMessage());

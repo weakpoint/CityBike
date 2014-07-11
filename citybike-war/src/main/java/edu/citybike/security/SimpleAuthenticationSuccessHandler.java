@@ -1,6 +1,7 @@
 package edu.citybike.security;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import edu.citybike.database.DatabaseFacade;
+import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.model.User;
 import edu.citybike.model.view.CurrentUser;
 
 public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
@@ -32,10 +35,18 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-		System.out.println(authentication.getPrincipal());
 		if(authentication.getPrincipal() instanceof CurrentUser){	
 			request.getSession().setAttribute("currentUser", authentication.getPrincipal());			
 		} 
+		User user;
+		try {
+			user = facade.getUserByLogin(authentication.getName());
+			user.setLastSuccessLogin(new Date());
+			facade.update(user);
+		} catch (PersistenceException e) {
+			logger.error("Error during storing successful log in",e);
+		}
+		
 		redirectStrategy.sendRedirect(request, response, "/");
 	}
 
