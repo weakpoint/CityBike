@@ -49,7 +49,7 @@
 			<c:if test="${(currentUser.username == userInfo.emailAddress)}">
 				<tr>
 					<td>Hasło :</td>
-					<td><form:input path="password" type="password" /></td>
+					<td><form:input path="password"  type="password"/></td>
 					<td><form:errors path="password" cssClass="error" /></td>
 				</tr>
 				<tr>

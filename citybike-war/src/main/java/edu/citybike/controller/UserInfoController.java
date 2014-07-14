@@ -67,7 +67,7 @@ public class UserInfoController {
 			facade.update(userAfterChanges);
 			System.out.println("???????????????????????????????");
 			System.out.println("USER INFO "+user);
-			facade.update(user.getCredentials());
+			//facade.update(user.getCredentials());
 			System.out.println("creden "+user.getCredentials());
 			mav.addObject("userInfo", new UserInfo(userAfterChanges, user.getCredentials()));
 			//session.setAttribute("currentUser", user.getUser());

@@ -1,5 +1,6 @@
 package edu.citybike.database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -91,7 +92,6 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	}
 
 	public Credentials getCredentials(String username) throws PersistenceException{
-		// Query userQuery = entityManager.createNativeQuery("select cred from Credentials cred where cred.username=?1", Credentials.class);
 		 Query credentialsQuery = entityManager.createQuery("select cred from Credentials cred where cred.username=?1");
 		 credentialsQuery.setParameter(1, username);
 		 
@@ -105,9 +105,16 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 		 }
 		}
 	
-	public List<RentalOffice> getRentalOfficeList(String rentalNetworkCode) throws PersistenceException {
-		return null;//daoPersistenceFactory.getRentalOfficePersistence().getAll(rentalNetworkCode);
+	public List<RentalOffice> getRentalOfficeList() {
+		 Query rentalOfficeQuery = entityManager.createQuery("select rentalOffice from RentalOffice rentalOffice");
+		
+		  List<RentalOffice> rentalOfficeList = (List<RentalOffice>)rentalOfficeQuery.getResultList();
+		  if(rentalOfficeList == null){
+			  rentalOfficeList = new ArrayList<RentalOffice>();
+		  }
+		  return rentalOfficeList;
 	}
+	
 
 	public List<Rent> getUserRentList(String userCode, String rentalNetworkCode) throws PersistenceException {
 		/*ArrayList<Rent> userList = new ArrayList<Rent>();
@@ -121,9 +128,15 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 		*/return null;
 	}
 
-	public List<Fee> getFeeList(String rentalNetworkCode) throws PersistenceException {
-		return null;//daoPersistenceFactory.getFeePersistence().getAll(rentalNetworkCode);
+	public List<Fee> getFeeList() throws PersistenceException {
 		
+		Query feeQuery = entityManager.createQuery("select fee from Fee fee");
+		
+		  List<Fee> feeList = (List<Fee>)feeQuery.getResultList();
+		  if(feeList == null){
+			  feeList = new ArrayList<Fee>();
+		  }
+		  return feeList;
 	}
 
 	public Bike getBike(String rentalNetworkCode, String bikeCode) throws PersistenceException {

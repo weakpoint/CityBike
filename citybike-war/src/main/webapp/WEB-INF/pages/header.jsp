@@ -21,12 +21,11 @@
 	<br />
 	<nav id="second-menu">
 		<ul>
-			<c:if test="${currentUser.authorities == 'USER'}">
+			<c:if test="${currentUser.authorities[0] == 'USER'}">
 				<li><a href="/rentalInformation">Dane wypożyczeń</a></li>
 			</c:if>
-			<c:if test="${currentUser.authorities == 'ADMINISTRATOR'}">
+			<c:if test="${currentUser.authorities[0] == 'ADMINISTRATOR'}">
 				<li><a href="/addNewBike">Dodaj rower</a></li>
-				<li><a href="/addNewEmployee">Dodaj pracownika</a></li>
 				<li><a href="/addNewRentalOffice">Dodaj wypożyczalnie</a></li>
 				<li><a href="/feeManager">Zarządzanie opłatami</a></li>
 				<li><a href="/statistics">Statystyki</a></li>

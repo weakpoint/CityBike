@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @Entity
 public class Bike {
@@ -21,7 +22,7 @@ public class Bike {
 	private STATUS status;
 	private int rentalCount;
 	private Date lastServiceDate;
-	private String rentalOfficeCode;
+	private Key rentalOfficeKey;
 	
 	public enum STATUS {OUT_OF_ORDER, RENTED, IN_REPAIR, AVAILABLE};
 	
@@ -30,9 +31,8 @@ public class Bike {
 		this.status = STATUS.AVAILABLE;
 		this.rentalCount =  0;
 		this.lastServiceDate = new Date();
-		this.rentalOfficeCode = "";
-
 	}
+	
 	public TechnicalDetails getTechnicalDetails() {
 		return technicalDetails;
 	}
@@ -90,16 +90,20 @@ public class Bike {
 	public void setLastServiceDate(Date lastServiceDate) {
 		this.lastServiceDate = lastServiceDate;
 	}
+	
+	
+	public Key getRentalOfficeKey() {
+		return rentalOfficeKey;
+	}
 
-	public String getRentalOfficeCode() {
-		return rentalOfficeCode;
+	public void setRentalOfficeKey(Key rentalOfficeKey) {
+		this.rentalOfficeKey = rentalOfficeKey;
 	}
-	public void setRentalOfficeCode(String rentalOfficeCode) {
-		this.rentalOfficeCode = rentalOfficeCode;
-	}
+	
 	public Key getKey() {
 		return key;
 	}
+
 	public void setKey(Key bikeKey) {
 		this.key = bikeKey;
 	}
