@@ -130,13 +130,24 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 
 	public List<Fee> getFeeList() throws PersistenceException {
 		
-		Query feeQuery = entityManager.createQuery("select fee from Fee fee");
+		Query feeQuery = entityManager.createQuery("select fee from Fee fee order by fee.time asc");
 		
 		  List<Fee> feeList = (List<Fee>)feeQuery.getResultList();
 		  if(feeList == null){
 			  feeList = new ArrayList<Fee>();
 		  }
 		  return feeList;
+	}
+	
+	public void remove(Object model) throws PersistenceException{
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.remove(model);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			throw new PersistenceException(e);
+		}
 	}
 
 	public Bike getBike(String rentalNetworkCode, String bikeCode) throws PersistenceException {

@@ -24,7 +24,6 @@ public class FeeManageController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FeeManageController.class);
 	private DatabaseFacade facade;
-	private List<FeeManagerView> rows;
 	private List<Boolean> changedRows;
 
 	public DatabaseFacade getFacade() {
@@ -38,13 +37,9 @@ public class FeeManageController {
 	@RequestMapping("/feeManager")
 	public ModelAndView feeManager(HttpSession session) {
 
-		rows = new ArrayList<FeeManagerView>();		
+		List<FeeManagerView> rows = new ArrayList<FeeManagerView>();		
 		try {
-			List<Fee> feeList = facade.getFeeList();
-			
-			for(Fee fee : feeList){
-				rows.add(new FeeManagerView(fee));
-			}
+			rows = getFeeList();
 		} catch (PersistenceException e) {
 			logger.error("Error during getting fee list: "+e.getMessage());
 		}
@@ -53,26 +48,27 @@ public class FeeManageController {
 		return mav;
 	}
 	
-	
-	
 	@RequestMapping(value = "/feeManager", method = RequestMethod.POST)
 	public ModelAndView submitForm(HttpServletRequest request){
 		Map map = request.getParameterMap();
 		changedRows = new ArrayList<Boolean>();
-		changeFieldsValue(map);
+		List<FeeManagerView> rows = null;
+		
 		try {
-		switch(request.getParameter("submitbtn")){
-		case "add":
-			rows.add(new FeeManagerView(new Fee(), false, true));
-			break;
-		case "save":
-			saveToDatabase();
-			changedRows.clear();
-			break;
-		case "delete":
-			removeChecked();
-			break;
-		}
+			rows = changeFieldsValue(map, getFeeList());
+			switch(request.getParameter("submitbtn")){
+			case "add":
+				rows.add(0,new FeeManagerView(new Fee(), false, true));
+				break;
+			case "save":
+				saveToDatabase(rows);
+				rows = getFeeList();
+				changedRows.clear();
+				break;
+			case "delete":
+				rows = removeChecked(rows);
+				break;
+			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -81,7 +77,7 @@ public class FeeManageController {
 		return mav;
 	}
 	
-	private void changeFieldsValue(Map<String,String[]> params){
+	private List<FeeManagerView> changeFieldsValue(Map<String,String[]> params, List<FeeManagerView> rows){
 		if(params != null){
 			String[] fee = (String[]) params.get("fee");
 			String[] time = (String[]) params.get("time");
@@ -90,6 +86,9 @@ public class FeeManageController {
 			int mins = 0;
 			boolean isChanged = false;
 			
+			if(fee.length > rows.size()){
+				rows.add(0,new FeeManagerView(new Fee(), false, true));
+			}
 			FeeManagerView row;
 			for(int i = 0; i < rows.size(); i++){
 				row = rows.get(i);
@@ -104,25 +103,29 @@ public class FeeManageController {
 					row.getFee().setTime(mins);
 					isChanged = true;
 				}
+
 				row.setChecked(false);
 				changedRows.add(isChanged);
 			}
+
 			if(selected != null){
 			for(int i = 0 ; i < selected.length; i++){
 				rows.get(Integer.parseInt(selected[i])).setChecked(true);
 			}
 			}
 		}
+		return rows;
 	}
 	
-	private void saveToDatabase() throws PersistenceException{
+	private void saveToDatabase(List<FeeManagerView> rows) throws PersistenceException{
 		FeeManagerView row; 
-		
+		System.out.println("kolumn "+rows.size());
 		for(int i = 0; i < rows.size(); i++){
 			row = rows.get(i);
 			if(row.isNewRow()){
 				row.setFee(row.getFee());
 				row.setNewRow(false);
+				System.out.println(row.getFee());
 				facade.add(row.getFee());
 			} else if(changedRows.get(i)){
 				facade.update(row.getFee());
@@ -130,21 +133,28 @@ public class FeeManageController {
 		}
 	}
 	
-	private void removeChecked(){
-		FeeManagerView row; 
-		List<Integer> toRemove = new ArrayList<Integer>();
+	private List<FeeManagerView> removeChecked(List<FeeManagerView> rows) throws PersistenceException{
+		List<FeeManagerView> notRemoved = new ArrayList<FeeManagerView>();
 		for(int i = 0; i < rows.size(); i++){
-			row = rows.get(i);
-			if(row.isChecked()){
-				toRemove.add(i);
+			if(rows.get(i).isChecked()){
+				System.out.println(rows.get(i).getFee().getKey());
+				facade.remove(rows.get(i).getFee());
+			} else {
+				notRemoved.add(rows.get(i));
 			}
 		}
-		int d = 0;
-		for(int i : toRemove){
-			rows.remove(i-d);
-			changedRows.remove(i-d);
-			d++;
-		}
+		return notRemoved;
+	}
+	
+	private List<FeeManagerView> getFeeList() throws PersistenceException{
+		List<FeeManagerView> rows =  new ArrayList<FeeManagerView>();		
+		
+			List<Fee> feeList = facade.getFeeList();
+			
+			for(Fee fee : feeList){
+				rows.add(new FeeManagerView(fee));
+			}
+			return rows;
 	}
 
 }

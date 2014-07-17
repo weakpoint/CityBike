@@ -43,25 +43,27 @@ public class RegistrationController {
 	}	
 	
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute("user") UserInfo userInfo, ModelMap map){
+	public String registerUser(@ModelAttribute("userInfo") UserInfo userInfo){
 		
 		//sprawdzanie czy mail sie nie powtarza
 		
 		//
+
 		EntityTransaction tr = facade.getTransaction();
 		try {
+			System.out.println(userInfo.getCredentials());
 			facade.add(userInfo.getCredentials());
 			userInfo.getUser().setRegistrationDate(new Date());
+			System.out.println(userInfo.getUser());
 			facade.add(userInfo.getUser());
 			tr.commit();
-			
-			return "redirect:/";
+		
 		} catch (PersistenceException e) {
 			logger.error("Error during registration: "+e.getMessage());
 			tr.rollback();
 		}
-		map.addAttribute("userInfo", userInfo);
-		return "userData";
+
+		return "redirect:/";
 
 	}
 }

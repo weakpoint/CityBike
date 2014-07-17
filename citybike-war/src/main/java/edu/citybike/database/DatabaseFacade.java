@@ -23,6 +23,7 @@ public interface DatabaseFacade {
 	Credentials getCredentials(String username) throws PersistenceException;
 	List<RentalOffice> getRentalOfficeList();
 	List<Fee> getFeeList() throws PersistenceException;
+	void remove(Object model) throws PersistenceException;
 	
 
 }

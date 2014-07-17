@@ -46,7 +46,7 @@
 				</c:choose>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
 			</tr>
-			<c:if test="${(currentUser.username == userInfo.emailAddress)}">
+			<c:if test="${(currentUser == null)}">
 				<tr>
 					<td>Hasło :</td>
 					<td><form:input path="password"  type="password"/></td>

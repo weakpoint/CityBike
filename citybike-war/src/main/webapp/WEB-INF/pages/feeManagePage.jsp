@@ -32,7 +32,15 @@
 					<td align="center">${i.count}</td>
 					<td><input type="checkbox" name="selected"
 						value="${i.count-1}" ${fee.checked?"checked":""} /></td>
-					<td><input name="time" value="${fee.fee.time}" /></td>
+					<c:choose>
+						<c:when test="${fee.newRow}">
+							<td><input name="time" value="${fee.fee.time}" /></td>
+						</c:when>
+						<c:otherwise>
+							<td><input name="time" value="${fee.fee.time}" readonly /></td> <!-- immutable field -->
+						</c:otherwise>
+					</c:choose>
+
 					<td><input name="fee" value="${fee.fee.fee}" /></td>
 
 				</tr>
