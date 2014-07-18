@@ -1,5 +1,7 @@
 package edu.citybike.controller;
 
+import java.io.Serializable;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.RentalOffice;
-import edu.citybike.model.User;
 
 @Controller
-public class AddNewRentalOfficeController {
+public class AddNewRentalOfficeController implements Serializable{
 
 	private static final Logger logger = LoggerFactory.getLogger(AddNewRentalOfficeController.class);
 	private DatabaseFacade facade;

@@ -144,6 +144,7 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 			entityManager.getTransaction().begin();
 			entityManager.remove(model);
 			entityManager.getTransaction().commit();
+			System.out.println("usuwanie: "+model);
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
 			throw new PersistenceException(e);

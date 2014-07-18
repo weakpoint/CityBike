@@ -9,11 +9,14 @@
 	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
 </script>
 <script>
-	var lat = 19.456177;
-	var lon = 51.774632;
+	var lon = 19.456177;
+	var lat = 51.774632;
+	var geocoder;
 
 	function initialize() {
-		var latlng = new google.maps.LatLng(lon, lat);
+		geocoder = new google.maps.Geocoder();
+
+		var latlng = new google.maps.LatLng(lat, lon);
 		var mapProp = {
 			center : latlng,
 			zoom : 12,
@@ -29,7 +32,7 @@
 		});
 		google.maps.event.addListener(marker, 'dragend', function(a) {
 			console.log(a.latLng);
-			lon = a.latLng.A;
+			lon = a.latLng.B;
 			lat = a.latLng.k;
 		});
 	}
@@ -37,9 +40,26 @@
 	google.maps.event.addDomListener(window, 'load', initialize);
 
 	function getCoordinates() {
-		document.getElementById("longitudeField").value = lon;
-		document.getElementById("latitudeField").value = lat;
+		document.getElementById("latitudeField").value = lat; //52.0
+		document.getElementById("longitudeField").value = lon;//19.0
+		
+		geocoder.geocode({'latLng': new google.maps.LatLng(lat, lon)}, function(results, status) {
+		      if (status == google.maps.GeocoderStatus.OK) {
+		    	  if(results[0]){
+		    		  document.getElementById("housenumber").value = results[0].address_components[0].short_name; //types[0] == street_number
+		    		  document.getElementById("street").value = results[0].address_components[1].short_name; //route
+		    		  document.getElementById("city").value = results[0].address_components[3].short_name; //locality
+		    	  }
+		        if (results[1]) {
+		        	console.log(results);
+		        	document.getElementById("postalcode").value = results[1].address_components[0].short_name; //types[0] == postal_code
+		        }
+		      } else {
+		        alert("Geocoder failed due to: " + status);
+		      }
+		});
 	}
+	
 </script>
 <title>Nowa wypożyczalnia</title>
 </head>
@@ -58,30 +78,30 @@
 			</tr>
 			<tr>
 				<td>Ulica :</td>
-				<td><form:input path="address.street" /></td>
+				<td><form:input path="address.street" id="street"/></td>
 				<td><form:errors path="address.street" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Numer domu :</td>
-				<td><form:input path="address.houseNumber" /></td>
+				<td><form:input path="address.houseNumber" id="housenumber"/></td>
 				<td><form:errors path="address.houseNumber" cssClass="error" />
 				</td>
 			</tr>
 			<tr>
 				<td>Numer mieszkania :</td>
-				<td><form:input path="address.flatNumber" /></td>
+				<td><form:input path="address.flatNumber" id="flatnumber"/></td>
 				<td><form:errors path="address.flatNumber" cssClass="error" />
 				</td>
 			</tr>
 			<tr>
 				<td>Kod pocztowy :</td>
-				<td><form:input path="address.postalCode" /></td>
+				<td><form:input path="address.postalCode" id="postalcode"/></td>
 				<td><form:errors path="address.postalCode" cssClass="error" />
 				</td>
 			</tr>
 			<tr>
 				<td>Miasto :</td>
-				<td><form:input path="address.city" /></td>
+				<td><form:input path="address.city" id="city"/></td>
 				<td><form:errors path="address.city" cssClass="error" /></td>
 			</tr>
 

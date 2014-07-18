@@ -52,15 +52,16 @@ public class FeeManageController {
 	public ModelAndView submitForm(HttpServletRequest request){
 		Map map = request.getParameterMap();
 		changedRows = new ArrayList<Boolean>();
-		List<FeeManagerView> rows = null;
+		List<FeeManagerView> rows=null;
 		
 		try {
-			rows = changeFieldsValue(map, getFeeList());
+			rows = changeFieldsValue(map,getFeeList());
 			switch(request.getParameter("submitbtn")){
 			case "add":
 				rows.add(0,new FeeManagerView(new Fee(), false, true));
 				break;
 			case "save":
+				
 				saveToDatabase(rows);
 				rows = getFeeList();
 				changedRows.clear();
@@ -82,13 +83,20 @@ public class FeeManageController {
 			String[] fee = (String[]) params.get("fee");
 			String[] time = (String[]) params.get("time");
 			String[] selected = (String[]) params.get("selected");
+			System.out.println(fee+" "+time+" "+selected);
+			if(fee == null || time == null){
+				return rows;
+			}
+			
 			double cost = 0;
 			int mins = 0;
 			boolean isChanged = false;
 			
-			if(fee.length > rows.size()){
+			for(int i = rows.size(); i < fee.length; i++){
+				System.out.println(rows.size()+" "+fee.length);
 				rows.add(0,new FeeManagerView(new Fee(), false, true));
 			}
+			System.out.println("Ostatecznie: "+rows.size()+" "+fee.length);
 			FeeManagerView row;
 			for(int i = 0; i < rows.size(); i++){
 				row = rows.get(i);
@@ -99,7 +107,7 @@ public class FeeManageController {
 					isChanged = true;
 				}
 				//time
-				if(row.getFee().getTime() != (mins = Integer.parseInt(time[i]))){
+				if(row.isNewRow() && row.getFee().getTime() != (mins = Integer.parseInt(time[i]))){
 					row.getFee().setTime(mins);
 					isChanged = true;
 				}
@@ -137,8 +145,10 @@ public class FeeManageController {
 		List<FeeManagerView> notRemoved = new ArrayList<FeeManagerView>();
 		for(int i = 0; i < rows.size(); i++){
 			if(rows.get(i).isChecked()){
-				System.out.println(rows.get(i).getFee().getKey());
-				facade.remove(rows.get(i).getFee());
+				if(!rows.get(i).isNewRow()){
+					System.out.println(rows.get(i).getFee().getKey());
+					facade.remove(rows.get(i).getFee());
+				}
 			} else {
 				notRemoved.add(rows.get(i));
 			}
