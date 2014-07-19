@@ -9,15 +9,15 @@
 	
 </script>
 <script>
-	var lat = 19.456177;
-	var lon = 51.774632;
+	var lat = 51.774632;
+	var lon = 19.456177;
 	var map;
 	
 	function initialize() {
 		
 		var mapProp;
 		var latlng;
-		var markers = [];
+		
 
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
@@ -30,7 +30,7 @@
 			});
 
 		}
-		latlng = new google.maps.LatLng(lon, lat);
+		latlng = new google.maps.LatLng(lat, lon);
 		mapProp = {
 			center : latlng,
 			zoom : 12,
@@ -41,7 +41,7 @@
 		}
 
 		// Add a marker to the map and push to the array.
-		function addMarker(location) {
+		function addMarker(location, markers) {
 		  var marker = new google.maps.Marker({
 		    position: location,
 		    map: map
@@ -50,23 +50,25 @@
 		}
 
 		// Sets the map on all markers in the array.
-		function setAllMap(map) {
+		function setAllMap(map, markers) {
 		  for (var i = 0; i < markers.length; i++) {
 		    markers[i].setMap(map);
 		  }
 		}
 
 		// Shows any markers currently in the array.
-		function showMarkers() {
-		  setAllMap(map);
+		function showMarkers(markers) {
+		  setAllMap(map, markers);
 		}
 		
 		 function add() {
+			 var markers = [];
 			<%for(edu.citybike.model.view.Coordinates coord : (java.util.ArrayList<edu.citybike.model.view.Coordinates>) request.getAttribute("coordinates")){%>
-		  	addMarker(new google.maps.LatLng(<%=coord.longitude%>, <%=coord.latitude%>));
+		  	addMarker(new google.maps.LatLng(<%=coord.longitude%>, <%=coord.latitude%>), markers);
 		  <%}%>
+		  console.log(markers);
 		  setAllMap(map);
-		  showMarkers();
+		  showMarkers(markers);
 		  }
 		
 		google.maps.event.addDomListener(window, 'load', initialize);

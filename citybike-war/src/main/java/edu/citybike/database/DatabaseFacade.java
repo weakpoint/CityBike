@@ -10,6 +10,7 @@ import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.Fee;
+import edu.citybike.model.Rent;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
 
@@ -24,6 +25,7 @@ public interface DatabaseFacade {
 	List<RentalOffice> getRentalOfficeList();
 	List<Fee> getFeeList() throws PersistenceException;
 	void remove(Object model) throws PersistenceException;
+	List<Rent> getUserRentListDesc(Key userKey) throws PersistenceException;
 	
 
 }

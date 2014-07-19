@@ -45,21 +45,30 @@
 		
 		geocoder.geocode({'latLng': new google.maps.LatLng(lat, lon)}, function(results, status) {
 		      if (status == google.maps.GeocoderStatus.OK) {
-		    	  if(results[0]){
-		    		  document.getElementById("housenumber").value = results[0].address_components[0].short_name; //types[0] == street_number
-		    		  document.getElementById("street").value = results[0].address_components[1].short_name; //route
-		    		  document.getElementById("city").value = results[0].address_components[3].short_name; //locality
+		    	  if(results){
+		    		  document.getElementById("housenumber").value = findFieldInResults(results, "street_number"); //types[0] == street_number
+		    		  document.getElementById("street").value = findFieldInResults(results, "route"); //route
+		    		  document.getElementById("city").value = findFieldInResults(results, "locality"); //locality
+		    		  document.getElementById("postalcode").value = findFieldInResults(results, "postal_code"); //types[0] == postal_code  
 		    	  }
-		        if (results[1]) {
-		        	console.log(results);
-		        	document.getElementById("postalcode").value = results[1].address_components[0].short_name; //types[0] == postal_code
-		        }
 		      } else {
 		        alert("Geocoder failed due to: " + status);
 		      }
 		});
 	}
 	
+
+	function findFieldInResults(results, name) {
+
+		for (var r = 0; r < results.length; r++) {
+			for (var i = 0; i < results[r].address_components.length; i++) {
+				if (results[r].address_components[i].types[0] === name) {
+					return results[r].address_components[i].short_name;
+				}
+			}
+		}
+		return "";
+	}
 </script>
 <title>Nowa wypożyczalnia</title>
 </head>

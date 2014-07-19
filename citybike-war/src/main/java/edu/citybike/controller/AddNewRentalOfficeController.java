@@ -1,7 +1,5 @@
 package edu.citybike.controller;
 
-import java.io.Serializable;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,7 +15,7 @@ import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.RentalOffice;
 
 @Controller
-public class AddNewRentalOfficeController implements Serializable{
+public class AddNewRentalOfficeController{
 
 	private static final Logger logger = LoggerFactory.getLogger(AddNewRentalOfficeController.class);
 	private DatabaseFacade facade;
@@ -43,7 +41,7 @@ public class AddNewRentalOfficeController implements Serializable{
 	}
 	
 	@RequestMapping(value = "/addNewRentalOffice", method = RequestMethod.POST)
-	public String addNewRentalOffice(@ModelAttribute("newRentalOffice") RentalOffice rentalOffice, HttpSession session) {
+	public String addNewRentalOffice(@ModelAttribute("newRentalOffice") RentalOffice rentalOffice) {
 		
 		try {
 			facade.add(rentalOffice);

@@ -108,7 +108,7 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	public List<RentalOffice> getRentalOfficeList() {
 		 Query rentalOfficeQuery = entityManager.createQuery("select rentalOffice from RentalOffice rentalOffice");
 		
-		  List<RentalOffice> rentalOfficeList = (List<RentalOffice>)rentalOfficeQuery.getResultList();
+		  List<RentalOffice> rentalOfficeList = rentalOfficeQuery.getResultList();
 		  if(rentalOfficeList == null){
 			  rentalOfficeList = new ArrayList<RentalOffice>();
 		  }
@@ -116,16 +116,13 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	}
 	
 
-	public List<Rent> getUserRentList(String userCode, String rentalNetworkCode) throws PersistenceException {
-		/*ArrayList<Rent> userList = new ArrayList<Rent>();
-		List<Rent> allRent = daoPersistenceFactory.getRentPersistence().getAll(rentalNetworkCode);
+	public List<Rent> getUserRentListDesc(Key userKey) throws PersistenceException {
+		Query userRentQuery = entityManager.createQuery("select rent from Rent rent where rent.userCode=?1 order by rent.startDate desc");
+		userRentQuery.setParameter(1, userKey);
+		
+		List<Rent> resultList = userRentQuery.getResultList();
 
-		for (Rent rent : allRent) {
-			if (userCode.equals(rent.getUserCode())) {
-				userList.add(rent);
-			}
-		}
-		*/return null;
+		return (resultList != null) ? resultList : new ArrayList<Rent>();
 	}
 
 	public List<Fee> getFeeList() throws PersistenceException {
