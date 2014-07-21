@@ -11,10 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.DatabaseFacadeImpl;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.User;
 import edu.citybike.model.view.CurrentUser;
@@ -24,11 +24,19 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
     private UserDetailsService userService;
 	private DatabaseFacade facade;
+	private PasswordEncoder encoder;
+
+	public PasswordEncoder getEncoder() {
+		return encoder;
+	}
+
+	public void setEncoder(PasswordEncoder encoder) {
+		this.encoder = encoder;
+	}
 
 	public DatabaseFacade getFacade() {
 		return facade;
 	}
-
 
 	public void setFacade(DatabaseFacade facade) {
 		this.facade = facade;
@@ -56,7 +64,7 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Username not found.");
         }
 
-        if (!password.equals(user.getPassword())) {
+        if (!encoder.matches(password, user.getPassword())) {
         	try {
 				User possibleUser = facade.getUserByLogin(email);
 				possibleUser.setLastFailedLogin(new Date());

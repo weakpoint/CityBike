@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +18,6 @@ import edu.citybike.model.Address;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.Fee;
-import edu.citybike.model.Rent;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
 
@@ -26,6 +26,15 @@ public class StarterController {
 
 	@Autowired
 	private DatabaseFacade facade;
+	private PasswordEncoder encoder;
+
+	public PasswordEncoder getEncoder() {
+		return encoder;
+	}
+
+	public void setEncoder(PasswordEncoder encoder) {
+		this.encoder = encoder;
+	}
 
 	public DatabaseFacade getFacade() {
 		return facade;
@@ -42,7 +51,7 @@ public class StarterController {
 		//Credentials
 		Credentials c = new Credentials();
 		c.setUsername("admin");
-		c.setPassword("admin");
+		c.setPassword(encoder.encode("admin"));
 		list.add(c);
 		
 		//user
@@ -65,7 +74,7 @@ public class StarterController {
 		// Credentials
 		Credentials c2 = new Credentials();
 		c2.setUsername("user");
-		c2.setPassword("user");
+		c2.setPassword(encoder.encode("user"));
 		list.add(c2);
 
 		// user
@@ -128,8 +137,8 @@ public class StarterController {
 		
 		// rental office
 		RentalOffice office = new RentalOffice();
-		office.setLatitude("19.156177");
-		office.setLongitude("51.704632");
+		office.setLatitude("51.704632");
+		office.setLongitude("19.156177");
 		adminaddress = new Address();
 		adminaddress.setCity("Lodz");
 		adminaddress.setStreet("Strykowska");

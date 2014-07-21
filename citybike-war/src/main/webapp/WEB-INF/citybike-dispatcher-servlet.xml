@@ -72,10 +72,19 @@
 
 	<bean class="edu.citybike.controller.StarterController">
 	<property name="facade" ref="facade"/>
+	<property name="encoder" ref="textencoder"/>
 	</bean>
 
 
 	<!-- security -->
+	<bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	<constructor-arg index="0" value="10"/>
+	</bean>
+	
+	<bean id="textencoder" class="edu.citybike.security.TextPasswordEncoder">
+	<property name="encoder" ref="encoder"/>
+	</bean>
+	
 	<bean id="simpleAuthenticationSuccessHandler" class="edu.citybike.security.SimpleAuthenticationSuccessHandler">
 	<property name="facade" ref="facade"/>
 	</bean>
@@ -83,6 +92,7 @@
 	<bean id="localAuthenticationProvider" class="edu.citybike.security.LocalAuthenticationProvider">
 	<property name="userService" ref="userService"/>
 	<property name="facade" ref="facade"/>
+	<property name="encoder" ref="textencoder"/>
 	</bean>
 	
 	<bean id="userService" class="edu.citybike.security.LocalUserDetailsService">

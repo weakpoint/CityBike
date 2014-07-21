@@ -60,7 +60,7 @@ public class RentalInformationController {
 	@RequestMapping(value ="/rentalInformation")
 	public ModelAndView showUserRentalInformation(HttpSession session) {
 		//obliczeni i wyswietlenie czasu i kosztu aktualnego wypozyczenia
-		//sciagnienie ogolnego i dodanie (tylko do wyswietlenia) aktualnego czasu i kosztu
+		//sciagniecie ogolnego i dodanie (tylko do wyswietlenia) aktualnego czasu i kosztu
 		ModelAndView model = new ModelAndView("rentalinformation");
 		CurrentUser user = ((CurrentUser)session.getAttribute("currentUser")); 
 		

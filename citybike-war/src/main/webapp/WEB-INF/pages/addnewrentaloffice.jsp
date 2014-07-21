@@ -31,9 +31,9 @@
 			draggable : true
 		});
 		google.maps.event.addListener(marker, 'dragend', function(a) {
-			console.log(a.latLng);
-			lon = a.latLng.B;
+			console.log(a.latLng.B);
 			lat = a.latLng.k;
+			lon = a.latLng.B;
 		});
 	}
 
