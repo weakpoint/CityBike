@@ -40,7 +40,7 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	}
 	
 	public EntityTransaction getTransaction(){
-		return entityManager.getTransaction();
+		return entityManagerFactory.createEntityManager().getTransaction();
 	}
 
 
@@ -148,6 +148,20 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 		}
 	}
 
+	public List<Bike> getBikeList() throws PersistenceException{
+		Query bikeQuery = entityManager.createQuery("select bike from Bike bike");
+		
+		List<Bike> bikeList = (List<Bike>) bikeQuery.getResultList();
+		if(bikeList == null){
+			bikeList = new ArrayList<Bike>();
+		}
+		return bikeList;
+	}
+	
+	public RentalOffice getRentalOfficeByKey(Key key){
+		return entityManager.find(RentalOffice.class, key);
+	}
+	
 	public Bike getBike(String rentalNetworkCode, String bikeCode) throws PersistenceException {
 		/*List<Bike> bikes = daoPersistenceFactory.getBikePersistence().getAll(rentalNetworkCode);
 		for (Bike bike : bikes) {

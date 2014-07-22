@@ -76,14 +76,7 @@ public class UserInfo{
 		user.setEmailAddress(emailAddress);
 		credentials.setUsername(emailAddress);
 	}
-
-	public String getNotes() {
-		return user.getNotes().getValue();
-	}
-
-	public void setNotes(String notes) {
-		user.setNotes(new Text(notes));
-	}
+	
 
 	public String getRole() {
 		return user.getRole();

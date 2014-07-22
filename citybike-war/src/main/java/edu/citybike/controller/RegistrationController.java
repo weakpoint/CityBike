@@ -6,6 +6,7 @@ import javax.persistence.EntityTransaction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +23,15 @@ public class RegistrationController {
 	private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
 	private DatabaseFacade facade;
+	private PasswordEncoder encoder;
 
+	public PasswordEncoder getEncoder() {
+		return encoder;
+	}
+
+	public void setEncoder(PasswordEncoder encoder) {
+		this.encoder = encoder;
+	}
 	public DatabaseFacade getFacade() {
 		return facade;
 	}
@@ -45,20 +54,13 @@ public class RegistrationController {
 */	
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public String registerUser(@ModelAttribute("userInfo") UserInfo userInfo){
-		
-		//sprawdzanie czy mail sie nie powtarza
-		
-		//
-System.out.println("register");
+
 		EntityTransaction tr = facade.getTransaction();
 		try {
-			System.out.println("IS ACTIVE1: "+tr.isActive());
 			tr.begin();
-			System.out.println("IS ACTIVE2: "+tr.isActive());
-			System.out.println(userInfo.getCredentials());
+			userInfo.getCredentials().setPassword(encoder.encode(userInfo.getCredentials().getPassword()));
 			facade.add(userInfo.getCredentials());
 			userInfo.getUser().setRegistrationDate(new Date());
-			System.out.println(userInfo.getUser());
 			facade.add(userInfo.getUser());
 			tr.commit();
 			

@@ -68,6 +68,7 @@
 	
 	<bean class="edu.citybike.controller.RegistrationController">
 	<property name="facade" ref="facade"/>
+	<property name="encoder" ref="encoder"/>
 	</bean>
 
 	<bean class="edu.citybike.controller.StarterController">

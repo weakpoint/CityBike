@@ -26,6 +26,8 @@ public interface DatabaseFacade {
 	List<Fee> getFeeList() throws PersistenceException;
 	void remove(Object model) throws PersistenceException;
 	List<Rent> getUserRentListDesc(Key userKey) throws PersistenceException;
+	List<Bike> getBikeList() throws PersistenceException;
+	RentalOffice getRentalOfficeByKey(Key key);
 	
 
 }

@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Text;
 
 @Entity
 public class User implements Serializable{
@@ -28,7 +27,7 @@ public class User implements Serializable{
 	private Address address;
 	private String phoneNumber;
 	private String emailAddress;
-	private Text notes;
+	private boolean activeRental;
 	private String role;
 	private Date registrationDate;
 	private Date lastSuccessLogin;
@@ -45,7 +44,7 @@ public class User implements Serializable{
 		this.address = new Address();
 		this.phoneNumber = "";
 		this.emailAddress = "";
-		this.notes = new Text("");
+		this.activeRental = false;
 		this.role = USER;
 	}
 
@@ -89,12 +88,13 @@ public class User implements Serializable{
 		this.emailAddress = emailAddress;
 	}
 
-	public Text getNotes() {
-		return notes;
+
+	public boolean hasActiveRental() {
+		return activeRental;
 	}
 
-	public void setNotes(Text notes) {
-		this.notes = notes;
+	public void setActiveRental(boolean activeRental) {
+		this.activeRental = activeRental;
 	}
 
 	public String getRole() {
@@ -140,7 +140,7 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [userKey=" + key + ", name=" + name + ", lastName=" + lastName + ", address=" + address
-				+ ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress + ", notes=" + notes + ", role="
+				+ ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress + ", activeRental=" + activeRental + ", role="
 				+ role + "]";
 	}
 

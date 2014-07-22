@@ -12,6 +12,7 @@
 		<%@include file="header.jsp"%>
 	</header>
 
+	<a href="/rentBike">Wypozycz rower</a><br />
 	<a href="/startup">START UP!</a>
 	<footer>
 		<%@include file="footer.jsp"%>

@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.google.appengine.api.datastore.Text;
-
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.exception.PersistenceException;
 import edu.citybike.model.Address;
@@ -19,6 +17,7 @@ import edu.citybike.model.Bike;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.Fee;
 import edu.citybike.model.RentalOffice;
+import edu.citybike.model.TechnicalDetails;
 import edu.citybike.model.User;
 
 @Controller
@@ -65,7 +64,6 @@ public class StarterController {
 		admin.setEmailAddress("admin");
 		admin.setLastName("Płuciennikowski");
 		admin.setName("Emil");
-		admin.setNotes(new Text("Goooood guy!"));
 		admin.setPhoneNumber("500 000 000");
 		admin.setRole(User.ADMINISTRATOR);
 		admin.setRegistrationDate(new Date());
@@ -88,7 +86,6 @@ public class StarterController {
 		user.setEmailAddress("user");
 		user.setLastName("Nazwisko Usera");
 		user.setName("Imię Usera");
-		user.setNotes(new Text(""));
 		user.setPhoneNumber("500 600 700");
 		user.setRegistrationDate(new Date());
 		user.setRole(User.USER);
@@ -150,7 +147,10 @@ public class StarterController {
 		list.add(office);
 		
 		//Bike
-		Bike bike = new Bike();	
+		Bike bike = new Bike();
+		TechnicalDetails td = new TechnicalDetails();
+		td.setName("Cross 1");
+		bike.setTechnicalDetails(td);
 		list.add(bike);
 /*		
 		//rent
