@@ -1,7 +1,5 @@
 package edu.citybike.model.view;
 
-import com.google.appengine.api.datastore.Text;
-
 import edu.citybike.model.Address;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.User;
@@ -10,14 +8,17 @@ public class UserInfo{
 
 	private User user;
 	private Credentials credentials;
+	private double balance;
+	private String repeatpassword;
 
 	public UserInfo(){
-		this(new User(), new Credentials());
+		this(new User(), new Credentials(), 0);
 	}
 
-	public UserInfo(User user, Credentials credentials) {
+	public UserInfo(User user, Credentials credentials, double balance) {
 		this.user = user;
 		this.credentials = credentials;
+		this.balance = balance;
 	}
 
 	public User getUser(){
@@ -77,13 +78,28 @@ public class UserInfo{
 		credentials.setUsername(emailAddress);
 	}
 	
-
 	public String getRole() {
 		return user.getRole();
 	}
 
 	public void setRole(String role) {
 		user.setRole(role);
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	
+	public String getRepeatpassword() {
+		return repeatpassword;
+	}
+
+	public void setRepeatpassword(String repeatpassword) {
+		this.repeatpassword = repeatpassword;
 	}
 
 	@Override

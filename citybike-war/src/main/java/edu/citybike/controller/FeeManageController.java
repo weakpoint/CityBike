@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.Fee;
 import edu.citybike.model.view.FeeManagerView;
 

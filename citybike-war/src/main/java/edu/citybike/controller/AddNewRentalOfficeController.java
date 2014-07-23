@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.RentalOffice;
 
 @Controller

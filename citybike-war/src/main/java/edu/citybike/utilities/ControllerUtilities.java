@@ -12,7 +12,7 @@ import com.google.appengine.api.datastore.Key;
 
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.DatabaseFacadeImpl;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Bike.STATUS;
 import edu.citybike.model.Fee;

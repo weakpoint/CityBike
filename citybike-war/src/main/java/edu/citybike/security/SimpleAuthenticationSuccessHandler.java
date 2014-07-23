@@ -15,7 +15,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.User;
 import edu.citybike.model.view.CurrentUser;
 

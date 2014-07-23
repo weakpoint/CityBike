@@ -10,8 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edu.citybike.bank.BankService;
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.Address;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Credentials;
@@ -180,6 +181,8 @@ public class StarterController {
 		for(Object model : list){
 			try {
 				facade.add(model);
+				BankService.createBankAccount(facade.getUserByLogin(user.getEmailAddress()).getKey());
+				BankService.createBankAccount(facade.getUserByLogin(admin.getEmailAddress()).getKey());
 			} catch (PersistenceException e) {
 				System.out.println(e);
 			}

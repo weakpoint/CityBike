@@ -54,8 +54,8 @@
 				</tr>
 				<tr>
 					<td>Powtórz hasło :</td>
-					<td><form:input path="password" /></td>
-					<td><form:errors path="password" cssClass="error" /></td>
+					<td><form:input path="repeatpassword" type="password"/></td>
+					<td><form:errors path="repeatpassword" cssClass="error" /></td>
 				</tr>
 			</c:if>
 			<tr>

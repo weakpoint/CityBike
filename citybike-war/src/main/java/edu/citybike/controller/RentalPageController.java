@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.appengine.api.datastore.KeyFactory;
 
+import edu.citybike.bank.BankService;
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.ModelNotExistsException;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.ModelNotExistsException;
+import edu.citybike.exceptions.NegativeBalanceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Bike.STATUS;
 import edu.citybike.model.Rent;
@@ -115,9 +117,12 @@ public class RentalPageController {
 					throw new Exception("User currently has bike rented");
 				}
 				
-				RentalOffice rentalOffice = facade.getRentalOfficeByKey(KeyFactory.stringToKey(rentalView.getRentalOfficeKey()));
+				if(BankService.checkBalance(user.getKey()) < 0){
+					throw new NegativeBalanceException();
+				}
 				
 				Bike bike = facade.getBikeByKey(KeyFactory.stringToKey(rentalView.getBikeKey()));
+				RentalOffice rentalOffice = facade.getRentalOfficeByKey(KeyFactory.stringToKey(rentalView.getRentalOfficeKey()));
 				
 				if(bike == null){
 					throw new ModelNotExistsException("Bike does not exist");

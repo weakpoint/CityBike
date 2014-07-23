@@ -1,4 +1,4 @@
-package edu.citybike.database.exception;
+package edu.citybike.exceptions;
 
 public class ModelAlreadyExistsException extends PersistenceException {
 	public ModelAlreadyExistsException(String message) {

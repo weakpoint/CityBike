@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.User;
 import edu.citybike.model.view.CurrentUser;
 
@@ -71,7 +71,7 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
 				facade.update(possibleUser);
 			} catch (PersistenceException e) {
 			}
-        	
+        	System.out.println("Wrong password "+encoder.encode(password));
             throw new BadCredentialsException("Wrong password.");
         }
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();

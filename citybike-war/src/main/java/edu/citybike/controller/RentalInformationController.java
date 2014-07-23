@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.Rent;
 import edu.citybike.model.RentalOffice;
-import edu.citybike.model.User;
 import edu.citybike.model.view.Coordinates;
 import edu.citybike.model.view.CurrentUser;
 import edu.citybike.utilities.ControllerUtilities;
@@ -78,12 +77,10 @@ public class RentalInformationController {
 		
 		Rent lastUserRent = null;
 		try {
-			lastUserRent = (userRentList.size()>0?userRentList.get(0):null);
-		
-		if(lastUserRent  == null || (lastUserRent.getEndDate().compareTo(new Date())) < 0){
-			//schowac panel aktualnych danych			
-		} else {
-			actualTime = (lastUserRent.getStartDate().getTime() - new Date().getTime())/(1000*60);
+			lastUserRent = facade.getUserActiveRental(user.getUserKey());
+			
+		if(lastUserRent.isActive()){
+			actualTime = (new Date().getTime()-lastUserRent.getStartDate().getTime())/(1000*60);
 			actualCost = ControllerUtilities.calculatePayment(facade.getFeeList(), actualTime);
 			overallTime += actualTime;
 			overallCost += actualCost;

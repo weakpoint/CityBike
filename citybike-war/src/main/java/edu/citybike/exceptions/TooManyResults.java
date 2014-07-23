@@ -1,4 +1,4 @@
-package edu.citybike.database.exception;
+package edu.citybike.exceptions;
 
 public class TooManyResults extends PersistenceException {
 

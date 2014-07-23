@@ -76,6 +76,9 @@
 	<property name="encoder" ref="textencoder"/>
 	</bean>
 
+	<bean class="edu.citybike.bank.BankService">
+	<property name="facade" ref="facade"/>
+	</bean>
 
 	<!-- security -->
 	<bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

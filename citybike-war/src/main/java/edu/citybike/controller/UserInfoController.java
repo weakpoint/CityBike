@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.citybike.bank.BankService;
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.User;
 import edu.citybike.model.view.CurrentUser;
@@ -45,12 +46,14 @@ public class UserInfoController {
 		User user = facade.getUserByKey(currentUser.getUserKey());
 
 		Credentials credential = null;
+		double balance = 0;
 		try {
 			credential = facade.getCredentials(user.getEmailAddress());
+			balance = BankService.checkBalance(user.getKey());
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
 		}
-		UserInfo userInfo = new UserInfo(user, credential);
+		UserInfo userInfo = new UserInfo(user, credential, balance);
 
 		map.addAttribute("userInfo", userInfo);
 		
@@ -59,18 +62,12 @@ public class UserInfoController {
 	}
 	
 	@RequestMapping(value="/userInfo", method= RequestMethod.POST)
-	public ModelAndView saveForm(@ModelAttribute("userInfo") UserInfo user,ModelMap map, HttpSession session) {
+	public ModelAndView saveForm(@ModelAttribute("userInfo") UserInfo user, ModelMap map) {
 		ModelAndView mav = new ModelAndView("userdata");
 		try {
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			User userAfterChanges = ControllerUtilities.retriveChangedUser(facade, user);
 			facade.update(userAfterChanges);
-			System.out.println("???????????????????????????????");
-			System.out.println("USER INFO "+user);
-			//facade.update(user.getCredentials());
-			System.out.println("creden "+user.getCredentials());
-			mav.addObject("userInfo", new UserInfo(userAfterChanges, user.getCredentials()));
-			//session.setAttribute("currentUser", user.getUser());
+			mav.addObject("userInfo", new UserInfo(userAfterChanges, user.getCredentials(), BankService.checkBalance(userAfterChanges.getKey())));
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage(), e);
 		}

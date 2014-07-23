@@ -89,9 +89,11 @@
 			<c:if test="${actualRentTime > 0}">
 				<span>Czas:</span>
 				<span>${actualRentTime}</span>
+				<span> min</span>
 				<br />
 				<span>Koszt:</span>
 				<span>${actualRentCost}</span>
+				<span> zł</span>
 			</c:if>
 
 			<c:if test="${actualRentTime == 0}">

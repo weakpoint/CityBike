@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edu.citybike.bank.BankService;
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
+import edu.citybike.model.User;
 import edu.citybike.model.view.UserInfo;
 
 @Controller
@@ -62,9 +64,12 @@ public class RegistrationController {
 			facade.add(userInfo.getCredentials());
 			userInfo.getUser().setRegistrationDate(new Date());
 			facade.add(userInfo.getUser());
+			
+			User newUser = facade.getUserByLogin(userInfo.getUser().getEmailAddress());
+			BankService.createBankAccount(newUser.getKey());
 			tr.commit();
 			
-		} catch (PersistenceException e) {
+		} catch (Exception e) {
 			logger.error("Error during registration: "+e.getMessage());
 			tr.rollback();
 		}

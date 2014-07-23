@@ -6,7 +6,9 @@ import javax.persistence.EntityTransaction;
 
 import com.google.appengine.api.datastore.Key;
 
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.ModelNotExistsException;
+import edu.citybike.exceptions.PersistenceException;
+import edu.citybike.model.BankAccount;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.Fee;
@@ -28,6 +30,8 @@ public interface DatabaseFacade {
 	List<Rent> getUserRentListDesc(Key userKey) throws PersistenceException;
 	List<Bike> getBikeList() throws PersistenceException;
 	RentalOffice getRentalOfficeByKey(Key key);
+	BankAccount getUserBankAccount(Key userKey) throws ModelNotExistsException;
+	Rent getUserActiveRental(Key userKey) throws ModelNotExistsException;
 	
 
 }

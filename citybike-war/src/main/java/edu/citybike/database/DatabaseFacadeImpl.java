@@ -15,9 +15,10 @@ import org.slf4j.LoggerFactory;
 
 import com.google.appengine.api.datastore.Key;
 
-import edu.citybike.database.exception.ModelNotExistsException;
-import edu.citybike.database.exception.PersistenceException;
-import edu.citybike.database.exception.TooManyResults;
+import edu.citybike.exceptions.ModelNotExistsException;
+import edu.citybike.exceptions.PersistenceException;
+import edu.citybike.exceptions.TooManyResults;
+import edu.citybike.model.BankAccount;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.Fee;
@@ -160,6 +161,29 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	
 	public RentalOffice getRentalOfficeByKey(Key key){
 		return entityManager.find(RentalOffice.class, key);
+	}
+	
+	public BankAccount getUserBankAccount(Key userKey) throws ModelNotExistsException{
+		Query bankAccountQuery = entityManager.createQuery("select ba from BankAccount ba where ba.userKey=?1");
+		bankAccountQuery.setParameter(1, userKey);
+		
+		BankAccount bankAccount = (BankAccount) bankAccountQuery.getSingleResult();
+		if(bankAccount == null){
+			throw new ModelNotExistsException("There is no bank account for this user");
+		}
+		return bankAccount;
+	}
+	
+	public Rent getUserActiveRental(Key userKey) throws ModelNotExistsException{
+		Query activeRentalQuery = entityManager.createQuery("select rental from Rent rental where rental.userCode=?1 and rental.active = true");
+		activeRentalQuery.setParameter(1, userKey);
+		Rent activeRental = null;
+		try{
+			activeRental = (Rent) activeRentalQuery.getSingleResult(); 
+		}catch(NoResultException e){
+			throw new ModelNotExistsException("There is no active rental");
+		}
+		return activeRental;
 	}
 	
 	public Bike getBike(String rentalNetworkCode, String bikeCode) throws PersistenceException {

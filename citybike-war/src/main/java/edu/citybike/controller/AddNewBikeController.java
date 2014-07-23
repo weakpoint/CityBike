@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.google.appengine.api.datastore.KeyFactory;
 
 import edu.citybike.database.DatabaseFacade;
-import edu.citybike.database.exception.PersistenceException;
+import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.Bike;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
