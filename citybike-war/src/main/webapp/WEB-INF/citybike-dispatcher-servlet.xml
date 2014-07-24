@@ -31,11 +31,10 @@
 	<bean class="edu.citybike.controller.AddNewEmployeeController">
 	<property name="facade" ref="facade"/>
 	</bean>
-	
+
 	<bean class="edu.citybike.controller.IndexPageController">
-	<property name="facade" ref="facade"/>
 	</bean>
- 
+
 	<bean class="edu.citybike.controller.UserAuthenticationController">
 	<property name="facade" ref="facade"/>
 	</bean>

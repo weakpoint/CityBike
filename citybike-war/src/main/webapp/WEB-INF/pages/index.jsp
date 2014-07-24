@@ -13,6 +13,7 @@
 	</header>
 
 	<a href="/rentBike">Wypozycz rower</a><br />
+	<a href="/mail">Test maila</a>
 	<a href="/startup">START UP!</a>
 	<footer>
 		<%@include file="footer.jsp"%>
