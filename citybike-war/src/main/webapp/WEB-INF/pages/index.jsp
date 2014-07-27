@@ -12,7 +12,10 @@
 		<%@include file="header.jsp"%>
 	</header>
 
-	<a href="/rentBike">Wypozycz rower</a><br />
+			<c:if test="${currentUser.authorities[0] == 'USER'}">
+				<a href="/rentBike">Wypozycz rower</a><br />
+			</c:if>
+	
 	<a href="/mail">Test maila</a>
 	<a href="/startup">START UP!</a>
 	<footer>

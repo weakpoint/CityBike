@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.citybike.database.DatabaseFacade;
+import edu.citybike.exceptions.ModelNotExistsException;
 import edu.citybike.exceptions.PersistenceException;
+import edu.citybike.model.Bike;
 import edu.citybike.model.Rent;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.view.Coordinates;
@@ -58,8 +60,6 @@ public class RentalInformationController {
 	
 	@RequestMapping(value ="/rentalInformation")
 	public ModelAndView showUserRentalInformation(HttpSession session) {
-		//obliczeni i wyswietlenie czasu i kosztu aktualnego wypozyczenia
-		//sciagniecie ogolnego i dodanie (tylko do wyswietlenia) aktualnego czasu i kosztu
 		ModelAndView model = new ModelAndView("rentalinformation");
 		CurrentUser user = ((CurrentUser)session.getAttribute("currentUser")); 
 		
@@ -84,13 +84,20 @@ public class RentalInformationController {
 			actualCost = ControllerUtilities.calculatePayment(facade.getFeeList(), actualTime);
 			overallTime += actualTime;
 			overallCost += actualCost;
-			model.addObject("hideActualSection", "");
+			model.addObject("hasActive", "true");
+			
+			Bike bike = facade.getBikeByKey(lastUserRent.getBikeCode());
+			if(bike != null){
+				model.addObject("bikeInfo", bike.getTechnicalDetails().getName());
+			} else {
+				throw new ModelNotExistsException("Bike not found");
+			}
 		}
 		
 		model.addObject("actualRentTime", actualTime);
 		model.addObject("actualRentCost", actualCost);
-		model.addObject("overallRentalTime", overallTime);
-		model.addObject("overallRentalCost", overallCost);
+		model.addObject("overallRentalTime", overallTime+actualTime);
+		model.addObject("overallRentalCost", overallCost+actualCost);
 		
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage(),e);

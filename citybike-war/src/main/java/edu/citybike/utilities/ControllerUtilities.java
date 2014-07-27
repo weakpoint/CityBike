@@ -8,13 +8,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.appengine.api.datastore.Key;
-
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.database.DatabaseFacadeImpl;
 import edu.citybike.exceptions.PersistenceException;
-import edu.citybike.model.Bike;
-import edu.citybike.model.Bike.STATUS;
 import edu.citybike.model.Fee;
 import edu.citybike.model.User;
 import edu.citybike.model.view.UserInfo;
@@ -35,15 +31,6 @@ public class ControllerUtilities {
 	
 	public ControllerUtilities() {
 		facade = new DatabaseFacadeImpl();
-	}
-
-	public Bike changeBikeStatus(Key bikeKey, STATUS status) throws PersistenceException{
-		logger.info("facade "+facade);
-		Bike bike = facade.getBikeByKey(bikeKey);
-		
-		bike.setStatus(status);
-		facade.update(bike);
-		return bike;
 	}
 	
 	public static double calculatePayment(List<Fee> fees, long rentDuration){

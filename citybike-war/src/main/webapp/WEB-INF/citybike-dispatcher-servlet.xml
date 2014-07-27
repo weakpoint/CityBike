@@ -27,10 +27,6 @@
 	<bean class="edu.citybike.controller.AddNewBikeController">
 	<property name="facade" ref="facade"/>
 	</bean>
-	
-	<bean class="edu.citybike.controller.AddNewEmployeeController">
-	<property name="facade" ref="facade"/>
-	</bean>
 
 	<bean class="edu.citybike.controller.IndexPageController">
 	</bean>
@@ -62,8 +58,6 @@
 	<bean class="edu.citybike.controller.UserInfoController">
 	<property name="facade" ref="facade"/>
 	</bean>
-	
-	<bean class="edu.citybike.controller.AddNewRentalNetworkController"/>
 	
 	<bean class="edu.citybike.controller.RegistrationController">
 	<property name="facade" ref="facade"/>

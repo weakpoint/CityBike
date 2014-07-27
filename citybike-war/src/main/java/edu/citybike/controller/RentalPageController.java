@@ -53,8 +53,10 @@ public class RentalPageController {
 		try {
 			bikeList = facade.getBikeList();
 			for (Bike bike : bikeList) {
-				
-				bikeMap.put(KeyFactory.keyToString(bike.getKey()), bike.getTechnicalDetails().getName());
+				System.out.println(bike.getTechnicalDetails().getName()+" "+bike.getStatusString());
+				if(STATUS.AVAILABLE.compareTo(bike.getStatus()) == 0){
+					bikeMap.put(KeyFactory.keyToString(bike.getKey()), bike.getTechnicalDetails().getName());
+				}
 			}
 		} catch (PersistenceException e) {
 			logger.error("Error during bike map creation: " + e.getMessage());

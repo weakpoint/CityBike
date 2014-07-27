@@ -86,7 +86,8 @@
 			<header>
 				<h1>Statystyki aktualnego wypożyczenia</h1>
 			</header>
-			<c:if test="${actualRentTime > 0}">
+			<c:if test="${hasActive == 'true'}">
+				<span>Aktualnie wypożyczony rower: ${bikeInfo}</span><br />
 				<span>Czas:</span>
 				<span>${actualRentTime}</span>
 				<span> min</span>
@@ -105,7 +106,7 @@
 			<header>
 				<h1>Ogólne statystyki wypożyczenia</h1>
 			</header>
-			<span>Czas:</span> <span>${overallRentalTime}</span> <br /> <span>Koszt:</span><span>${overallRentalCost}</span>
+			<span>Czas:</span> <span>${overallRentalTime}</span><span> min</span><br /> <span>Koszt:</span><span>${overallRentalCost}</span><span> zł</span>
 		</section>
 	</section>
 
