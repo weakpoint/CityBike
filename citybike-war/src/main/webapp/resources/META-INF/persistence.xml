@@ -15,6 +15,7 @@
         <class>edu.citybike.model.RentalOffice</class>
         <class>edu.citybike.model.TechnicalDetails</class>
         <class>edu.citybike.model.User</class>
+        <class>edu.citybike.model.Rent</class>
         <exclude-unlisted-classes/>
         <properties>
             <property name="datanucleus.NontransactionalRead" value="true"/>

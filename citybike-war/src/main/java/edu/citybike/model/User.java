@@ -23,6 +23,7 @@ public class User implements Serializable{
 
 	private String name;
 	private String lastName;
+	private String externalID;
 	@Embedded
 	private Address address;
 	private String phoneNumber;
@@ -45,6 +46,7 @@ public class User implements Serializable{
 		this.phoneNumber = "";
 		this.emailAddress = "";
 		this.activeRental = false;
+		this.externalID = "";
 		this.role = USER;
 	}
 
@@ -137,11 +139,22 @@ public class User implements Serializable{
 		this.key = userKey;
 	}
 
+	public String getExternalID() {
+		return externalID;
+	}
+
+	public void setExternalID(String externalID) {
+		this.externalID = externalID;
+	}
+
 	@Override
 	public String toString() {
-		return "User [userKey=" + key + ", name=" + name + ", lastName=" + lastName + ", address=" + address
-				+ ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress + ", activeRental=" + activeRental + ", role="
-				+ role + "]";
+		return "User [key=" + key + ", name=" + name + ", lastName=" + lastName + ", externalID=" + externalID
+				+ ", address=" + address + ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress
+				+ ", activeRental=" + activeRental + ", role=" + role + ", registrationDate=" + registrationDate
+				+ ", lastSuccessLogin=" + lastSuccessLogin + ", lastFailedLogin=" + lastFailedLogin + "]";
 	}
+
+	
 
 }

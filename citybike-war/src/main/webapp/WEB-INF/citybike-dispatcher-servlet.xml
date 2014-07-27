@@ -96,6 +96,8 @@
 	<property name="facade" ref="facade"/>
 	</bean>
 	
+	<bean class="edu.citybike.controller.FacebookExternalLoginController"/>
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
