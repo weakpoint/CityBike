@@ -10,6 +10,7 @@ public class UserInfo{
 	private Credentials credentials;
 	private double balance;
 	private String repeatpassword;
+	private String externalID;
 
 	public UserInfo(){
 		this(new User(), new Credentials(), 0);
@@ -100,6 +101,14 @@ public class UserInfo{
 
 	public void setRepeatpassword(String repeatpassword) {
 		this.repeatpassword = repeatpassword;
+	}
+	
+	public String getExternalID() {
+		return user.getExternalID();
+	}
+
+	public void setExternalID(String externalID) {
+		user.setExternalID(externalID);
 	}
 
 	@Override

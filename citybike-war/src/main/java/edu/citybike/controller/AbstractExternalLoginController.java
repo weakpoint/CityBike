@@ -1,14 +1,38 @@
 package edu.citybike.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.security.auth.login.LoginException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.citybike.database.DatabaseFacade;
+import edu.citybike.exceptions.PersistenceException;
+import edu.citybike.model.User;
+import edu.citybike.model.view.CurrentUser;
 import edu.citybike.model.view.ExternalLoginUser;
+import edu.citybike.model.view.UserInfo;
 
 public abstract class AbstractExternalLoginController {
 	private DatabaseFacade facade;
+	private PasswordEncoder encoder;
 	private static final Logger logger = LoggerFactory.getLogger(AbstractExternalLoginController.class);
+
+	public PasswordEncoder getEncoder() {
+		return encoder;
+	}
+
+	public void setEncoder(PasswordEncoder encoder) {
+		this.encoder = encoder;
+	}
 
 	public DatabaseFacade getFacade() {
 		return facade;
@@ -17,13 +41,42 @@ public abstract class AbstractExternalLoginController {
 	public void setFacade(DatabaseFacade facade) {
 		this.facade = facade;
 	}
-	
-	protected String manageExternalLoginAttempt(ExternalLoginUser externalUser){
-		//szyfrowanie id ?
-	
-		//jesli jest w bazie to sciagnac usera i porownac externalID, opakowac w current user i wywolac SimpleAuthenticationSuccessHandler
-		//jesli nie ma (nie ma tu pomylki w nazwie) to wyswietlic formularz logowania z wypelnionymi danymi z fejsa
-		return "redirect:/";
+
+	protected ModelAndView manageExternalLoginAttempt(HttpServletRequest request, ExternalLoginUser externalUser)
+			throws LoginException {
+		ModelAndView mav = null;
+
+		User localUser;
+		try {
+			localUser = facade.getUserByLogin(externalUser.getEmail());
+
+			if (encoder.matches(externalUser.getId(), localUser.getExternalID())) {
+				//user is currently registered
+				List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+				roles.add(new SimpleGrantedAuthority(localUser.getRole()));
+
+				CurrentUser currentUser = new CurrentUser(localUser.getKey(), externalUser.getEmail(), "", roles);
+				request.getSession().setAttribute("currentUser", currentUser);
+				mav = new ModelAndView("redirect:/");
+				return mav;
+			} else {
+				throw new LoginException("Login duplicated!");
+			}
+		} catch (PersistenceException e) {
+			logger.debug("Unregistered login: "+externalUser.getEmail());
+			UserInfo userInfo = new UserInfo();
+			userInfo.setEmailAddress(externalUser.getEmail());
+			userInfo.setExternalID(encoder.encode(externalUser.getId()));
+			userInfo.setName(externalUser.getFirst_name());
+			userInfo.setLastName(externalUser.getLast_name());
 		
+			mav = new ModelAndView("forward:/registration");
+			mav.addObject("userInfo", userInfo);
+			return mav;
+		}
+ 
+			
+		
+
 	}
 }

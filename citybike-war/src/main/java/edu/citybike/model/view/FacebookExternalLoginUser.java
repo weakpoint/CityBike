@@ -10,6 +10,10 @@ public class FacebookExternalLoginUser extends ExternalLoginUser{
 	private String updated_time;
 	private boolean verified;
 	
+	public FacebookExternalLoginUser(){
+		super("", "", "", "");
+	}
+	
 	public FacebookExternalLoginUser(String id, String email, String first_name, String last_name, String gender, String link,
 			String locale, String name, int timezone, String updated_time, boolean verified) {
 		super(id, email, first_name, last_name);

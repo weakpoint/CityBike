@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
@@ -41,7 +42,7 @@ public class FacebookExternalLoginController extends AbstractExternalLoginContro
 	}
 
 	@RequestMapping(value = "/facebookLoginCallback")
-	public String facebookLoginCallback(HttpServletRequest httpRequest) {
+	public ModelAndView facebookLoginCallback(HttpServletRequest httpRequest) {
 		try {
 			String code = httpRequest.getParameter("code");
 			
@@ -61,10 +62,12 @@ public class FacebookExternalLoginController extends AbstractExternalLoginContro
 			String responseBody = null;
 			if ((response.getCode() == 200) && (responseBody = response.getBody()) != null) {
 				
-				System.out.println("Response JSON: "+responseBody);
+				logger.debug("Response JSON: "+responseBody);
 				Gson gson = new Gson();
 				FacebookExternalLoginUser externalUser = gson.fromJson(responseBody, FacebookExternalLoginUser.class);
-				return manageExternalLoginAttempt(externalUser);
+				ModelAndView manageExternalLoginAttempt = manageExternalLoginAttempt(httpRequest, externalUser);
+				System.out.println(manageExternalLoginAttempt.getModel().get("userInfo"));
+				return manageExternalLoginAttempt;
 				
 			} else {
 				throw new ModelNotExistsException("Problem with user data");
@@ -73,6 +76,7 @@ public class FacebookExternalLoginController extends AbstractExternalLoginContro
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-		return "redirect:/";
+		ModelAndView main = new ModelAndView("redirect:/");
+		return main;
 	}
 }

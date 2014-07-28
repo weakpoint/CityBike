@@ -1,11 +1,16 @@
 package edu.citybike.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityTransaction;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +22,7 @@ import edu.citybike.bank.BankService;
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.User;
+import edu.citybike.model.view.CurrentUser;
 import edu.citybike.model.view.UserInfo;
 
 @Controller
@@ -43,9 +49,15 @@ public class RegistrationController {
 	}
 	
 	@RequestMapping("/registration")
-	public String showAddRegistrationForm(ModelMap map) {
+	public String showAddRegistrationForm(HttpServletRequest request, ModelMap map) {
+		System.out.println("Reg: "+request.getAttribute("userInfo"));
 		map.addAttribute("formAction", "/register.do");
-		map.addAttribute("userInfo", new UserInfo());
+		if(request.getAttribute("userInfo") == null){
+			map.addAttribute("userInfo", new UserInfo());
+		} else {
+			map.addAttribute("userInfo",request.getAttribute("userInfo"));
+		}
+		
 		return "userdata";
 	}
 	
@@ -55,7 +67,7 @@ public class RegistrationController {
 	}	
 */	
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute("userInfo") UserInfo userInfo){
+	public String registerUser(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request){
 
 		EntityTransaction tr = facade.getTransaction();
 		try {
@@ -69,6 +81,11 @@ public class RegistrationController {
 			BankService.createBankAccount(newUser.getKey());
 			tr.commit();
 			
+			List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+			roles.add(new SimpleGrantedAuthority(newUser.getRole()));
+
+			CurrentUser currentUser = new CurrentUser(newUser.getKey(), newUser.getEmailAddress(), "", roles);
+			request.getSession().setAttribute("currentUser", currentUser);
 		} catch (Exception e) {
 			logger.error("Error during registration: "+e.getMessage());
 			tr.rollback();

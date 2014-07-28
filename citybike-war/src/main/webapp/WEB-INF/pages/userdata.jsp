@@ -46,7 +46,7 @@
 				</c:choose>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
 			</tr>
-			<c:if test="${(currentUser == null)}">
+			<c:if test="${(currentUser == null) && (userInfo.externalID == '')}">
 				<tr>
 					<td>Hasło :</td>
 					<td><form:input path="password"  type="password"/></td>
@@ -88,6 +88,9 @@
 				<td>Miasto :</td>
 				<td><form:input path="address.city" /></td>
 				<td><form:errors path="address.city" cssClass="error" /></td>
+			</tr>
+			<tr>
+			<td><form:input path="externalID" hidden="hidden" /></td>
 			</tr>
 
 			<tr>

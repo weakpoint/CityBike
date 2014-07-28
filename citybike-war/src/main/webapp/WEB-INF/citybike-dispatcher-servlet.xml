@@ -96,7 +96,11 @@
 	<property name="facade" ref="facade"/>
 	</bean>
 	
-	<bean class="edu.citybike.controller.FacebookExternalLoginController"/>
+	<bean class="edu.citybike.controller.FacebookExternalLoginController">
+	<property name="facade" ref="facade"/>
+	<property name="encoder" ref="textencoder"/>
+	</bean>
+
 	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

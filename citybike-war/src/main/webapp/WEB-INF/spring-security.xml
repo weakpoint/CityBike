@@ -12,6 +12,7 @@
 	<http pattern="/registration*" security="none" />
 	<http pattern="/register.do" security="none" />
 	<http pattern="/facebookLogin.do" security="none" />
+	<http pattern="/facebookLoginCallback*" security="none" />
 
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin**" access="hasRole('ADMINISTRATOR')" />
