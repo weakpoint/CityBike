@@ -64,16 +64,20 @@ public class RentalInformationController {
 		CurrentUser user = ((CurrentUser)session.getAttribute("currentUser")); 
 		
 		List<Rent> userRentList = null;
+		long overallTime = 0;
+		double overallCost = 0;
+		long actualTime = 0;
+		double actualCost = 0;
+		
 		try {
 			userRentList = facade.getUserRentListDesc(user.getUserKey());
+			overallTime = calculateOveralRentalTime(userRentList);
+			overallCost = calculateOveralRentalCost(userRentList);
+			actualTime = 0;
+			actualCost = 0;
 		} catch (PersistenceException e) {
 			logger.error("Error during getting user rent list", e);
 		}
-		
-		long overallTime = calculateOveralRentalTime(userRentList);
-		double overallCost = calculateOveralRentalCost(userRentList);
-		long actualTime = 0;
-		double actualCost = 0;
 		
 		Rent lastUserRent = null;
 		try {

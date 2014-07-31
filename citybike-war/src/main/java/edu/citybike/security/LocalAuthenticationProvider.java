@@ -57,7 +57,9 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
         String password = (String) authentication.getCredentials();
-
+        System.out.println("Handler!!!!!!!!!!!!!!!!!!!!!: "+authentication);
+        System.out.println("Name: "+authentication.getName());
+        System.out.println("Principal: "+authentication.getPrincipal());
         CurrentUser user = (CurrentUser) userService.loadUserByUsername(email);
 
         if (user == null) {

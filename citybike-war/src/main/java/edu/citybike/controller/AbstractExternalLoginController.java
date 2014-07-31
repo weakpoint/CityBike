@@ -5,13 +5,18 @@ import java.util.List;
 
 import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.citybike.database.DatabaseFacade;
@@ -24,6 +29,7 @@ import edu.citybike.model.view.UserInfo;
 public abstract class AbstractExternalLoginController {
 	private DatabaseFacade facade;
 	private PasswordEncoder encoder;
+	private AuthenticationDetailsSource ads = new WebAuthenticationDetailsSource();
 	private static final Logger logger = LoggerFactory.getLogger(AbstractExternalLoginController.class);
 
 	public PasswordEncoder getEncoder() {
@@ -56,7 +62,16 @@ public abstract class AbstractExternalLoginController {
 				roles.add(new SimpleGrantedAuthority(localUser.getRole()));
 
 				CurrentUser currentUser = new CurrentUser(localUser.getKey(), externalUser.getEmail(), "", roles);
-				request.getSession().setAttribute("currentUser", currentUser);
+				PreAuthenticatedAuthenticationToken token = new PreAuthenticatedAuthenticationToken(currentUser, "", roles);
+		        token.setDetails(ads.buildDetails(request));
+
+		          // Setup the security context
+		          SecurityContextHolder.getContext().setAuthentication(token);
+		          
+		          HttpSession session = request.getSession(true);
+		          session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+		          request.getSession().setAttribute("currentUser", currentUser);
+
 				mav = new ModelAndView("redirect:/");
 				return mav;
 			} else {
