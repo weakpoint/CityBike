@@ -63,7 +63,6 @@ public class Bike {
 			break;
 		case "RENTED":
 			this.status = STATUS.RENTED;
-			rentalCount++;
 			break;
 		case "IN_REPAIR":
 			this.status = STATUS.IN_REPAIR;
@@ -74,7 +73,7 @@ public class Bike {
 		
 	}
 	public void setStatus(STATUS status) {
-		this.status = status;
+		setStatus(status.toString());
 	}
 	
 	public int getRentalCount() {

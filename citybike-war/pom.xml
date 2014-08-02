@@ -6,23 +6,23 @@
 	<packaging>war</packaging>
 	<artifactId>citybike-war</artifactId>
 
-<repositories>
-	<repository>
-		<id>repo</id>
-		<name>Repository</name>
-		<url>http://repo1.maven.org/maven2</url>
-		<layout>default</layout>
-	</repository>
-	<repository>
-		<id>scribe-java-mvn-repo</id>
-		<url>https://raw.github.com/fernandezpablo85/scribe-java/mvn-repo/</url>
-		<snapshots>
-			<enabled>true</enabled>
-			<updatePolicy>always</updatePolicy>
-		</snapshots>
-	</repository>
+	<repositories>
+		<repository>
+			<id>repo</id>
+			<name>Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>scribe-java-mvn-repo</id>
+			<url>https://raw.github.com/fernandezpablo85/scribe-java/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
 
-</repositories>
+	</repositories>
 
 	<parent>
 		<groupId>edu.citybike</groupId>
@@ -32,11 +32,11 @@
 
 	<!-- Compile/runtime dependencies -->
 	<dependencies>
-	<dependency>
-  <groupId>org.scribe</groupId>
-  <artifactId>scribe</artifactId>
-  <version>1.3.6</version>
-</dependency>
+		<dependency>
+			<groupId>org.scribe</groupId>
+			<artifactId>scribe</artifactId>
+			<version>1.3.6</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -174,7 +174,7 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring.security.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -185,6 +185,12 @@
 			<groupId>aopalliance</groupId>
 			<artifactId>aopalliance</artifactId>
 			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
 		</dependency>
 
 		<!-- Test Dependencies -->

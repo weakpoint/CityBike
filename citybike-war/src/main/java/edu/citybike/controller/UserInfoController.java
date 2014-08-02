@@ -49,7 +49,7 @@ public class UserInfoController {
 		try {
 			credential = facade.getCredentials(user.getEmailAddress());
 			balance = BankService.checkBalance(user.getKey());
-		} catch (PersistenceException e) {
+		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 		UserInfo userInfo = new UserInfo(user, credential, balance);

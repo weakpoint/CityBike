@@ -97,7 +97,7 @@
 				<span> zł</span>
 			</c:if>
 
-			<c:if test="${actualRentTime == 0}">
+			<c:if test="${hasActive == 'false'}">
 				<span>Brak aktualnych wypożyczeń</span>
 				</c:if>
 		</section>

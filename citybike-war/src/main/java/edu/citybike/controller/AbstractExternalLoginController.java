@@ -61,7 +61,7 @@ public abstract class AbstractExternalLoginController {
 				List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 				roles.add(new SimpleGrantedAuthority(localUser.getRole()));
 
-				CurrentUser currentUser = new CurrentUser(localUser.getKey(), externalUser.getEmail(), "", roles);
+				CurrentUser currentUser = new CurrentUser(localUser.getKey(), externalUser.getEmail(), "", roles, localUser.getExternalID());
 				PreAuthenticatedAuthenticationToken token = new PreAuthenticatedAuthenticationToken(currentUser, "", roles);
 		        token.setDetails(ads.buildDetails(request));
 

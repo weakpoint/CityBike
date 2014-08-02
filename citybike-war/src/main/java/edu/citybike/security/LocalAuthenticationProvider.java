@@ -59,14 +59,14 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
         String password = (String) authentication.getCredentials();
         System.out.println("Handler!!!!!!!!!!!!!!!!!!!!!: "+authentication);
         System.out.println("Name: "+authentication.getName());
-        System.out.println("Principal: "+authentication.getPrincipal());
+        System.out.println("Password: "+authentication.getCredentials());
         CurrentUser user = (CurrentUser) userService.loadUserByUsername(email);
 
         if (user == null) {
             throw new BadCredentialsException("Username not found.");
         }
 
-        if (!encoder.matches(password, user.getPassword())) {
+        if (!encoder.matches(password, user.getPassword()) || user.getPassword().isEmpty()) {
         	try {
 				User possibleUser = facade.getUserByLogin(email);
 				possibleUser.setLastFailedLogin(new Date());

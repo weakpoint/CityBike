@@ -14,6 +14,7 @@
 <span>${log }</span>
 			<c:if test="${currentUser.authorities[0] == 'USER'}">
 				<a href="/rentBike">Wypozycz rower</a><br />
+				<a href="/returnBike">Oddaj rower</a><br />
 			</c:if>
 	
 	<a href="/mail">Test maila</a>

@@ -1,5 +1,7 @@
 package edu.citybike.model.view;
 
+import javax.validation.constraints.NotNull;
+
 import edu.citybike.model.Address;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.User;
@@ -49,7 +51,7 @@ public class UserInfo{
 	public String getName() {
 		return user.getName();
 	}
-
+	
 	public void setName(String name) {
 		user.setName(name);
 	}

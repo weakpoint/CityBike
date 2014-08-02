@@ -19,17 +19,19 @@ public class CurrentUser implements UserDetails {
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
+    private String externalID;
     
     
     public CurrentUser(Key userKey, String username, String password) {
-    	this(userKey, username, password, new ArrayList<GrantedAuthority>());
+    	this(userKey, username, password, new ArrayList<GrantedAuthority>(), "");
 	}
     
-	public CurrentUser(Key userKey, String username, String password, List<GrantedAuthority> authorities) {
+	public CurrentUser(Key userKey, String username, String password, List<GrantedAuthority> authorities, String externalID) {
 		this.userKey = userKey;
 		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
+		this.externalID = externalID;
 	}
 
 	@Override
@@ -103,12 +105,23 @@ public class CurrentUser implements UserDetails {
 		this.userKey = userKey;
 	}
 
+	public String getExternalID() {
+		return externalID;
+	}
+
+	public void setExternalID(String externalID) {
+		this.externalID = externalID;
+	}
+
 	@Override
 	public String toString() {
 		return "CurrentUser [userKey=" + userKey + ", username=" + username + ", password=" + password
 				+ ", authorities=" + authorities + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked="
-				+ accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + "]";
+				+ accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled
+				+ ", externalID=" + externalID + "]";
 	}
+
+	
 
 	
 }

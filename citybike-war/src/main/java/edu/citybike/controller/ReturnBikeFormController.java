@@ -19,11 +19,13 @@ import edu.citybike.database.DatabaseFacade;
 import edu.citybike.exceptions.ModelNotExistsException;
 import edu.citybike.exceptions.NegativeBalanceException;
 import edu.citybike.exceptions.PersistenceException;
+import edu.citybike.mail.Mailer;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Bike.STATUS;
 import edu.citybike.model.Rent;
 import edu.citybike.model.User;
 import edu.citybike.model.view.CurrentUser;
+import edu.citybike.model.view.MailMessage;
 import edu.citybike.model.view.RentalBikeView;
 import edu.citybike.utilities.ControllerUtilities;
 
@@ -48,7 +50,7 @@ public class ReturnBikeFormController {
 	}
 
 	@ModelAttribute("returnBike")
-	public RentalBikeView addNewRent(HttpServletRequest request) {
+	public RentalBikeView addNewRentObject(HttpServletRequest request) {
 		CurrentUser currentUser = (CurrentUser)request.getSession().getAttribute("currentUser");
 		RentalBikeView rentalView = new RentalBikeView();
 		User user;
@@ -94,7 +96,12 @@ public class ReturnBikeFormController {
 			try{
 				BankService.doOperation(user.getKey(), -rent.getRentCost());
 			}catch(NegativeBalanceException e){
-				//wyslij maila/ albo w banku!!!!!!!
+				MailMessage mail = new MailMessage();
+				mail.setAddressTo(user.getEmailAddress());
+				mail.setMessageBody("Twój stan konta jest ujemny, nie będziesz mógł wypożyczyć następnego roweru.");
+				mail.setNameTo(user.getName()+" "+user.getLastName());
+				mail.setSubject("Ujemny stan konta");
+				Mailer.sendMessage(mail);
 			}
 			
 			EntityTransaction tr = facade.getTransaction();

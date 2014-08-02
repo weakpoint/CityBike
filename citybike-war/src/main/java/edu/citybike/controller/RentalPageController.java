@@ -130,6 +130,7 @@ public class RentalPageController {
 					throw new ModelNotExistsException("Bike does not exist");
 				}
 				bike.setStatus(STATUS.RENTED);
+				bike.setRentalCount(bike.getRentalCount()+1);
 				user.setActiveRental(true);
 				
 				Rent rent = new Rent();

@@ -3,12 +3,15 @@ package edu.citybike.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.google.appengine.api.datastore.KeyFactory;
 
 import edu.citybike.bank.BankService;
 import edu.citybike.database.DatabaseFacade;
@@ -69,6 +72,7 @@ public class StarterController {
 		admin.setPhoneNumber("500 000 000");
 		admin.setRole(User.ADMINISTRATOR);
 		admin.setRegistrationDate(new Date());
+		admin.setKey(KeyFactory.createKey("User", new Random().nextLong()));
 		list.add(admin);
 
 		// Credentials
@@ -91,25 +95,9 @@ public class StarterController {
 		user.setPhoneNumber("500 600 700");
 		user.setRegistrationDate(new Date());
 		user.setRole(User.USER);
+		user.setKey(KeyFactory.createKey("User", new Random().nextLong()));
 		list.add(user);
 
-		/*
-		 * // Credentials Credentials c3 = new Credentials();
-		 * c3.setUsername("super"); c3.setPassword("super"); list.add(c3);
-		 * 
-		 * // user User superuser = new User(); Address superaddress = new
-		 * Address(); superaddress.setCity("Super City");
-		 * superaddress.setHouseNumber("150");
-		 * superaddress.setPostalCode("99-010");
-		 * superaddress.setStreet("Super ulica");
-		 * superuser.setAddress(superaddress);
-		 * superuser.setEmailAddress("super");
-		 * superuser.setLastName("Superuser"); superuser.setName("Super");
-		 * superuser.setNotes(new Text("!"));
-		 * superuser.setPhoneNumber("500 100 100");
-		 * superuser.setRentalNetworkCode("0001"); superuser.setUserCode("3");
-		 * superuser.setRole(User.SUPERADMIN); list.add(superuser);
-		 */
 		// Fee
 		Fee f1 = new Fee();
 		f1.setFee(1);
@@ -172,8 +160,7 @@ public class StarterController {
 			try {
 				facade.add(model);
 				if(model instanceof User){
-				BankService.createBankAccount(facade.getUserByLogin(user.getEmailAddress()).getKey());
-				BankService.createBankAccount(facade.getUserByLogin(admin.getEmailAddress()).getKey());
+					BankService.createBankAccount(((User)model).getKey());
 				}
 			} catch (PersistenceException e) {
 				System.out.println(e);

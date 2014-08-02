@@ -44,7 +44,7 @@ public class LocalUserDetailsService implements UserDetailsService{
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 		roles.add(new SimpleGrantedAuthority(user.getRole()));
 
-		return new CurrentUser(user.getKey(), username, credentials.getPassword(), roles);
+		return new CurrentUser(user.getKey(), username, credentials.getPassword(), roles, user.getExternalID());
 	}
 
 }

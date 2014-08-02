@@ -34,4 +34,5 @@ public class Mailer {
 			logger.error(e.getMessage(), e);
 		}
 	}
+
 }
