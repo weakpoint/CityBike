@@ -70,6 +70,11 @@
 		return "";
 	}
 </script>
+<style>
+.error {
+	color: #ff0000;
+}
+</style>
 <title>Nowa wypożyczalnia</title>
 </head>
 <body>
@@ -79,7 +84,6 @@
 
 	<h2>Dane wypożyczalni</h2>
 	<form:form method="POST" commandName="newRentalOffice">
-		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 
 			<tr>
@@ -117,6 +121,7 @@
 			<tr>
 				<td>Szerokość geograficzna</td>
 				<td><form:input path="latitude" id="latitudeField" /></td>
+				<td><form:errors path="latitude" id="latitudeField" cssClass="error"/></td>
 			</tr>
 			<tr>
 				<td>Długość geograficzna</td>
@@ -124,6 +129,7 @@
 
 				<td><input type="button" value="Pobierz z mapy"
 					onclick="getCoordinates();" /></td>
+				<td><form:errors path="longitude" id="latitudeField" cssClass="error"/></td>
 			</tr>
 			<tr>
 				<td colspan="3"><input type="submit" value="OK" /></td>

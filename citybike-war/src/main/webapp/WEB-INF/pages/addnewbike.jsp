@@ -6,6 +6,11 @@
 <html>
 <head>
 <title>Nowy rower</title>
+<style>
+.error {
+	color: #ff0000;
+}
+</style>
 </head>
 <body>
 	<header>
@@ -13,7 +18,6 @@
 	</header>
 	<h2>Dane Roweru</h2>
 	<form:form method="POST" commandName="newBike" action="/addNewBike">
-		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 			<tr>
 				<td>Nazwa producenta:</td>

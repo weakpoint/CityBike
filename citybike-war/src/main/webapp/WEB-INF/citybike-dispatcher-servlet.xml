@@ -11,104 +11,121 @@
 
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/images/**" location="/images/" />
-	
+
 	<!-- Resource Bundle -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-    <property name="basename" value="messages"/>
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/WEB-INF/messages" />
+		<property name="cacheSeconds" value="100" />
 	</bean>
 	
+	<!-- Validators -->
+	<bean id="addressValidator" class="edu.citybike.validators.AddressValidator" />
 	
-	<bean id="entityManagerFactory" class="javax.persistence.Persistence" factory-method="createEntityManagerFactory">
-	<constructor-arg value="transactions-optional"/>
+
+	<bean id="entityManagerFactory" class="javax.persistence.Persistence"
+		factory-method="createEntityManagerFactory">
+		<constructor-arg value="transactions-optional" />
 	</bean>
 
 	<bean id="facade" class="edu.citybike.database.DatabaseFacadeImpl">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	
+
 	<bean class="edu.citybike.utilities.ControllerUtilities">
-	<property name="facade" ref="facade"/>
+		<property name="facade" ref="facade" />
 	</bean>
-	
+
 	<bean class="edu.citybike.controller.AddNewBikeController">
-	<property name="facade" ref="facade"/>
+		<property name="facade" ref="facade" />
+		<property name="validator">
+			<bean class="edu.citybike.validators.NewBikeValidator" />
+		</property>
 	</bean>
 
 	<bean class="edu.citybike.controller.IndexPageController">
 	</bean>
 
 	<bean class="edu.citybike.controller.UserAuthenticationController">
-	<property name="facade" ref="facade"/>
+		<property name="facade" ref="facade" />
 	</bean>
 
-	<bean class="edu.citybike.controller.AddNewRentalOfficeController" scope="session">
-	<property name="facade" ref="facade"/>
+	<bean class="edu.citybike.controller.AddNewRentalOfficeController">
+		<property name="facade" ref="facade" />
+		<property name="validator">
+			<bean class="edu.citybike.validators.RentalOfficeValidator">
+				<!-- address validator -->
+			</bean>
+		</property>
 	</bean>
-	
+
 	<bean class="edu.citybike.controller.RentalInformationController">
-	<property name="facade" ref="facade"/>
+		<property name="facade" ref="facade" />
 	</bean>
-	
+
 	<bean class="edu.citybike.controller.RentalPageController">
-	<property name="facade" ref="facade"/>
+		<property name="facade" ref="facade" />
 	</bean>
-	
-	<bean class="edu.citybike.controller.ReturnBikeFormController" scope="session">
-	<property name="facade" ref="facade"/>
+
+	<bean class="edu.citybike.controller.ReturnBikeFormController"
+		scope="session">
+		<property name="facade" ref="facade" />
 	</bean>
-	
+
 	<bean class="edu.citybike.controller.FeeManageController">
-	<property name="facade" ref="facade"/>
+		<property name="facade" ref="facade" />
 	</bean>
-	
+
 	<bean class="edu.citybike.controller.UserInfoController">
-	<property name="facade" ref="facade"/>
+		<property name="facade" ref="facade" />
 	</bean>
-	
+
 	<bean class="edu.citybike.controller.RegistrationController">
-	<property name="facade" ref="facade"/>
-	<property name="encoder" ref="encoder"/>
-	<property name="authenticationManager" ref="authenticationManager" />
+		<property name="facade" ref="facade" />
+		<property name="encoder" ref="encoder" />
+		<property name="authenticationManager" ref="authenticationManager" />
 	</bean>
 
 	<bean class="edu.citybike.controller.StarterController">
-	<property name="facade" ref="facade"/>
-	<property name="encoder" ref="textencoder"/>
+		<property name="facade" ref="facade" />
+		<property name="encoder" ref="textencoder" />
 	</bean>
 
 	<bean class="edu.citybike.bank.BankService">
-	<property name="facade" ref="facade"/>
+		<property name="facade" ref="facade" />
 	</bean>
 
 	<!-- security -->
-	<bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-	<constructor-arg index="0" value="10"/>
-	</bean>
-	
-	<bean id="textencoder" class="edu.citybike.security.TextPasswordEncoder">
-	<property name="encoder" ref="encoder"/>
-	</bean>
-	
-	<bean id="simpleAuthenticationSuccessHandler" class="edu.citybike.security.SimpleAuthenticationSuccessHandler">
-	<property name="facade" ref="facade"/>
-	</bean>
-	
-	<bean id="localAuthenticationProvider" class="edu.citybike.security.LocalAuthenticationProvider">
-	<property name="userService" ref="userService"/>
-	<property name="facade" ref="facade"/>
-	<property name="encoder" ref="textencoder"/>
-	</bean>
-	
-	<bean id="userService" class="edu.citybike.security.LocalUserDetailsService">
-	<property name="facade" ref="facade"/>
-	</bean>
-	
-	<bean class="edu.citybike.controller.FacebookExternalLoginController">
-	<property name="facade" ref="facade"/>
-	<property name="encoder" ref="textencoder"/>
+	<bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<constructor-arg index="0" value="10" />
 	</bean>
 
-	
+	<bean id="textencoder" class="edu.citybike.security.TextPasswordEncoder">
+		<property name="encoder" ref="encoder" />
+	</bean>
+
+	<bean id="simpleAuthenticationSuccessHandler"
+		class="edu.citybike.security.SimpleAuthenticationSuccessHandler">
+		<property name="facade" ref="facade" />
+	</bean>
+
+	<bean id="localAuthenticationProvider" class="edu.citybike.security.LocalAuthenticationProvider">
+		<property name="userService" ref="userService" />
+		<property name="facade" ref="facade" />
+		<property name="encoder" ref="textencoder" />
+	</bean>
+
+	<bean id="userService" class="edu.citybike.security.LocalUserDetailsService">
+		<property name="facade" ref="facade" />
+	</bean>
+
+	<bean class="edu.citybike.controller.FacebookExternalLoginController">
+		<property name="facade" ref="facade" />
+		<property name="encoder" ref="textencoder" />
+	</bean>
+
+
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
