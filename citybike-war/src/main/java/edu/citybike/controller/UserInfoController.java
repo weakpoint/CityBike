@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,9 +24,14 @@ import edu.citybike.utilities.ControllerUtilities;
 
 @Controller
 public class UserInfoController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 	private DatabaseFacade facade;
+	private Validator validator;
+
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
 
 	public DatabaseFacade getFacade() {
 		return facade;
@@ -37,11 +44,11 @@ public class UserInfoController {
 	@RequestMapping("/userInfo")
 	public String showUserInfoForm(ModelMap map, HttpServletRequest request) {
 
-		CurrentUser currentUser = (CurrentUser)request.getSession().getAttribute("currentUser");
-		if(currentUser == null){
-			//!!!!!!!!!!
+		CurrentUser currentUser = (CurrentUser) request.getSession().getAttribute("currentUser");
+		if (currentUser == null) {
+			logger.error("There is no user");
 		}
-		
+
 		User user = facade.getUserByKey(currentUser.getUserKey());
 
 		Credentials credential = null;
@@ -55,18 +62,27 @@ public class UserInfoController {
 		UserInfo userInfo = new UserInfo(user, credential, balance);
 
 		map.addAttribute("userInfo", userInfo);
-		
+
 		map.addAttribute("formAction", "/userInfo");
 		return "userdata";
 	}
-	
-	@RequestMapping(value="/userInfo", method= RequestMethod.POST)
-	public ModelAndView saveForm(@ModelAttribute("userInfo") UserInfo user, ModelMap map) {
+
+	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
+	public ModelAndView saveForm(@ModelAttribute("userInfo") UserInfo user, ModelMap map, BindingResult result) {
+		
+		validator.validate(user, result);
+		if (result.hasErrors()) {
+			return new ModelAndView("userdata", "userInfo", user);
+		}
+
 		ModelAndView mav = new ModelAndView("userdata");
 		try {
 			User userAfterChanges = ControllerUtilities.retriveChangedUser(facade, user);
 			facade.update(userAfterChanges);
-			mav.addObject("userInfo", new UserInfo(userAfterChanges, user.getCredentials(), BankService.checkBalance(userAfterChanges.getKey())));
+			mav.addObject(
+					"userInfo",
+					new UserInfo(userAfterChanges, user.getCredentials(), 
+							BankService.checkBalance(userAfterChanges.getKey())));
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage(), e);
 		}

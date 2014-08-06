@@ -126,13 +126,12 @@
 			<tr>
 				<td>Długość geograficzna</td>
 				<td><form:input path="longitude" id="longitudeField" /></td>
-
-				<td><input type="button" value="Pobierz z mapy"
-					onclick="getCoordinates();" /></td>
 				<td><form:errors path="longitude" id="latitudeField" cssClass="error"/></td>
 			</tr>
 			<tr>
 				<td colspan="3"><input type="submit" value="OK" /></td>
+				<td><input type="button" value="Pobierz dane z mapy"
+					onclick="getCoordinates();" /></td>
 
 			</tr>
 

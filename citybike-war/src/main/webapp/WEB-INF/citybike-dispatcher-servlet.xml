@@ -21,7 +21,7 @@
 	
 	<!-- Validators -->
 	<bean id="addressValidator" class="edu.citybike.validators.AddressValidator" />
-	
+	<bean id="rentalbikeviewvalidator" class="edu.citybike.validators.RentalBikeViewValidator" />
 
 	<bean id="entityManagerFactory" class="javax.persistence.Persistence"
 		factory-method="createEntityManagerFactory">
@@ -54,7 +54,7 @@
 		<property name="facade" ref="facade" />
 		<property name="validator">
 			<bean class="edu.citybike.validators.RentalOfficeValidator">
-				<!-- address validator -->
+			<constructor-arg ref="addressValidator"/>
 			</bean>
 		</property>
 	</bean>
@@ -65,11 +65,15 @@
 
 	<bean class="edu.citybike.controller.RentalPageController">
 		<property name="facade" ref="facade" />
+		<property name="validator" ref="rentalbikeviewvalidator" />
+		<property name="messageSource" ref="messageSource"/>
 	</bean>
 
 	<bean class="edu.citybike.controller.ReturnBikeFormController"
 		scope="session">
 		<property name="facade" ref="facade" />
+		<property name="validator" ref="rentalbikeviewvalidator" />
+		<property name="messageSource" ref="messageSource"/>
 	</bean>
 
 	<bean class="edu.citybike.controller.FeeManageController">
@@ -84,6 +88,10 @@
 		<property name="facade" ref="facade" />
 		<property name="encoder" ref="encoder" />
 		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationDetailsSource">
+			<bean class="org.springframework.security.web.authentication.WebAuthenticationDetailsSource"/>
+		</property>
+		<property name="messageSource" ref="messageSource"/>
 	</bean>
 
 	<bean class="edu.citybike.controller.StarterController">

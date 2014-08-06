@@ -21,7 +21,7 @@ public class CurrentUser implements UserDetails {
     private boolean enabled = true;
     private String externalID;
     
-    
+    public CurrentUser(){}
     public CurrentUser(Key userKey, String username, String password) {
     	this(userKey, username, password, new ArrayList<GrantedAuthority>(), "");
 	}

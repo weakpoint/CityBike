@@ -7,7 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.AbstractMessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,13 +38,19 @@ public class ReturnBikeFormController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReturnBikeFormController.class);
 	private DatabaseFacade facade;
+	private AbstractMessageSource messageSource;
+	private Validator validator;
 	
-	public DatabaseFacade getFacade() {
-		return facade;
+	public void setValidator(Validator validator) {
+		this.validator = validator;
 	}
 
 	public void setFacade(DatabaseFacade facade) {
 		this.facade = facade;
+	}
+	
+	public void setMessageSource(AbstractMessageSource messageSource) {
+		this.messageSource = messageSource;
 	}
 
 	@RequestMapping(value = "/returnBike")
@@ -67,7 +77,13 @@ public class ReturnBikeFormController {
 	}
 	
 	@RequestMapping(value = "/returnApporval")
-	public String returnApproval(@ModelAttribute("returnBike") RentalBikeView rentalView) {
+	public  ModelAndView returnApproval(@ModelAttribute("returnBike") RentalBikeView rentalView, BindingResult result) {
+		
+		validator.validate(rentalView, result);
+		if (result.hasErrors()) {
+			return new ModelAndView("returnbikeform", "returnBike", rentalView);
+		}
+		
 		User user = null;
 		try {
 		if(rentalView.getUserKey() != null && rentalView.getBikeKey() != null && rentalView.getRentalOfficeKey() != null){
@@ -98,9 +114,9 @@ public class ReturnBikeFormController {
 			}catch(NegativeBalanceException e){
 				MailMessage mail = new MailMessage();
 				mail.setAddressTo(user.getEmailAddress());
-				mail.setMessageBody("Twój stan konta jest ujemny, nie będziesz mógł wypożyczyć następnego roweru.");
+				mail.setMessageBody(messageSource.getMessage("mail.negativeBalance.body", null, LocaleContextHolder.getLocale()));
 				mail.setNameTo(user.getName()+" "+user.getLastName());
-				mail.setSubject("Ujemny stan konta");
+				mail.setSubject(messageSource.getMessage("mail.negativeBalance.subject", null, LocaleContextHolder.getLocale()));
 				Mailer.sendMessage(mail);
 			}
 			
@@ -116,10 +132,10 @@ public class ReturnBikeFormController {
 			}
 		}
 		catch (Exception e) {
-			logger.error("Something went wrong");
+			logger.error("Something went wrong: "+e.getMessage());
 		}
 	
-		return "redirect:/returnBike";
+		return new ModelAndView("redirect:/returnBike");
 	}
 
 }

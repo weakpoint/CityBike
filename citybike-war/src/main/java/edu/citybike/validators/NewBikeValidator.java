@@ -10,7 +10,7 @@ public class NewBikeValidator implements Validator{
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return NewBike.class.equals(clazz);
+		return NewBike.class.isAssignableFrom(clazz);
 	}
 
 	@Override

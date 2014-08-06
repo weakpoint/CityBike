@@ -28,8 +28,6 @@ public class UserAuthenticationController {
 	@ModelAttribute("credentials")
 	public Credentials addUserObject(){
 		Credentials c = new Credentials();
-		//c.setEmailAddress("emil.1990@interia.pl");
-		//c.setPassword("test");
 		return c;
 	}
 	

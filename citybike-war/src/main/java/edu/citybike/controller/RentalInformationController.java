@@ -28,10 +28,6 @@ public class RentalInformationController {
 	private static final Logger logger = LoggerFactory.getLogger(RentalInformationController.class);
 	private DatabaseFacade facade;
 
-	public DatabaseFacade getFacade() {
-		return facade;
-	}
-
 	public void setFacade(DatabaseFacade facade) {
 		this.facade = facade;
 	}

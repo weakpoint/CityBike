@@ -12,10 +12,15 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.AbstractMessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.appengine.api.datastore.KeyFactory;
 
@@ -24,25 +29,33 @@ import edu.citybike.database.DatabaseFacade;
 import edu.citybike.exceptions.ModelNotExistsException;
 import edu.citybike.exceptions.NegativeBalanceException;
 import edu.citybike.exceptions.PersistenceException;
+import edu.citybike.mail.Mailer;
 import edu.citybike.model.Bike;
 import edu.citybike.model.Bike.STATUS;
 import edu.citybike.model.Rent;
 import edu.citybike.model.RentalOffice;
 import edu.citybike.model.User;
 import edu.citybike.model.view.CurrentUser;
+import edu.citybike.model.view.MailMessage;
 import edu.citybike.model.view.RentalBikeView;
 
 @Controller
 public class RentalPageController {
 	private static final Logger logger = LoggerFactory.getLogger(RentalPageController.class);
 	private DatabaseFacade facade;
+	private AbstractMessageSource messageSource;
+	private Validator validator;
 	
-	public DatabaseFacade getFacade() {
-		return facade;
+	public void setValidator(Validator validator) {
+		this.validator = validator;
 	}
 
 	public void setFacade(DatabaseFacade facade) {
 		this.facade = facade;
+	}
+	
+	public void setMessageSource(AbstractMessageSource messageSource) {
+		this.messageSource = messageSource;
 	}
 
 	@ModelAttribute("bikeMap")
@@ -53,7 +66,6 @@ public class RentalPageController {
 		try {
 			bikeList = facade.getBikeList();
 			for (Bike bike : bikeList) {
-				System.out.println(bike.getTechnicalDetails().getName()+" "+bike.getStatusString());
 				if(STATUS.AVAILABLE.compareTo(bike.getStatus()) == 0){
 					bikeMap.put(KeyFactory.keyToString(bike.getKey()), bike.getTechnicalDetails().getName());
 				}
@@ -105,11 +117,17 @@ public class RentalPageController {
 	}
 
 	@RequestMapping(value = "/rentBike", method = RequestMethod.POST)
-	public String rentBikeForm(@ModelAttribute("newRental") RentalBikeView rentalView) {
+	public ModelAndView rentBikeForm(@ModelAttribute("newRental") RentalBikeView rentalView, BindingResult result) {
 		
+		validator.validate(rentalView, result);
+		if (result.hasErrors()) {
+			return new ModelAndView("rentalformPage", "newRental", rentalView);
+		}
+		
+		User user = null;
 		try {
 			if(rentalView.getUserKey() != null && rentalView.getBikeKey() != null && rentalView.getRentalOfficeKey() != null){
-				User user = facade.getUserByKey(KeyFactory.stringToKey(rentalView.getUserKey()));
+				user = facade.getUserByKey(KeyFactory.stringToKey(rentalView.getUserKey()));
 				
 				if(user == null){
 					throw new ModelNotExistsException("User does not exist");
@@ -152,10 +170,18 @@ public class RentalPageController {
 				}
 			}
 
+		} catch (NegativeBalanceException e) {
+			MailMessage mail = new MailMessage();
+			mail.setAddressTo(user.getEmailAddress());
+			mail.setMessageBody(messageSource.getMessage("mail.negativeBalance.body", null, LocaleContextHolder.getLocale()));
+			mail.setNameTo(user.getName()+" "+user.getLastName());
+			mail.setSubject(messageSource.getMessage("mail.negativeBalance.subject", null, LocaleContextHolder.getLocale()));
+			Mailer.sendMessage(mail);
+			logger.error("Error during geting bike: " + e.getMessage());
 		} catch (Exception e) {
 			logger.error("Error during geting bike: " + e.getMessage());
 		}
-		return "redirect:/";
+		return new ModelAndView("redirect:/");
 	}
 
 }

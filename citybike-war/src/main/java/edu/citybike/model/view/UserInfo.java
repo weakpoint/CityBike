@@ -1,7 +1,5 @@
 package edu.citybike.model.view;
 
-import javax.validation.constraints.NotNull;
-
 import edu.citybike.model.Address;
 import edu.citybike.model.Credentials;
 import edu.citybike.model.User;

@@ -11,14 +11,14 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
-<span>${log }</span>
-			<c:if test="${currentUser.authorities[0] == 'USER'}">
-				<a href="/rentBike">Wypozycz rower</a><br />
-				<a href="/returnBike">Oddaj rower</a><br />
-			</c:if>
-	
-	<a href="/mail">Test maila</a>
-	<a href="/facebookLogin.do">Test logowania</a>
+	<c:if test="${currentUser.authorities[0] == 'USER'}">
+		<a href="/rentBike">Wypożycz rower</a>
+		<br />
+		<a href="/returnBike">Oddaj rower</a>
+		<br />
+	</c:if>
+
+	<a href="/facebookLogin.do">Logowanie za pomocą Facebook</a>
 	<a href="/startup">START UP!</a>
 	<footer>
 		<%@include file="footer.jsp"%>

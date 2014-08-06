@@ -8,7 +8,7 @@ import edu.citybike.model.Address;
 import edu.citybike.model.RentalOffice;
 
 public class RentalOfficeValidator implements Validator {
-/*
+
 	private Validator addressValidator;
 
 	public RentalOfficeValidator(Validator addressValidator) {
@@ -21,28 +21,25 @@ public class RentalOfficeValidator implements Validator {
 		}
 		this.addressValidator = addressValidator;
 	}
-*/
+
+	
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return RentalOffice.class.equals(clazz);
+		return RentalOffice.class.isAssignableFrom(clazz);
 	}
 
 	@Override
 	public void validate(Object obj, Errors errors) {
 		RentalOffice rentalOffice = (RentalOffice) obj;
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "longitude", "required.longitude", "Nie może być puste");
+		if (!rentalOffice.getLongitude().matches("[1-9][0-9]{0,2}\\.[0-9]{6}")) {
+			errors.rejectValue("latitude", "latitude");
+		}
 
 		if (!rentalOffice.getLongitude().matches("[1-9][0-9]{0,2}\\.[0-9]{6}")) {
 			errors.rejectValue("latitude", "latitude");
 		}
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "latitude", "required.latitude", "Nie może być puste");
-
-		if (!rentalOffice.getLongitude().matches("[1-9][0-9]{0,2}\\.[0-9]{6}")) {
-			errors.rejectValue("latitude", "latitude");
-		}
-/*
 		// Address
 		try {
 			errors.pushNestedPath("address");
@@ -50,6 +47,7 @@ public class RentalOfficeValidator implements Validator {
 		} finally {
 			errors.popNestedPath();
 		}
-	*/}
+		
+	}
 	
 }
