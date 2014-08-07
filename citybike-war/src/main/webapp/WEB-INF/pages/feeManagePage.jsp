@@ -11,6 +11,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Zarządzanie opłatami</title>
+<style>
+.error {
+	color: #ff0000;
+}
+</style>
 </head>
 <body>
 	<header>
@@ -34,14 +39,14 @@
 						value="${i.count-1}" ${fee.checked?"checked":""} /></td>
 					<c:choose>
 						<c:when test="${fee.newRow}">
-							<td><input name="time" value="${fee.fee.time}" /></td>
+							<td><input name="time" value="${fee.fee.time}" pattern="^[0-9]*$" /></td>
 						</c:when>
 						<c:otherwise>
 							<td><input name="time" value="${fee.fee.time}" readonly /></td> <!-- immutable field -->
 						</c:otherwise>
 					</c:choose>
 
-					<td><input name="fee" value="${fee.fee.fee}" /></td>
+					<td><input name="fee" value="${fee.fee.fee}" pattern="^([0-9]+\\.[0-9]+)|([0-9]+)$"/></td>
 
 				</tr>
 			</c:forEach>

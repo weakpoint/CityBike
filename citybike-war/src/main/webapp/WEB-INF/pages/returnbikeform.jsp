@@ -6,6 +6,11 @@
 <head>
 <meta charset="utf-8">
 <title>Zwrot roweru</title>
+<style>
+.error {
+	color: #ff0000;
+}
+</style>
 </head>
 <body>
 	<header>

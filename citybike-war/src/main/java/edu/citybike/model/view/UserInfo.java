@@ -10,7 +10,6 @@ public class UserInfo{
 	private Credentials credentials;
 	private double balance;
 	private String repeatpassword;
-	private String externalID;
 
 	public UserInfo(){
 		this(new User(), new Credentials(), 0);

@@ -24,6 +24,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +51,7 @@ public class RegistrationController {
 	private AuthenticationDetailsSource authenticationDetailsSource;
 	private AuthenticationManager authenticationManager;
 	private AbstractMessageSource messageSource;
+	private Validator validator;
 
 	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
@@ -69,24 +72,45 @@ public class RegistrationController {
 	public void setMessageSource(AbstractMessageSource messageSource) {
 		this.messageSource = messageSource;
 	}
+	
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
 
 	@RequestMapping("/registration")
-	public String showAddRegistrationForm(HttpServletRequest request, ModelMap map) {
+	public ModelAndView showAddRegistrationForm(HttpServletRequest request, ModelMap map, @ModelAttribute("formAction") String formAction, @ModelAttribute("userInfo") UserInfo userInfo, BindingResult result) {
 
-		map.addAttribute("formAction", "/register.do");
-		if (request.getAttribute("userInfo") == null) {
-			map.addAttribute("userInfo", new UserInfo());
+		//UserInfo userInfo = (UserInfo) request.getAttribute("userInfo");		
+System.out.println("user info"+userInfo);
+System.out.println("form "+formAction);
+		if (userInfo == null || formAction == "") {
+			userInfo = new UserInfo();
+			ModelAndView mav = new ModelAndView("userdata", "userInfo", userInfo);
+			mav.addObject("formAction", "/registration");
+			return mav;
 		} else {
-			map.addAttribute("userInfo", request.getAttribute("userInfo"));
+			System.out.println("validator");
+			validator.validate(userInfo, result);
+			System.out.println(result);
+			if (result.hasErrors()) {
+				return new ModelAndView("userdata", "userInfo", userInfo);
+			}
+			
+			return new ModelAndView("redirect:/register.do", "userInfo", userInfo);
 		}
 
-		return "userdata";
 	}
 
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
-	public ModelAndView registerUser(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request,
+	public ModelAndView registerUser(@ModelAttribute("userInfo") UserInfo userInfo, BindingResult result, HttpServletRequest request,
 			HttpServletResponse response) {
 
+		validator.validate(userInfo, result);
+		
+		if (result.hasErrors()) {
+			return new ModelAndView("userdata", "userInfo", userInfo);
+		}
+		
 		EntityTransaction tr = facade.getTransaction();
 		try {
 			tr.begin();

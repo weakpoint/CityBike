@@ -10,15 +10,12 @@
 .body {
 	position: relative;
 }
+.error {
+	color: #ff0000;
+}
 </style>
 </head>
 <body>
-	logowanie zwykle
-	<br /> logowanie przez google
-	<br /> logowanie przez facebooka
-	<br /> nie mozna zmieniac adresu mailowego - weryfikacja z tokenu
-	oauth2
-	<br />
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
@@ -28,12 +25,12 @@
     <table>
         <tbody>
             <tr>
-                <td>Login:</td>
-                <td><input type="text" name="j_username" value="admin"/></td>
+                <td>Login (E-mail):</td>
+                <td><input type="email" name="j_username" value="user" required/></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input type="password" name="j_password" value="admin"/></td>
+                <td><input type="password" name="j_password" value="user" required/></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Zaloguj" /></td>

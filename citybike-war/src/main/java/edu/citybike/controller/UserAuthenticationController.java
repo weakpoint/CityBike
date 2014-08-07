@@ -27,8 +27,7 @@ public class UserAuthenticationController {
 	
 	@ModelAttribute("credentials")
 	public Credentials addUserObject(){
-		Credentials c = new Credentials();
-		return c;
+		return new Credentials();
 	}
 	
 	@RequestMapping(value = "/login.do")

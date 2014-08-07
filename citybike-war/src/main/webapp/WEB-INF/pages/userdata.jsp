@@ -8,6 +8,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+.error {
+	color: #ff0000;
+}
+</style>
 <title>Dane użytkownika</title>
 </head>
 <body>
@@ -17,31 +22,30 @@
 	<h2>Dane użytkownika</h2>
 
 	<form:form method="POST" commandName="userInfo" action="${formAction}">
-		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 			<tr>
 				<td>Imię :</td>
 				<td><form:input path="name" /></td>
-				<td><form:errors path="name" cssClass="error" /></td>
+				<td><form:errors path="user.name" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Nazwisko :</td>
 				<td><form:input path="lastName" /></td>
-				<td><form:errors path="lastName" cssClass="error" /></td>
+				<td><form:errors path="user.lastName" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Numer telefonu :</td>
 				<td><form:input path="phoneNumber" /></td>
-				<td><form:errors path="phoneNumber" cssClass="error" /></td>
+				<td><form:errors path="user.phoneNumber" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Adres e-mail (login):</td>
 				<c:choose>
 					<c:when test="${(userInfo.emailAddress == '')}">
-						<td><form:input path="emailAddress" /></td>
+						<td><form:input path="user.emailAddress" /></td>
 					</c:when>
 					<c:otherwise>
-						<td><form:input path="emailAddress" readonly="true"/></td>
+						<td><form:input path="user.emailAddress" readonly="true"/></td>
 					</c:otherwise>
 				</c:choose>
 				<td><form:errors path="emailAddress" cssClass="error" /></td>
@@ -64,30 +68,30 @@
 			<tr>
 				<td>Ulica :</td>
 				<td><form:input path="address.street" /></td>
-				<td><form:errors path="address.street" cssClass="error" /></td>
+				<td><form:errors path="user.address.street" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Numer domu :</td>
 				<td><form:input path="address.houseNumber" /></td>
-				<td><form:errors path="address.houseNumber" cssClass="error" />
+				<td><form:errors path="user.address.houseNumber" cssClass="error" />
 				</td>
 			</tr>
 			<tr>
 				<td>Numer mieszkania :</td>
 				<td><form:input path="address.flatNumber" /></td>
-				<td><form:errors path="address.flatNumber" cssClass="error" />
+				<td><form:errors path="user.address.flatNumber" cssClass="error" />
 				</td>
 			</tr>
 			<tr>
 				<td>Kod pocztowy :</td>
 				<td><form:input path="address.postalCode" /></td>
-				<td><form:errors path="address.postalCode" cssClass="error" />
+				<td><form:errors path="user.address.postalCode" cssClass="error" />
 				</td>
 			</tr>
 			<tr>
 				<td>Miasto :</td>
 				<td><form:input path="address.city" /></td>
-				<td><form:errors path="address.city" cssClass="error" /></td>
+				<td><form:errors path="user.address.city" cssClass="error" /></td>
 			</tr>
 			<tr>
 			<td><form:input path="externalID" hidden="hidden" /></td>

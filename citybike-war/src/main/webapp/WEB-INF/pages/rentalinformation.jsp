@@ -4,6 +4,11 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<style>
+.error {
+	color: #ff0000;
+}
+</style>
 <script
 	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCIWfnxcYC4HngsPLlYsjocie6WfUmz2zc&sensor=false">
 	

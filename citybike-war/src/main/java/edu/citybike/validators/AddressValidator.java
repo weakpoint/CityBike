@@ -32,7 +32,7 @@ public class AddressValidator implements Validator{
 			errors.rejectValue("flatNumber", "address.flatNumber");
 		}
 
-		if(adr.getPostalCode().matches("^[0-9]{2}-[0-9]{3}$")){
+		if(!adr.getPostalCode().matches("^[0-9]{2}-[0-9]{3}$")){
 			errors.rejectValue("postalCode", "address.postalCode");
 		}
 	

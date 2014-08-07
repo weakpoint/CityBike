@@ -6,6 +6,11 @@
 <head>
 <meta charset="utf-8">
 <title>Wypozyczenie</title>
+<style>
+.error {
+	color: #ff0000;
+}
+</style>
 </head>
 <body>
 	<header>
