@@ -37,10 +37,8 @@ public class LocalUserDetailsService implements UserDetailsService{
 			credentials = facade.getCredentials(username);
 			user = facade.getUserByLogin(username);
 		} catch (PersistenceException e) {
-			throw new UsernameNotFoundException("Username not found!");
-			
+			throw new UsernameNotFoundException("Username not found!");		
 		}
-		
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 		roles.add(new SimpleGrantedAuthority(user.getRole()));
 

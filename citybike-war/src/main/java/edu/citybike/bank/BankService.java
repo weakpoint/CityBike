@@ -24,12 +24,16 @@ public class BankService {
 	}
 
 	public static void createBankAccount(Key userKey) throws PersistenceException {
-		if (userKey != null) {
-			BankAccount account = new BankAccount();
-			account.setUserKey(userKey);
-			account.setBalance(5.0);
-			facade.add(account);
+		try {
+			if (userKey != null) {
+				BankAccount account = new BankAccount();
+				account.setUserKey(userKey);
+				account.setBalance(5.0);
+				facade.add(account);
 
+			}
+		} catch (PersistenceException e) {
+			throw new PersistenceException("Bank: " + e.getMessage());
 		}
 	}
 
@@ -41,22 +45,30 @@ public class BankService {
 	}
 
 	public static void doOperation(Key userKey, double value) throws PersistenceException {
-		if (userKey != null) {
-			BankAccount bankAccount = facade.getUserBankAccount(userKey);
-			bankAccount.setBalance(bankAccount.getBalance() + value);
+		try {
+			if (userKey != null) {
+				BankAccount bankAccount = facade.getUserBankAccount(userKey);
+				bankAccount.setBalance(bankAccount.getBalance() + value);
 
-			if (bankAccount.getBalance() < 0) {
-				throw new NegativeBalanceException();
+				if (bankAccount.getBalance() < 0) {
+					throw new NegativeBalanceException();
+				}
+
+				facade.update(bankAccount);
 			}
-
-			facade.update(bankAccount);
+		} catch (PersistenceException e) {
+			throw new PersistenceException("Bank (doOperation): " + e.getMessage());
 		}
 	}
 
 	public static void removeBankAccount(Key userKey) throws PersistenceException {
+		try{
 		if (userKey != null) {
 			BankAccount bankAccount = facade.getUserBankAccount(userKey);
 			facade.remove(bankAccount);
+		}
+		} catch (PersistenceException e) {
+			throw new PersistenceException("Bank (removeBankAccount): " + e.getMessage());
 		}
 	}
 }

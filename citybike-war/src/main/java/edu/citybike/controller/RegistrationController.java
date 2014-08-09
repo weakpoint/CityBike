@@ -82,33 +82,38 @@ public class RegistrationController {
 
 		//UserInfo userInfo = (UserInfo) request.getAttribute("userInfo");		
 System.out.println("user info"+userInfo);
-System.out.println("form "+formAction);
-		if (userInfo == null || formAction == "") {
+System.out.println("form "+formAction+".");
+ModelAndView mav = new ModelAndView("userdata","formAction", "/register.do");
+//		if (userInfo == null || "".equals(formAction)) {
 			userInfo = new UserInfo();
-			ModelAndView mav = new ModelAndView("userdata", "userInfo", userInfo);
-			mav.addObject("formAction", "/registration");
+			mav.addObject("userInfo", userInfo);
+
 			return mav;
-		} else {
+/*		} else {
 			System.out.println("validator");
 			validator.validate(userInfo, result);
 			System.out.println(result);
 			if (result.hasErrors()) {
-				return new ModelAndView("userdata", "userInfo", userInfo);
+				System.out.println("dupa");
+				return mav;
 			}
-			
+			System.out.println("register ok");
 			return new ModelAndView("redirect:/register.do", "userInfo", userInfo);
 		}
-
+*/
 	}
 
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public ModelAndView registerUser(@ModelAttribute("userInfo") UserInfo userInfo, BindingResult result, HttpServletRequest request,
 			HttpServletResponse response) {
-
-		validator.validate(userInfo, result);
 		
+		validator.validate(userInfo, result);
+		System.out.println(result);
 		if (result.hasErrors()) {
-			return new ModelAndView("userdata", "userInfo", userInfo);
+			System.out.println("dupa");
+			ModelAndView mav = new ModelAndView("userdata", "userInfo", userInfo);
+			mav.addObject("formAction", "/register.do");
+			return mav;
 		}
 		
 		EntityTransaction tr = facade.getTransaction();
@@ -118,20 +123,23 @@ System.out.println("form "+formAction);
 			Key key = KeyFactory.createKey("User", new Random().nextLong());
 			userInfo.getUser().setKey(key);
 			userInfo.getCredentials().setPassword(encoder.encode(userInfo.getCredentials().getPassword()));
+			userInfo.getCredentials().setUsername(userInfo.getEmailAddress());
 			facade.add(userInfo.getCredentials());
 			userInfo.getUser().setRegistrationDate(new Date());
 			facade.add(userInfo.getUser());
 
 			BankService.createBankAccount(key);
 			tr.commit();
-
+			Thread.sleep(1000);
 			loginCurrentUser(userInfo, pass, request);
 			
 			//sending welcome e-mail
 			Mailer.sendMessage(createWelcomeMessage(userInfo.getName()+" "+userInfo.getLastName(), userInfo.getEmailAddress()));
 		} catch (Exception e) {
 			logger.error("Error during registration: " + e.getMessage());
-			tr.rollback();
+			if(tr.isActive()){
+				tr.rollback();
+			}
 		}
 		
 		return new ModelAndView("redirect:/");
@@ -146,8 +154,9 @@ System.out.println("form "+formAction);
 		return mail;
 	}
 	
-	private void loginCurrentUser(UserInfo userInfo,String plainPassword, HttpServletRequest request){
+	private void loginCurrentUser(UserInfo userInfo,String plainPassword, HttpServletRequest request) throws Exception{
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+		try{
 		roles.add(new SimpleGrantedAuthority(userInfo.getRole()));
 
 		CurrentUser currentUser = new CurrentUser(userInfo.getUser().getKey(), userInfo.getEmailAddress(), plainPassword, roles,
@@ -167,5 +176,8 @@ System.out.println("form "+formAction);
 		HttpSession session = request.getSession(true);
 		session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 		request.getSession().setAttribute("currentUser", currentUser);
+		}catch(Exception e){
+			throw new Exception("Login after registration: "+e.getMessage());
+		}
 	}
 }

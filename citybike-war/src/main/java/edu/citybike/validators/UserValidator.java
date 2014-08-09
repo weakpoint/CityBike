@@ -42,7 +42,10 @@ public class UserValidator implements Validator {
 			errors.rejectValue("phoneNumber", "user.phonenumber");
 		}
 
-		if (!user.getPhoneNumber().matches("^[a-zA-Z0-9_%+-][a-zA-Z0-9_%+-\\.]*@[a-zA-Z0-9_%+-][a-zA-Z0-9_%+-\\.]*[a-zA-Z0-9_%+-]\\.[a-zA-Z]{2,6}$")) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress",
+				"user.emailaddress", "Pole nie może być puste");
+		
+		if (!user.getEmailAddress().matches("^[a-zA-Z0-9_%+-][a-zA-Z0-9_%+-\\.]*@[a-zA-Z0-9_%+-][a-zA-Z0-9_%+-\\.]*[a-zA-Z0-9_%+-]\\.[a-zA-Z]{2,6}$")) {
 			errors.rejectValue("emailAddress", "user.emailaddress");
 		}
 		

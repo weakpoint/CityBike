@@ -41,7 +41,7 @@
 			<tr>
 				<td>Adres e-mail (login):</td>
 				<c:choose>
-					<c:when test="${(userInfo.emailAddress == '')}">
+					<c:when test="${(formAction == '/register.do')}">
 						<td><form:input path="user.emailAddress" /></td>
 					</c:when>
 					<c:otherwise>
