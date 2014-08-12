@@ -23,6 +23,7 @@
 		<ul>
 			<c:if test="${currentUser.authorities[0] == 'USER'}">
 				<li><a href="/rentalInformation">Dane wypożyczeń</a></li>
+				<li><a href="/statistics">Statystyki</a></li>
 			</c:if>
 			<c:if test="${currentUser.authorities[0] == 'ADMINISTRATOR'}">
 				<li><a href="/addNewBike">Dodaj rower</a></li>
@@ -30,6 +31,7 @@
 				<li><a href="/feeManager">Zarządzanie opłatami</a></li>
 				<li><a href="/statistics">Statystyki</a></li>
 			</c:if>
+			
 		</ul>
 	</nav>
 </section>

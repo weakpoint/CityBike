@@ -110,6 +110,8 @@
 	<bean class="edu.citybike.bank.BankService">
 		<property name="facade" ref="facade" />
 	</bean>
+	
+	<bean class="edu.citybike.controller.StatisticController"/>
 
 	<!-- security -->
 	<bean id="encoder"

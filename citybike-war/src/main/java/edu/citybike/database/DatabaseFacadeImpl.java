@@ -185,49 +185,11 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 		}
 		return activeRental;
 	}
-	
-	public Bike getBike(String rentalNetworkCode, String bikeCode) throws PersistenceException {
-		/*List<Bike> bikes = daoPersistenceFactory.getBikePersistence().getAll(rentalNetworkCode);
-		for (Bike bike : bikes) {
-			if (bike.getBikeCode().equals(bikeCode)) {
-				return bike;
-			}
-		}
-		throw new ModelNotExistsException("Bike does not exist");
-		*/ return null;
-	}
-	
-	
-	
-	public User getUser(Credentials credentials) throws PersistenceException{
-		/*List<User> all = daoPersistenceFactory.getUserPersistence().getAll(credentials.getRentalNetworkCode());
-		
-		for(User u : all){
-			if(u.getEmailAddress().equals(credentials.getEmailAddress())){
-				return u;
-			}
-		}
-		throw new ModelNotExistsException("User does not exist");
-		*/
-		return null;
-	}
-	
-	public Rent getLastUserRent(String rentalNetworkCode, String userCode) throws PersistenceException{
-		/*List<Rent> all = daoPersistenceFactory.getRentPersistence().getAll(rentalNetworkCode);
-		Rent lastRent = null;
-		
-		for(Rent rent : all){
-			if(rent.getUserCode().equals(userCode)){
-				if(lastRent == null){
-					lastRent = rent;
-				}
-				if(lastRent.getStartDate().compareTo(rent.getStartDate()) > 0){
-					lastRent = rent;
-				}
-			}
-		}
-		return lastRent;
-		*/
-		return null;
+
+
+	@Override
+	public List <Rent> getRentList() throws PersistenceException {
+		Query rentListQuery = entityManager.createQuery("select rental from Rent rental");
+		return (List<Rent>) rentListQuery.getResultList();
 	}
 }
