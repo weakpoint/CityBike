@@ -8,6 +8,11 @@ import edu.citybike.model.Rent;
 
 public class RentalEndDateFilter extends Filter<Rent, Date> {
 
+	public RentalEndDateFilter(Date startDate) {
+		super();
+		filters.add(new DateFilterModel(Operator.GEQ, startDate));
+	}
+
 	@Override
 	public List<Rent> filtrate(List<Rent> data) {
 		List<Rent> filtratedList = new ArrayList<Rent>();
@@ -16,6 +21,9 @@ public class RentalEndDateFilter extends Filter<Rent, Date> {
 		for (Rent rent : data) {
 			for (FilterModel<Date> filter : filters) {
 				valid = filter.checkCondition(rent.getEndDate());
+				if (!valid) {
+					break;
+				}
 			}
 			if (valid) {
 				filtratedList.add(rent);

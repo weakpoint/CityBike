@@ -2,6 +2,8 @@ package edu.citybike.charts.datafactories;
 
 import java.util.List;
 
+import com.google.appengine.api.datastore.Key;
+
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.Rent;
@@ -22,6 +24,12 @@ public class RentDataFactory implements DataFactory<Rent> {
 		} else {
 			return facade.getUserRentListDesc(user.getKey());
 		}
+	}
+
+	@Override
+	public List<Rent> getData(Key userKey) throws PersistenceException {
+		User user = facade.getUserByKey(userKey);
+		return getData(user);
 	}
 
 }

@@ -54,7 +54,7 @@ public class StarterController {
 
 		// Credentials
 		Credentials c = new Credentials();
-		c.setUsername("admin");
+		c.setUsername("admin@admin.pl");
 		c.setPassword(encoder.encode("admin"));
 		list.add(c);
 
@@ -66,7 +66,7 @@ public class StarterController {
 		adminaddress.setPostalCode("95-010");
 		adminaddress.setStreet("Witanówek");
 		admin.setAddress(adminaddress);
-		admin.setEmailAddress("admin");
+		admin.setEmailAddress("admin@admin.pl");
 		admin.setLastName("Płuciennikowski");
 		admin.setName("Emil");
 		admin.setPhoneNumber("500 000 000");

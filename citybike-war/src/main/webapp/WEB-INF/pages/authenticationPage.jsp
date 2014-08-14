@@ -26,11 +26,11 @@
         <tbody>
             <tr>
                 <td>Login (E-mail):</td>
-                <td><input type="email" name="j_username" value="user" required/></td>
+                <td><input type="email" name="j_username" value="admin@admin.pl" required/></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input type="password" name="j_password" value="user" required/></td>
+                <td><input type="password" name="j_password" value="admin" required/></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Zaloguj" /></td>

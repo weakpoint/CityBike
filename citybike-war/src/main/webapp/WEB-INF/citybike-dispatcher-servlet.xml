@@ -111,7 +111,17 @@
 		<property name="facade" ref="facade" />
 	</bean>
 	
-	<bean class="edu.citybike.controller.StatisticController"/>
+	<bean class="edu.citybike.controller.StatisticController">
+	<property name="chartDataConfigurator" ref="chartDataConfigurator" />
+	</bean>
+	
+	<bean class="edu.citybike.charts.datafactories.RentDataFactory">
+	<property name="facade" ref="facade" />
+	</bean>
+	
+	<bean id="chartDataConfigurator" class="edu.citybike.charts.ChartDataConfigurator">
+	<property name="facade" ref="facade" />
+	</bean>
 
 	<!-- security -->
 	<bean id="encoder"

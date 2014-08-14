@@ -1,5 +1,11 @@
 package edu.citybike.charts;
 
+import java.util.Date;
+
+import com.google.appengine.api.datastore.Key;
+
+import edu.citybike.exceptions.PersistenceException;
+
 public class ChartData {
 
 	private DataBuilder dataBuider;
@@ -10,17 +16,20 @@ public class ChartData {
 		this.description = description;
 	}
 	
-	public DataBuilder getDataBuider() {
-		return dataBuider;
+	public void setStartDate(Date startDate){
+		dataBuider.setStartDate(startDate);
 	}
-	public void setDataBuider(DataBuilder dataBuider) {
-		this.dataBuider = dataBuider;
+	
+	public void setEndDate(Date endDate){
+		dataBuider.setEndDate(endDate);
 	}
+	
+	public String generateOutputData(Key userKey) throws PersistenceException{
+		return dataBuider.generateOutputData(userKey);
+	}
+
 	public String getDescription() {
 		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 	

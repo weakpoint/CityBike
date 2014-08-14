@@ -7,6 +7,11 @@ import java.util.List;
 import edu.citybike.model.Rent;
 
 public class RentalStartDateFilter extends Filter<Rent, Date> {
+	
+	public RentalStartDateFilter(Date startDate){
+		super();
+		filters.add(new DateFilterModel(Operator.GEQ, startDate));
+	}
 
 	@Override
 	public List<Rent> filtrate(List<Rent> data) {
@@ -16,6 +21,9 @@ public class RentalStartDateFilter extends Filter<Rent, Date> {
 		for (Rent rent : data) {
 			for (FilterModel<Date> filter : filters) {
 				valid = filter.checkCondition(rent.getStartDate());
+				if (!valid) {
+					break;
+				}
 			}
 			if (valid) {
 				filtratedList.add(rent);
