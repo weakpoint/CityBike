@@ -29,8 +29,8 @@ public class Rent {
 	
 	public Rent() {
 		this.rentDuration = 0;
-		this.startDate = new Date();
-		this.endDate = new Date();
+		this.startDate = null;
+		this.endDate = null;
 		this.active = false;
 		this.rentCost = 0;
 	}

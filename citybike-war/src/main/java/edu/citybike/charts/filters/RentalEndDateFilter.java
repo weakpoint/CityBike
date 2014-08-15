@@ -8,9 +8,9 @@ import edu.citybike.model.Rent;
 
 public class RentalEndDateFilter extends Filter<Rent, Date> {
 
-	public RentalEndDateFilter(Date startDate) {
+	public RentalEndDateFilter(Operator operator, Date endDate) {
 		super();
-		filters.add(new DateFilterModel(Operator.GEQ, startDate));
+		filters.add(new DateFilterModel(operator, endDate));
 	}
 
 	@Override

@@ -49,7 +49,7 @@
 
 	<bean class="edu.citybike.controller.AddNewBikeController">
 		<property name="facade" ref="facade" />
-		<property name="validator" ref="newbikeValidator"/>
+		<property name="validator" ref="newbikeValidator" />
 	</bean>
 
 	<bean class="edu.citybike.controller.IndexPageController">
@@ -110,17 +110,18 @@
 	<bean class="edu.citybike.bank.BankService">
 		<property name="facade" ref="facade" />
 	</bean>
-	
-	<bean class="edu.citybike.controller.StatisticController">
-	<property name="chartDataConfigurator" ref="chartDataConfigurator" />
+
+	<bean class="edu.citybike.controller.StatisticController" scope="session">
+		<property name="chartDataConfigurator" ref="chartDataConfigurator" />
 	</bean>
-	
+
 	<bean class="edu.citybike.charts.datafactories.RentDataFactory">
-	<property name="facade" ref="facade" />
+		<property name="facade" ref="facade" />
 	</bean>
-	
-	<bean id="chartDataConfigurator" class="edu.citybike.charts.ChartDataConfigurator">
-	<property name="facade" ref="facade" />
+
+	<bean id="chartDataConfigurator" class="edu.citybike.charts.ChartDataConfigurator"
+		scope="session">
+		<constructor-arg ref="facade" />
 	</bean>
 
 	<!-- security -->

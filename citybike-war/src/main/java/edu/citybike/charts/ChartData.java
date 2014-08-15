@@ -24,8 +24,15 @@ public class ChartData {
 		dataBuider.setEndDate(endDate);
 	}
 	
+	public void setTimeInterval(TimeInterval timeInterval){
+		dataBuider.getDivider().setTimeInterval(timeInterval);
+	}
+	
 	public String generateOutputData(Key userKey) throws PersistenceException{
-		return dataBuider.generateOutputData(userKey);
+
+		String result = "{\"cols\": [{\"id\": \"'A'\", \"label\": \"Przedzial\", \"type\": \"string\"},{\"id\": \"'B'\", \"label\": \"Ilosc\", \"type\":\"number\"}], ";
+		result += dataBuider.generateOutputData(userKey)+"}";
+		return result;
 	}
 
 	public String getDescription() {

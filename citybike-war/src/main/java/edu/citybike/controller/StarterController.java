@@ -2,6 +2,7 @@ package edu.citybike.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
@@ -40,10 +41,6 @@ public class StarterController {
 		this.encoder = encoder;
 	}
 
-	public DatabaseFacade getFacade() {
-		return facade;
-	}
-
 	public void setFacade(DatabaseFacade facade) {
 		this.facade = facade;
 	}
@@ -77,7 +74,7 @@ public class StarterController {
 
 		// Credentials
 		Credentials c2 = new Credentials();
-		c2.setUsername("user");
+		c2.setUsername("user@user.pl");
 		c2.setPassword(encoder.encode("user"));
 		list.add(c2);
 
@@ -89,7 +86,7 @@ public class StarterController {
 		useraddress.setPostalCode("00-010");
 		useraddress.setStreet("Słóń");
 		user.setAddress(useraddress);
-		user.setEmailAddress("user");
+		user.setEmailAddress("user@user.pl");
 		user.setLastName("Nazwisko Usera");
 		user.setName("Imię Usera");
 		user.setPhoneNumber("500 600 700");
@@ -134,27 +131,55 @@ public class StarterController {
 		TechnicalDetails td = new TechnicalDetails();
 		td.setName("Cross 1");
 		bike.setTechnicalDetails(td);
+		bike.setKey(KeyFactory.createKey("Bike", new Random().nextLong()));
 		list.add(bike);
 
 		// rent
 		Rent r = new Rent();
-		r.setActive(true);
-		r.setStartDate(new Date(System.currentTimeMillis() - 60 * 45000));
+		r.setActive(false);
+		r.setStartDate(new Date(System.currentTimeMillis() - 60 * 60000));
+		r.setEndDate(new Date(System.currentTimeMillis() - 60 * 46000));
 		r.setRentCost(1);
+		r.setBikeCode(bike.getKey());
+		r.setUserCode(user.getKey());
 
 		Rent r2 = new Rent();
-		r2.setActive(true);
-		r2.setStartDate(new Date(System.currentTimeMillis() - 60 * 30000));
+		r2.setActive(false);
+		r2.setStartDate(new Date(System.currentTimeMillis() - 60 * 45000));
+		r2.setEndDate(new Date(System.currentTimeMillis() - 60 * 31000));
 		r2.setRentCost(2);
+		r2.setBikeCode(bike.getKey());
+		r2.setUserCode(user.getKey());
 
 		Rent r3 = new Rent();
-		r3.setActive(false);
-		r3.setStartDate(new Date(System.currentTimeMillis() - 60 * 60000));
+		r3.setActive(true);
+		r3.setStartDate(new Date(System.currentTimeMillis() - 60 * 30000));
 		r3.setRentCost(8);
+		r3.setBikeCode(bike.getKey());
+		r3.setUserCode(user.getKey());
+		
+		Rent r4 = new Rent();
+		r4.setActive(false);
+		r4.setStartDate(new GregorianCalendar(2013,0,31).getTime());
+		r4.setEndDate(new Date(r4.getStartDate().getTime() + (60000 * 30))); //+30 min
+		r4.setRentCost(8);
+		r4.setBikeCode(bike.getKey());
+		r4.setUserCode(user.getKey());
+		
+		Rent r5 = new Rent();
+		r5.setActive(false);
+		r5.setStartDate(new GregorianCalendar(2014,0,31).getTime());
+		r5.setEndDate(new Date(r5.getStartDate().getTime() + (60000 * 30)));
+		r5.setRentCost(8);
+		r5.setBikeCode(bike.getKey());
+		r5.setUserCode(user.getKey());
 
 		list.add(r);
 		list.add(r2);
 		list.add(r3);
+		list.add(r4);
+		list.add(r5);
+		
 
 		for (Object model : list) {
 			try {
