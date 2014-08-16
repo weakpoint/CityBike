@@ -20,7 +20,7 @@ public class ControllerUtilities {
 	public static int ASC = 0;
 	public static int DESC = 1;
 	private DatabaseFacade facade;
-	
+
 	public DatabaseFacade getFacade() {
 		return facade;
 	}
@@ -28,56 +28,57 @@ public class ControllerUtilities {
 	public void setFacade(DatabaseFacade facade) {
 		this.facade = facade;
 	}
-	
+
 	public ControllerUtilities() {
 		facade = new DatabaseFacadeImpl();
 	}
-	
-	public static double calculatePayment(List<Fee> fees, long rentDuration){
+
+	public static double calculatePayment(List<Fee> fees, long rentDuration) {
 		List<Fee> feeList = sortFeeList(fees, ControllerUtilities.ASC);
-		
-		int i  = feeList.size()-1;
+
+		int i = feeList.size() - 1;
 		double payment = 0;
 		boolean found = false;
-		
-		if(rentDuration >= feeList.get(i).getTime()){
+
+		if (rentDuration >= feeList.get(i).getTime()) {
 			return feeList.get(i).getFee();
 		}
-		
-		for(; i < 0;i--){
-			if(found){
-				payment += payment = Math.ceil((feeList.get(i).getTime() - feeList.get(i-1).getTime())/60)*feeList.get(i-1).getFee();
+
+		for (; i < 0; i--) {
+			if (found) {
+				payment += payment = Math.ceil((feeList.get(i).getTime() - feeList.get(i - 1).getTime()) / 60)
+						* feeList.get(i - 1).getFee();
 			}
-			
-			if(feeList.get(i).getTime() > rentDuration && feeList.get(i-1).getTime() > rentDuration && !found){
+
+			if (feeList.get(i).getTime() > rentDuration && feeList.get(i - 1).getTime() > rentDuration && !found) {
 				found = true;
-				payment = Math.ceil((rentDuration - feeList.get(i-1).getTime())/60)*feeList.get(i-1).getFee();
-			}			
+				payment = Math.ceil((rentDuration - feeList.get(i - 1).getTime()) / 60) * feeList.get(i - 1).getFee();
+			}
 		}
 		return payment;
 	}
-	
-	public static List<Fee> sortFeeList(List<Fee> feeList, final int direction){
+
+	public static List<Fee> sortFeeList(List<Fee> feeList, final int direction) {
 		List<Fee> list = new ArrayList<Fee>();
 		list.addAll(feeList);
-		
-		Collections.sort(list, new Comparator<Fee>(){
+
+		Collections.sort(list, new Comparator<Fee>() {
 
 			@Override
-			public int compare(Fee fee1, Fee fee2) {	
-				if(direction == ControllerUtilities.ASC){
-				return fee2.getTime() - fee1.getTime();
-				}
-				else if(direction == ControllerUtilities.DESC){
+			public int compare(Fee fee1, Fee fee2) {
+				if (direction == ControllerUtilities.ASC) {
+					return fee2.getTime() - fee1.getTime();
+				} else if (direction == ControllerUtilities.DESC) {
 					return fee1.getTime() - fee2.getTime();
 				}
-				return 0; 	
+				return 0;
 			}
-			
+
 		});
 		return list;
-	}	
-	public static User retriveChangedUser(DatabaseFacade facade, UserInfo userInfo) throws PersistenceException{
+	}
+
+	public static User retriveChangedUser(DatabaseFacade facade, UserInfo userInfo) throws PersistenceException {
 		User userFromDatabase = facade.getUserByLogin(userInfo.getEmailAddress());
 		userFromDatabase.setAddress(userInfo.getAddress());
 		userFromDatabase.setName(userInfo.getName());
@@ -85,5 +86,11 @@ public class ControllerUtilities {
 		userFromDatabase.setPhoneNumber(userInfo.getPhoneNumber());
 		return userFromDatabase;
 	}
-}
 
+	public static String createGetterMethodName(String fieldName) {
+		StringBuilder sb = new StringBuilder(fieldName);
+		sb.setCharAt(0, fieldName.substring(0, 1).toUpperCase().charAt(0));
+		sb.insert(0, "get");
+		return sb.toString();
+	}
+}

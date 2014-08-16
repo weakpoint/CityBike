@@ -10,6 +10,10 @@ import edu.citybike.model.Rent;
 
 public class RentalStartDateDivider extends Divider<Rent> {
 
+	public RentalStartDateDivider(String fieldName) {
+		super(fieldName);
+	}
+
 	@Override
 	public Map<String, List<Rent>> divide(List<Rent> list) {
 		Map<String, List<Rent>> result = new HashMap<String, List<Rent>>();

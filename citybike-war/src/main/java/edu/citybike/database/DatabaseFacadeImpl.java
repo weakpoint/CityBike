@@ -192,4 +192,10 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 		Query rentListQuery = entityManager.createQuery("select rental from Rent rental");
 		return (List<Rent>) rentListQuery.getResultList();
 	}
+
+	@Override
+	public List<User> getUserList() {
+		Query userQuery = entityManager.createQuery("select u from User u");
+			return userQuery.getResultList();
+	}
 }

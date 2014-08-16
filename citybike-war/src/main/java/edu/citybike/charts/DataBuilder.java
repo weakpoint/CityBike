@@ -15,6 +15,13 @@ import edu.citybike.charts.filters.Filter;
 import edu.citybike.charts.operations.Operation;
 import edu.citybike.exceptions.PersistenceException;
 
+/**
+ * Class which generates data to be displayed in chart
+ * @author Emil Płuciennikowski
+ *
+ * @param <S> Type of Model object
+ * @param <T> Type of field 
+ */
 public abstract class DataBuilder<S,T> {
 private List<Filter<S,T>> filterList = new ArrayList<>();
 private Divider<S> divider;

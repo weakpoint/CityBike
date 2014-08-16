@@ -33,6 +33,7 @@ public interface DatabaseFacade {
 	BankAccount getUserBankAccount(Key userKey) throws ModelNotExistsException;
 	Rent getUserActiveRental(Key userKey) throws ModelNotExistsException;
 	List<Rent> getRentList() throws PersistenceException;
+	List<User> getUserList();
 	
 
 }
