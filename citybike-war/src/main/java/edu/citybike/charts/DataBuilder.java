@@ -21,16 +21,17 @@ private Divider<S> divider;
 private DataFactory<S> dataFactory;
 private Operation operation;
 
-protected Map<String, Long> build(Key userKey) throws PersistenceException{
+protected Map<String, Object> build(Key userKey) throws PersistenceException{
 	List<S> data = dataFactory.getData(userKey);
 	System.out.println("Factory: "+data.size());
 	for(Filter<S,?> filter : filterList){
 		data = filter.filtrate(data);
 	}
+	filterList.clear();
 	System.out.println("Filter: "+data.size());
 	Map<String, List<S>> dividedData = divider.divide(data);
 	System.out.println("Divider: "+dividedData.size());
-	Map<String, Long> result = new HashMap<String, Long>();
+	Map<String, Object> result = new HashMap<String, Object>();
 	Set<String> keySet = dividedData.keySet();
 	System.out.println("------- RESULT ---------");
 	for(String key : keySet){
@@ -46,7 +47,7 @@ public abstract void setStartDate(Date startDate);
 public abstract void setEndDate(Date endDate);
 
 public String generateOutputData(Key userKey) throws PersistenceException{
-	Map<String, Long> build = build(userKey);
+	Map<String, Object> build = build(userKey);
 	
 	Set<String> keySet = build.keySet();
 	StringBuilder result = new StringBuilder("\"rows\": [");
@@ -60,6 +61,7 @@ public String generateOutputData(Key userKey) throws PersistenceException{
 		result.append((i++ == keySet.size())?"}]}":"}]},");
 	}
 	result.append("]");
+
 	return result.toString();
 }
 

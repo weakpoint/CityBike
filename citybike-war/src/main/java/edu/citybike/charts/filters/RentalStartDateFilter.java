@@ -17,7 +17,6 @@ public class RentalStartDateFilter extends Filter<Rent, Date> {
 	public List<Rent> filtrate(List<Rent> data) {
 		List<Rent> filtratedList = new ArrayList<Rent>();
 		boolean valid = false;
-
 		for (Rent rent : data) {
 			for (FilterModel<Date> filter : filters) {
 				valid = filter.checkCondition(rent.getStartDate());

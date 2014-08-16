@@ -1,6 +1,8 @@
 package edu.citybike.controller;
 
-import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -8,6 +10,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +32,7 @@ import edu.citybike.model.view.StatisticPageView;
 
 @Controller
 public class StatisticController {
-
+	private static final Logger logger = LoggerFactory.getLogger(StatisticController.class);
 	private ChartDataConfigurator chartDataConfigurator;
 	
 	public void setChartDataConfigurator(ChartDataConfigurator chartDataConfigurator) {
@@ -36,21 +40,36 @@ public class StatisticController {
 	}
 
 
-	@RequestMapping(value = "/statistics.do", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/statistics.do", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE+"; charset=utf-8", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String getChartData(@RequestBody String selected, HttpSession session) throws PersistenceException {
 		
 		CurrentUser currentUser = ((CurrentUser) session.getAttribute("currentUser"));
-		System.out.println(currentUser);
+
 		Map<Integer, ChartData> generateChartData = chartDataConfigurator.getChartData(currentUser.getAuthorities().iterator().next().getAuthority());
 		System.out.println(selected);
 		StatisticPageView spv = new Gson().fromJson(selected, StatisticPageView.class);
 		System.out.println(spv);
 		
 		ChartData chartData = (ChartData)generateChartData.get(spv.getOperation());
-		chartData.setStartDate(new GregorianCalendar(2013,0,30).getTime());
-		chartData.setEndDate(new Date(System.currentTimeMillis()));
-		String res = chartData.generateOutputData(currentUser.getUserKey());
+		
+		Date startDate;
+		Date endDate;
+		String res = "";
+		try {
+			startDate = DateFormat.getDateInstance().parse(spv.getStartInterval());
+			endDate = DateFormat.getDateInstance().parse(spv.getEndInterval());
+			
+			chartData.setStartDate(startDate);
+			chartData.setEndDate(endDate);
+			chartData.setTimeInterval(spv.getTimeInterval());
+			res = chartData.generateOutputData(currentUser.getUserKey());
+			
+		} catch (ParseException e) {
+			logger.error("Wrong date format");
+			res = "{\"p\":{\"error\": \"Zły format daty\"}}";
+		}
+		
 		System.out.println(res);
 		return res;
 	}
@@ -71,8 +90,7 @@ public class StatisticController {
 		for (int i : keySet) {
 			operationMap.put(i, ((ChartData) generateChartData.get(i)).getDescription());
 		}
-		// Początek przedziału: <input type="date" name="startInterval"><br />
-		// Koniec przedziału: <input type="date" name="endInterval"><br />
+
 		ModelAndView mav = new ModelAndView("statisticPage");
 		mav.addObject("timeInterval", timeIntervalMap);
 		mav.addObject("operation", operationMap);

@@ -22,7 +22,7 @@ public class ChartDataConfigurator {
 
 		RentDataBuilder db1 = new RentDataBuilder();
 		db1.setDataFactory(rentDataFactory);
-		db1.setOperation(new SumOperation());
+		db1.setOperation(new SumOperation(""));
 		db1.setDivider(new RentalStartDateDivider());
 
 		userResult.put(random.nextInt(100), new ChartData("Liczba wypożyczeń", db1));

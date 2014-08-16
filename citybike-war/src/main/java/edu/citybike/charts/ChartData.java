@@ -30,8 +30,9 @@ public class ChartData {
 	
 	public String generateOutputData(Key userKey) throws PersistenceException{
 
-		String result = "{\"cols\": [{\"id\": \"'A'\", \"label\": \"Przedzial\", \"type\": \"string\"},{\"id\": \"'B'\", \"label\": \"Ilosc\", \"type\":\"number\"}], ";
-		result += dataBuider.generateOutputData(userKey)+"}";
+		String result = "{\"cols\": [{\"id\": \"'A'\", \"label\": \"Przedział\", \"type\": \"string\"},{\"id\": \"'B'\", \"label\": \"Ilość\", \"type\":\"number\"}], ";	
+		result += dataBuider.generateOutputData(userKey)+","
+				+ "\"p\": {\"title\": \""+description+"\"}}";
 		return result;
 	}
 
