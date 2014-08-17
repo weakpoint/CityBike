@@ -23,9 +23,10 @@ public class SumOperation extends Operation {
 				Method method = clazz.getDeclaredMethod(methodName);
 				if (double.class.equals(method.getReturnType()) || Double.class.equals(method.getReturnType())) {
 					return doubleSummation(data, method);
-				}
-				if (int.class.equals(method.getReturnType()) || Integer.class.equals(method.getReturnType())
-						|| long.class.equals(method.getReturnType()) || Long.class.equals(method.getReturnType())) {
+				} else
+				if (int.class.equals(method.getReturnType()) || Integer.class.equals(method.getReturnType())){
+					return intSummation(data, method); 
+				} else if(long.class.equals(method.getReturnType()) || Long.class.equals(method.getReturnType())) {
 					return longSummation(data, method);
 				}
 
@@ -35,6 +36,15 @@ public class SumOperation extends Operation {
 			}
 		}
 		return 0;
+	}
+
+	private int intSummation(List<?> data, Method method) throws IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException {
+		int sum = 0;
+		for (Object obj : data) {
+			sum += (int) method.invoke(obj);
+		}
+		return sum;
 	}
 
 	private long longSummation(List<?> data, Method method) throws IllegalAccessException, IllegalArgumentException,
