@@ -34,5 +34,7 @@
 			
 		</ul>
 	</nav>
+		<section><span style="color:red">${errorMessage}</span></section>
+	<section><span style="color:green">${infoMessage}</span></section>
 </section>
 

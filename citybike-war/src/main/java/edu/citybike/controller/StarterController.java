@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.appengine.api.datastore.KeyFactory;
 
@@ -46,7 +47,7 @@ public class StarterController {
 	}
 
 	@RequestMapping(value = "/startup", method = RequestMethod.GET)
-	public String setUpDatabase() {
+	public ModelAndView setUpDatabase() {
 		List<Object> list = new ArrayList<Object>();
 
 		// Credentials
@@ -180,6 +181,7 @@ public class StarterController {
 		list.add(r4);
 		list.add(r5);
 		
+ModelAndView mav = new ModelAndView("redirect:/");
 
 		for (Object model : list) {
 			try {
@@ -192,6 +194,6 @@ public class StarterController {
 			}
 		}
 
-		return "redirect:/";
+		return mav;
 	}
 }

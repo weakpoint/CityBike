@@ -23,12 +23,16 @@
 
 			var options = {
 				'title' : title,
-				'width' : 400,
-				'height' : 300
+				'width' : 500,
+				'height' : 500
 			};
 
-			var chart = new google.visualization.PieChart(document
+		/*	var chart = new google.visualization.PieChart(document
 					.getElementById('chart_div'));
+		*/	
+			var chart = new google.visualization.ColumnChart(document
+					.getElementById('chart_div'));
+			
 			chart.draw(data, options);
 		} else {
 			document.getElementById('chart_div').innerHTML = "<span style='color: #ff0000;'>"
