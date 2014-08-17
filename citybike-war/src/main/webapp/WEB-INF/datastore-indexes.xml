@@ -5,37 +5,18 @@
         <property name="userCode" direction="asc"/>
         <property name="startDate" direction="desc"/>
     </datastore-index>
-<!--	
-	<datastore-index kind="RentalOffice" ancestor="false">
-		<property name="rentalOfficeCode" direction="asc" />
+    
+    <datastore-index kind="User" ancestor="false">
+		<property name="key" direction="asc" />
+		<property name="emailAddress" direction="asc" />
 	</datastore-index>
 	
-	<datastore-index kind="Bike" ancestor="false">
-		<property name="rentalOfficekCode" direction="asc" />
-		<property name="bikeCode" direction="asc" />
+	<datastore-index kind="BankAccount" ancestor="false">
+		<property name="userKey" direction="asc" />
+    </datastore-index>
+    
+    <datastore-index kind="Credentials" ancestor="false">
+		<property name="username" direction="asc" />
 	</datastore-index>
-	
-	<datastore-index kind="User" ancestor="false">
-		<property name="userCode" direction="asc" />
-	</datastore-index>
-	
-	<datastore-index kind="Rent" ancestor="false">
-		<property name="userCode" direction="asc" />
-	</datastore-index>
-	
- 	
-	<datastore-index kind="RentalNetwork" ancestor="false">
-		<property name="rentalNetworkCode" direction="asc" />
-	</datastore-index>
-	
-	<datastore-index kind="Fee" ancestor="false">
-		<property name="rentalNetworkCode" direction="asc" />
-	</datastore-index>
-	
-	
-	
-	<datastore-index kind="Credentials" ancestor="false">
-		<property name="login" direction="asc" />
-	</datastore-index>
-	-->
+
 </datastore-indexes>

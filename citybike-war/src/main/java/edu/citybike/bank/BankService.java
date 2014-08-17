@@ -9,7 +9,6 @@ import edu.citybike.exceptions.ModelNotExistsException;
 import edu.citybike.exceptions.NegativeBalanceException;
 import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.BankAccount;
-import edu.citybike.model.view.MailMessage;
 
 public class BankService {
 

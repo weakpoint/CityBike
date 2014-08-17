@@ -8,10 +8,10 @@ import edu.citybike.exceptions.PersistenceException;
 
 public class ChartData {
 
-	private DataBuilder dataBuider;
+	private DataBuilder<?,?> dataBuider;
 	private String description;
 	
-	public ChartData(String description, DataBuilder dataBuider) {
+	public ChartData(String description, DataBuilder<?,?> dataBuider) {
 		this.dataBuider = dataBuider;
 		this.description = description;
 	}
