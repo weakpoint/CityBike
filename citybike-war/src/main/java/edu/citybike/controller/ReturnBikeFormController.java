@@ -61,17 +61,21 @@ public class ReturnBikeFormController {
 
 	@ModelAttribute("returnBike")
 	public RentalBikeView addNewRentObject(HttpServletRequest request) {
-		CurrentUser currentUser = (CurrentUser)request.getSession().getAttribute("currentUser");
+		CurrentUser currentUser = (CurrentUser) request.getSession().getAttribute("currentUser");
 		RentalBikeView rentalView = new RentalBikeView();
 		User user;
-			try {
-				user = facade.getUserByLogin(currentUser.getUsername());
-				rentalView.setUserKey(KeyFactory.keyToString(currentUser.getUserKey()));
-				rentalView.setName(user.getName());
-				rentalView.setLastName(user.getLastName());
-			} catch (PersistenceException e) {
-				logger.error("Error during return bike model preparation");
-			}
+		try {
+			user = facade.getUserByLogin(currentUser.getUsername());
+			Rent rent = facade.getUserActiveRental(user.getKey());
+			rentalView.setUserKey(KeyFactory.keyToString(currentUser.getUserKey()));
+			rentalView.setName(user.getName());
+			rentalView.setLastName(user.getLastName());
+			rentalView.setBikeKey((rent.getBikeCode() != null) ? KeyFactory.keyToString(rent.getBikeCode()) : "");
+			rentalView.setRentalOfficeKey((rent.getRentalOfficeCode() != null) ? KeyFactory.keyToString(rent
+					.getRentalOfficeCode()) : "");
+		} catch (PersistenceException e) {
+			logger.error("Error during return bike model preparation");
+		}
 			
 		return rentalView;
 	}

@@ -30,7 +30,7 @@ public class UserInfoValidator implements Validator {
 	public void validate(Object obj, Errors errors) {
 		UserInfo user = (UserInfo) obj;
 
-		if (!user.getPassword().equals(user.getRepeatpassword())) {
+		if (user.getExternalID().isEmpty() && !user.getPassword().equals(user.getRepeatpassword())) {
 			errors.rejectValue("password", "userinfo.password.repeat");
 			errors.rejectValue("repeatpassword", "userinfo.password.repeat");
 		}

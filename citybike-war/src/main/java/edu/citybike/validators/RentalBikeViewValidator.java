@@ -27,13 +27,13 @@ public class RentalBikeViewValidator implements Validator{
 			errors.rejectValue("lastName", "rentalBikeView.lastname");
 		}
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userkey",
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userKey",
 				"rentalBikeView.userkey", "Pole nie może być puste");
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "bikekey",
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "bikeKey",
 				"rentalBikeView.bikekey", "Pole nie może być puste");
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "rentalofficekey",
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "rentalOfficeKey",
 				"rentalBikeView.rentalofficekey", "Pole nie może być puste");
 
 		

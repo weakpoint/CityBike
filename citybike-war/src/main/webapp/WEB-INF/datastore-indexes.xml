@@ -10,13 +10,5 @@
 		<property name="key" direction="asc" />
 		<property name="emailAddress" direction="asc" />
 	</datastore-index>
-	
-	<datastore-index kind="BankAccount" ancestor="false">
-		<property name="userKey" direction="asc" />
-    </datastore-index>
-    
-    <datastore-index kind="Credentials" ancestor="false">
-		<property name="username" direction="asc" />
-	</datastore-index>
 
 </datastore-indexes>

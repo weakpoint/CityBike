@@ -78,29 +78,16 @@ public class RegistrationController {
 	}
 
 	@RequestMapping("/registration")
-	public ModelAndView showAddRegistrationForm(HttpServletRequest request, ModelMap map, @ModelAttribute("formAction") String formAction, @ModelAttribute("userInfo") UserInfo userInfo, BindingResult result) {
+	public ModelAndView showAddRegistrationForm(HttpServletRequest request, ModelMap map,
+			@ModelAttribute("formAction") String formAction, @ModelAttribute("userInfo") UserInfo userInfo,
+			BindingResult result) {
 
-		//UserInfo userInfo = (UserInfo) request.getAttribute("userInfo");		
-System.out.println("user info"+userInfo);
-System.out.println("form "+formAction+".");
-ModelAndView mav = new ModelAndView("userdata","formAction", "/register.do");
-//		if (userInfo == null || "".equals(formAction)) {
-			userInfo = new UserInfo();
-			mav.addObject("userInfo", userInfo);
+		UserInfo requestUser = (UserInfo) request.getAttribute("userInfo");
 
-			return mav;
-/*		} else {
-			System.out.println("validator");
-			validator.validate(userInfo, result);
-			System.out.println(result);
-			if (result.hasErrors()) {
-				System.out.println("dupa");
-				return mav;
-			}
-			System.out.println("register ok");
-			return new ModelAndView("redirect:/register.do", "userInfo", userInfo);
-		}
-*/
+		ModelAndView mav = new ModelAndView("userdata", "formAction", "/register.do");
+		mav.addObject("userInfo", (requestUser != null) ? requestUser : userInfo);
+
+		return mav;
 	}
 
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
