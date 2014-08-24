@@ -33,29 +33,45 @@ public class ControllerUtilities {
 		facade = new DatabaseFacadeImpl();
 	}
 
-	public static double calculatePayment(List<Fee> fees, long rentDuration) {
+	public static double calculatePayment(List<Fee> fees, long rentDuration){
+		logger.debug("calculatePayment: ");
+		logger.debug("Fee list size: "+fees.size());
+		logger.debug("Rent duration: "+rentDuration);
+		
+		if(fees == null || fees.size() == 0){
+			return 0;
+		}
+		
 		List<Fee> feeList = sortFeeList(fees, ControllerUtilities.ASC);
-
-		int i = feeList.size() - 1;
-		double payment = 0;
-		boolean found = false;
-
-		if (rentDuration >= feeList.get(i).getTime()) {
-			return feeList.get(i).getFee();
+		
+		//if rent time is greater or equal than the longest duration time
+		if(feeList.get(0).getTime() <= rentDuration){
+			return feeList.get(0).getFee();
 		}
-
-		for (; i < 0; i--) {
-			if (found) {
-				payment += payment = Math.ceil((feeList.get(i).getTime() - feeList.get(i - 1).getTime()) / 60)
-						* feeList.get(i - 1).getFee();
-			}
-
-			if (feeList.get(i).getTime() > rentDuration && feeList.get(i - 1).getTime() > rentDuration && !found) {
-				found = true;
-				payment = Math.ceil((rentDuration - feeList.get(i - 1).getTime()) / 60) * feeList.get(i - 1).getFee();
+		
+		//if rent time is smaller or equal the shortest duration time
+		if(feeList.get(feeList.size()-1).getTime() >= rentDuration){
+			return feeList.get(feeList.size()-1).getFee();
+		}
+		
+		for(int i = 0; i < feeList.size()-1;i++){
+			logger.trace(feeList.get(i+1).getTime()+" <= "+rentDuration+" < "+feeList.get(i).getTime());
+			
+			if(feeList.get(i).getTime() > rentDuration && feeList.get(i+1).getTime() <= rentDuration){
+				double difC = 0;
+				double difT = feeList.get(i).getTime() - feeList.get(i+1).getTime();
+				
+				//happy hour
+				if(feeList.get(i+1).getFee() != 0){
+					difC = feeList.get(i).getFee() - feeList.get(i+1).getFee();
+				}
+				
+				return feeList.get(i+1).getFee() + ((rentDuration-feeList.get(i+1).getTime())*(difC/difT));
 			}
 		}
-		return payment;
+		
+		return 0;
+		
 	}
 
 	public static List<Fee> sortFeeList(List<Fee> feeList, final int direction) {

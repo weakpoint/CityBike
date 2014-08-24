@@ -22,7 +22,6 @@
 		</header>
 
 		<form:form method="POST" commandName="returnBike" action="/returnApporval">
-			<form:errors path="*" cssClass="errorblock" element="div" />
 			<table>
 				<tr>
 					<td>Imię :</td>
@@ -46,7 +45,7 @@
 				</tr>
 				<tr>
 					<td>Kod wypozyczalni:</td>
-					<td><form:input path="rentalOfficeKey"/></td>
+					<td><form:input path="rentalOfficeKey"/> </td>
 					<td><form:errors path="rentalOfficeKey" cssClass="error" /></td>
 				</tr>
 				<tr>

@@ -46,7 +46,7 @@
 						</c:otherwise>
 					</c:choose>
 
-					<td><input name="fee" value="${fee.fee.fee}" pattern="^([0-9]+\\.[0-9]+)|([0-9]+)$"/></td>
+					<td><input name="fee" value="${fee.fee.fee}" pattern="^[0-9]+\.[0-9]+|[0-9]+$"/></td>
 
 				</tr>
 			</c:forEach>

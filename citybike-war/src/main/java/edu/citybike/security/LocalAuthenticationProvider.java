@@ -3,6 +3,8 @@ package edu.citybike.security;
 import java.util.Collection;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import edu.citybike.controller.AddNewBikeController;
 import edu.citybike.database.DatabaseFacade;
 import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.model.User;
@@ -23,6 +26,7 @@ import edu.citybike.model.view.CurrentUser;
 public class LocalAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
     private UserDetailsService userService;
+	private static final Logger logger = LoggerFactory.getLogger(LocalAuthenticationProvider.class);
 	private DatabaseFacade facade;
 	private PasswordEncoder encoder;
 
@@ -57,9 +61,9 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
         String password = (String) authentication.getCredentials();
-        System.out.println("Handler!!!!!!!!!!!!!!!!!!!!!: "+authentication);
-        System.out.println("Name: "+authentication.getName());
-        System.out.println("Password: "+authentication.getCredentials());
+        logger.trace("Handler: "+authentication);
+        logger.trace("Name: "+authentication.getName());
+
         CurrentUser user = (CurrentUser) userService.loadUserByUsername(email);
 
         if (user == null) {
@@ -73,7 +77,7 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
 				facade.update(possibleUser);
 			} catch (PersistenceException e) {
 			}
-        	System.out.println("Wrong password "+encoder.encode(password));
+        	logger.error("Wrong password "+encoder.encode(password));
             throw new BadCredentialsException("Wrong password.");
         }
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();

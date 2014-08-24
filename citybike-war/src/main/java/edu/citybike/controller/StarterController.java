@@ -155,7 +155,6 @@ public class StarterController {
 		Rent r3 = new Rent();
 		r3.setActive(true);
 		r3.setStartDate(new Date(System.currentTimeMillis() - 60 * 30000));
-		r3.setRentCost(8);
 		r3.setBikeCode(bike.getKey());
 		r3.setUserCode(user.getKey());
 		
