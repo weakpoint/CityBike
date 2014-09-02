@@ -97,7 +97,6 @@ public class RegistrationController {
 		validator.validate(userInfo, result);
 		System.out.println(result);
 		if (result.hasErrors()) {
-			System.out.println("dupa");
 			ModelAndView mav = new ModelAndView("userdata", "userInfo", userInfo);
 			mav.addObject("formAction", "/register.do");
 			return mav;
@@ -117,7 +116,7 @@ public class RegistrationController {
 
 			BankService.createBankAccount(key);
 			tr.commit();
-			Thread.sleep(1000);
+
 			loginCurrentUser(userInfo, pass, request);
 			
 			//sending welcome e-mail

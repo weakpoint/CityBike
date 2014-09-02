@@ -28,6 +28,7 @@ public class Mailer {
 			msg.setSubject(mail.getSubject());
 			msg.setText(mail.getMessageBody());
 			Transport.send(msg);
+			logger.info("Message has been sent to "+mail.getAddressTo());
 
 		} catch (MessagingException | UnsupportedEncodingException e) {
 			logger.error(e.getMessage(), e);
