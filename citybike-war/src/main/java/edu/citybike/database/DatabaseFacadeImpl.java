@@ -198,4 +198,5 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 		Query userQuery = entityManager.createQuery("select u from User u");
 			return userQuery.getResultList();
 	}
+
 }

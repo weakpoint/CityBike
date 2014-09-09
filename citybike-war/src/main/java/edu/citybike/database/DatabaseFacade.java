@@ -34,6 +34,5 @@ public interface DatabaseFacade {
 	Rent getUserActiveRental(Key userKey) throws ModelNotExistsException;
 	List<Rent> getRentList() throws PersistenceException;
 	List<User> getUserList();
-	
 
 }

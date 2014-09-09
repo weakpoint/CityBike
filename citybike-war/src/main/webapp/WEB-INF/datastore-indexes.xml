@@ -11,4 +11,5 @@
 		<property name="emailAddress" direction="asc" />
 	</datastore-index>
 
+
 </datastore-indexes>
