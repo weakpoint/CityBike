@@ -18,7 +18,7 @@
 		<br />
 	</c:if>
 
-	<a href="/facebookLogin.do">Logowanie za pomocą Facebook</a>
+	
 	<a href="/startup">START UP!</a>
 	<footer>
 		<%@include file="footer.jsp"%>

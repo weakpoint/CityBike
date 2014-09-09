@@ -42,7 +42,7 @@
 	<div id="verticalLine" style="height: 500px; border-left: thick solid #ff0000;"></div>
 	<section>
 	<!-- external login -->
-	
+	<a href="/facebookLogin.do">Logowanie za pomocą Facebook</a>
 	</section>
 	<footer>
 		<%@include file="footer.jsp"%>

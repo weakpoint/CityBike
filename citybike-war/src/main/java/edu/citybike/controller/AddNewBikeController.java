@@ -42,7 +42,7 @@ public class AddNewBikeController {
 		this.validator = validator;
 	}
 
-	@RequestMapping(value = "/addNewBike", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/addNewBike", method = RequestMethod.POST)
 	public ModelAndView addNewBike(@ModelAttribute("newBike") NewBike newBike, BindingResult result) {
 
 		validator.validate(newBike, result);
@@ -62,7 +62,7 @@ public class AddNewBikeController {
 		return new ModelAndView("redirect:/");
 	}
 
-	@RequestMapping("/addNewBike")
+	@RequestMapping("/admin/addNewBike")
 	public String showAddBikeForm() {
 		return "addnewbike";
 	}

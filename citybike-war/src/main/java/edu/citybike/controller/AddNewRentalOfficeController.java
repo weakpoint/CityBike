@@ -36,13 +36,13 @@ public class AddNewRentalOfficeController{
 		return new RentalOffice();
 	}
 	
-	@RequestMapping(value ="/addNewRentalOffice")
+	@RequestMapping(value ="/admin/addNewRentalOffice")
 	public String showNewRentalOfficeForm(@RequestHeader(value = "referer", required = false) String referer) {
 		this.referer = referer;
 		return "addnewrentaloffice";
 	}
 	
-	@RequestMapping(value = "/addNewRentalOffice", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/addNewRentalOffice", method = RequestMethod.POST)
 	public ModelAndView addNewRentalOffice(@ModelAttribute("newRentalOffice") RentalOffice rentalOffice, BindingResult result) {
 		
 		//form validation

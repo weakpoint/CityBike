@@ -34,7 +34,7 @@ public class FeeManageController {
 		this.facade = facade;
 	}
 	
-	@RequestMapping("/feeManager")
+	@RequestMapping("/admin/feeManager")
 	public ModelAndView feeManager(HttpSession session) {
 
 		List<FeeManagerView> rows = new ArrayList<FeeManagerView>();		
@@ -48,7 +48,7 @@ public class FeeManageController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/feeManager", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/feeManager", method = RequestMethod.POST)
 	public ModelAndView submitForm(HttpServletRequest request){
 		Map map = request.getParameterMap();
 		changedRows = new ArrayList<Boolean>();
@@ -96,7 +96,7 @@ public class FeeManageController {
 				System.out.println(rows.size()+" "+fee.length);
 				rows.add(0,new FeeManagerView(new Fee(), false, true));
 			}
-			System.out.println("Ostatecznie: "+rows.size()+" "+fee.length);
+
 			FeeManagerView row;
 			for(int i = 0; i < rows.size(); i++){
 				row = rows.get(i);
@@ -127,7 +127,6 @@ public class FeeManageController {
 	
 	private void saveToDatabase(List<FeeManagerView> rows) throws PersistenceException{
 		FeeManagerView row; 
-		System.out.println("kolumn "+rows.size());
 		for(int i = 0; i < rows.size(); i++){
 			row = rows.get(i);
 			if(row.isNewRow()){
