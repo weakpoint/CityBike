@@ -53,7 +53,7 @@ public class StarterController {
 		// Credentials
 		Credentials c = new Credentials();
 		c.setUsername("admin@admin.pl");
-		c.setPassword(encoder.encode("admin"));
+		c.setPassword(encoder.encode("Adminadmin1"));
 		list.add(c);
 
 		// user
@@ -76,7 +76,7 @@ public class StarterController {
 		// Credentials
 		Credentials c2 = new Credentials();
 		c2.setUsername("user@user.pl");
-		c2.setPassword(encoder.encode("user"));
+		c2.setPassword(encoder.encode("Useruser1"));
 		list.add(c2);
 
 		// user
@@ -88,9 +88,10 @@ public class StarterController {
 		useraddress.setStreet("Słóń");
 		user.setAddress(useraddress);
 		user.setEmailAddress("user@user.pl");
-		user.setLastName("Nazwisko Usera");
-		user.setName("Imię Usera");
+		user.setLastName("NazwiskoUsera");
+		user.setName("ImięUsera");
 		user.setPhoneNumber("500 600 700");
+		user.setActiveRental(true);
 		user.setRegistrationDate(new Date());
 		user.setRole(User.USER);
 		user.setKey(KeyFactory.createKey("User", new Random().nextLong()));

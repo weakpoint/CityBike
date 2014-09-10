@@ -90,14 +90,20 @@ public class ReturnBikeFormController {
 		
 		User user = null;
 		try {
-		if(rentalView.getUserKey() != null && rentalView.getBikeKey() != null && rentalView.getRentalOfficeKey() != null){
-			user = facade.getUserByKey(KeyFactory.stringToKey(rentalView.getUserKey()));
-			
-			if(user == null){
-				throw new ModelNotExistsException("User does not exist");
-			} 
+			if (rentalView.getUserKey() != null && rentalView.getBikeKey() != null) {
+				user = facade.getUserByKey(KeyFactory.stringToKey(rentalView.getUserKey()));
+
+				if (user == null) {
+					throw new ModelNotExistsException("User does not exist");
+				}
+				if ((user.getName().equalsIgnoreCase(rentalView.getName()) && user.getLastName().equalsIgnoreCase(
+						rentalView.getLastName()))) {
+					throw new ModelNotExistsException("Error during autorization");
+				}
+			} else {
+				throw new ModelNotExistsException("Error during autorization");
 			}
-			
+		
 			if(!user.hasActiveRental()){
 				throw new Exception("User currently do not have any bike rented");
 			}

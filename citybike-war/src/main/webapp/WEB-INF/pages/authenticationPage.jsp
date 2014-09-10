@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input type="password" name="j_password" value="admin" required/></td>
+                <td><input type="password" name="j_password" value="Adminadmin1" required/></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Zaloguj" /></td>

@@ -19,11 +19,11 @@ public class RentalBikeViewValidator implements Validator{
 		
 		RentalBikeView rental = (RentalBikeView) obj;
 		
-		if(rental.getName().length() < 2 || !rental.getName().matches("\\w{2,}")){
+		if(rental.getName().length() < 2 || !rental.getName().matches("[a-zA-ZążźćńłśęóŻŹĆŁŚ]{2,}")){
 			errors.rejectValue("name", "rentalBikeView.name");
 		}
 		
-		if(rental.getLastName().length() < 2 || !rental.getLastName().matches("\\w{2,}")){
+		if(rental.getLastName().length() < 2 || !rental.getLastName().matches("[a-zA-ZążźćńłśęóŻŹĆŁŚ]{2,}")){
 			errors.rejectValue("lastName", "rentalBikeView.lastname");
 		}
 

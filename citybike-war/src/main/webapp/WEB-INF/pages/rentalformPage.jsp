@@ -22,7 +22,6 @@
 		</header>
 
 		<form:form method="POST" commandName="newRental" action="/rentBike">
-			<form:errors path="*" cssClass="errorblock" element="div" />
 			<table>
 				<tr>
 					<td>Imię :</td>
@@ -35,7 +34,7 @@
 					<td><form:errors path="lastName" cssClass="error" /></td>
 				</tr>
 				<tr>
-					<td>Kod uzytkownika:</td>
+					<td>Kod użytkownika:</td>
 					<td><form:input path="userKey" /></td>
 					<td><form:errors path="userKey" cssClass="error" /></td>
 				</tr>
@@ -48,7 +47,7 @@
 					<td><form:errors path="bikeKey" cssClass="error" /></td>
 				</tr>
 				<tr>
-					<td>Kod wypozyczalni:</td>
+					<td>Kod wypożyczalni:</td>
 					<td><form:select path="rentalOfficeKey">
 							<form:options items="${rentalOfficeMap}"></form:options>
 						</form:select>
@@ -56,7 +55,7 @@
 					<td><form:errors path="rentalOfficeKey" cssClass="error" /></td>
 				</tr>
 				<tr>
-					<td colspan="3"><input type="submit" value="Wypozycz" /></td>
+					<td colspan="3"><input type="submit" value="Wypożycz" /></td>
 
 				</tr>
 			</table>

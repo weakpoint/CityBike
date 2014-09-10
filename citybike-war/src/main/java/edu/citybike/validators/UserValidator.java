@@ -30,11 +30,11 @@ public class UserValidator implements Validator {
 	public void validate(Object obj, Errors errors) {
 		User user = (User) obj;
 
-		if (user.getName().length() < 2 || !user.getName().matches("\\w{2,}")) {
+		if (user.getName().length() < 2 || !user.getName().matches("[a-zA-ZążźćńłśęóŻŹĆŁŚ]{2,}")) {
 			errors.rejectValue("name", "user.name");
 		}
 
-		if (user.getLastName().length() < 2 || !user.getLastName().matches("\\w{2,}")) {
+		if (user.getLastName().length() < 2 || !user.getLastName().matches("[a-zA-ZążźćńłśęóŻŹĆŁŚ]{2,}")) {
 			errors.rejectValue("lastName", "user.lastname");
 		}
 

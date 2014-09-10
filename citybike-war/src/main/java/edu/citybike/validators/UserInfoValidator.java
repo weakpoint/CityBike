@@ -34,6 +34,10 @@ public class UserInfoValidator implements Validator {
 			errors.rejectValue("password", "userinfo.password.repeat");
 			errors.rejectValue("repeatpassword", "userinfo.password.repeat");
 		}
+		
+		if (user.getExternalID().isEmpty() && !user.getPassword().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})")) {
+			errors.rejectValue("password", "userinfo.password.wrongpassword");
+		}
 
 		// User
 		try {
