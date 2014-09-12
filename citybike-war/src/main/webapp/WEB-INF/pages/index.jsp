@@ -11,13 +11,8 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
-	<c:if test="${currentUser.authorities[0] == 'USER'}">
-		<a href="/rentBike">Wypożycz rower</a>
-		<br />
-		<a href="/returnBike">Oddaj rower</a>
-		<br />
-	</c:if>
-
+	INFORMACJE I KONTAKT
+imie nazwiko politechniczna poczta
 	
 	<a href="/startup">START UP!</a>
 	<footer>

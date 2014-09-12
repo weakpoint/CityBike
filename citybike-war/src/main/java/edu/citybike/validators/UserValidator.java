@@ -45,7 +45,7 @@ public class UserValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress",
 				"user.emailaddress", "Pole nie może być puste");
 		
-		if (!user.getEmailAddress().matches("^[a-zA-Z0-9_%+-][a-zA-Z0-9_%+-\\.]*@[a-zA-Z0-9_%+-][a-zA-Z0-9_%+-\\.]*[a-zA-Z0-9_%+-]\\.[a-zA-Z]{2,6}$")) {
+		if (!user.getEmailAddress().matches("^[a-zA-Z0-9][a-zA-Z0-9_%+-\\.]*@[a-zA-Z0-9][a-zA-Z0-9_%+-\\.]*[a-zA-Z0-9_%+-]\\.[a-zA-Z]{2,6}$")) {
 			errors.rejectValue("emailAddress", "user.emailaddress");
 		}
 		

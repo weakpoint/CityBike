@@ -6,8 +6,6 @@
 		alt="" /></img></a>
 	<nav id="first-menu">
 		<ul>
-			<li>Informacje</li>
-			<li>Kontakt</li>
 			<c:if test="${currentUser == null}">
 				<li><a href="/login.do">Logowanie</a></li>
 				<li><a href="/registration">Rejestracja</a></li>
@@ -22,6 +20,8 @@
 	<nav id="second-menu">
 		<ul>
 			<c:if test="${currentUser.authorities[0] == 'USER'}">
+				<li><a href="/rentBike">Wypożycz rower</a></li>
+				<li><a href="/returnBike">Oddaj rower</a>
 				<li><a href="/rentalInformation">Dane wypożyczeń</a></li>
 				<li><a href="/statistics">Statystyki</a></li>
 			</c:if>
@@ -31,10 +31,14 @@
 				<li><a href="/admin/feeManager">Zarządzanie opłatami</a></li>
 				<li><a href="/statistics">Statystyki</a></li>
 			</c:if>
-			
+
 		</ul>
 	</nav>
-		<section><span style="color:red">${errorMessage}</span></section>
-	<section><span style="color:green">${infoMessage}</span></section>
+	<section>
+		<span style="color: red">${errorMessage}</span>
+	</section>
+	<section>
+		<span style="color: green">${infoMessage}</span>
+	</section>
 </section>
 

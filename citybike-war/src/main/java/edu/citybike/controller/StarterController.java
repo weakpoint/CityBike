@@ -67,7 +67,7 @@ public class StarterController {
 		admin.setEmailAddress("admin@admin.pl");
 		admin.setLastName("Płuciennikowski");
 		admin.setName("Emil");
-		admin.setPhoneNumber("500 000 000");
+		admin.setPhoneNumber("500400300");
 		admin.setRole(User.ADMINISTRATOR);
 		admin.setRegistrationDate(new Date());
 		admin.setKey(KeyFactory.createKey("User", new Random().nextLong()));
@@ -90,7 +90,7 @@ public class StarterController {
 		user.setEmailAddress("user@user.pl");
 		user.setLastName("NazwiskoUsera");
 		user.setName("ImięUsera");
-		user.setPhoneNumber("500 600 700");
+		user.setPhoneNumber("500600700");
 		user.setActiveRental(true);
 		user.setRegistrationDate(new Date());
 		user.setRole(User.USER);

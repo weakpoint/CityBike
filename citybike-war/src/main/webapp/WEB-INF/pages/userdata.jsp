@@ -63,7 +63,7 @@
 				</tr>
 			</c:if>
 			<tr>
-				<td><h2>Adres</h2></td>
+				<td><h2>Dane adresowe</h2></td>
 			</tr>
 			<tr>
 				<td>Ulica :</td>
