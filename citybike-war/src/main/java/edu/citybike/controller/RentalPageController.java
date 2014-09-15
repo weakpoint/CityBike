@@ -133,6 +133,10 @@ public class RentalPageController {
 					throw new ModelNotExistsException("User does not exist");
 				}
 				
+				if(!user.getName().equalsIgnoreCase(rentalView.getName()) || !user.getLastName().equalsIgnoreCase(rentalView.getLastName())){
+					throw new ModelNotExistsException("Error during autorization");
+				}
+				
 				if(user.hasActiveRental()){
 					throw new Exception("User currently has bike rented");
 				}

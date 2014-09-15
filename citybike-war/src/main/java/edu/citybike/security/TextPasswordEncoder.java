@@ -30,7 +30,6 @@ public class TextPasswordEncoder implements PasswordEncoder{
 			sb.setCharAt(0, c);
 			sb.insert((int)(sb.length()/2), '$');
 			sb.append("#|#");
-			System.out.println("HASLO: "+sb.toString());
 			return sb.toString();
 		}
 		return newPassword;

@@ -8,11 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style>
-.error {
-	color: #ff0000;
-}
-</style>
+<link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
 <title>Dane użytkownika</title>
 </head>
 <body>
@@ -20,7 +16,7 @@
 		<%@include file="header.jsp"%>
 	</header>
 	<h2>Dane użytkownika</h2>
-
+<section>
 	<form:form method="POST" commandName="userInfo" action="${formAction}">
 		<table>
 			<tr>
@@ -105,6 +101,7 @@
 		</table>
 
 	</form:form>
+	</section>
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>

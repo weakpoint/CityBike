@@ -11,11 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Zarządzanie opłatami</title>
-<style>
-.error {
-	color: #ff0000;
-}
-</style>
+<link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
 </head>
 <body>
 	<header>

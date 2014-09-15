@@ -1,3 +1,76 @@
 .error {
 	color: #ff0000;
 }
+
+body {
+	background-color: #995465;
+}
+
+header {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+footer {
+	width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+	background-color: rgb(200, 104, 9);
+}
+
+.strona {
+	width: 1000px;
+	background-color: rgb(180, 194, 50);
+}
+
+.center {
+	margin: 0 auto;
+}
+
+#content {
+	width: 900px;
+}
+
+#logo {
+	width: 1000px;
+}
+
+nav {
+	width: 1000px;
+	height: 30px;
+	background-color: rgb(200, 104, 9);
+}
+
+nav li {
+	float: left;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav a {
+	text-decoration: none;
+	font-size: 20px;
+	padding-left: 50px;
+	display: block;
+	width: 200px;
+}
+
+a:link {
+	color: #000000;
+}
+
+a:visited {
+	color: #000000;
+}
+
+a:hover {
+	color: #FF0000;
+}
+
+a:active {
+	color: #000000;
+}

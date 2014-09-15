@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -70,11 +71,7 @@
 		return "";
 	}
 </script>
-<style>
-.error {
-	color: #ff0000;
-}
-</style>
+<link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
 <title>Nowa wypożyczalnia</title>
 </head>
 <body>
@@ -101,7 +98,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Numer mieszkania :</td>
+				<td>Numer lokalu :</td>
 				<td><form:input path="address.flatNumber" id="flatnumber"/></td>
 				<td><form:errors path="address.flatNumber" cssClass="error" />
 				</td>
