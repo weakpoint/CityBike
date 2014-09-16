@@ -20,7 +20,7 @@ public class AddressValidator implements Validator{
 			errors.rejectValue("city", "address.city");
 		}
 		
-		if(adr.getStreet().length() > 0 || !adr.getStreet().matches("^[[a-zA-ZążźćńłśęóŻŹĆŁŚ]]+.*$")){
+		if(adr.getStreet().length() > 0 && !adr.getStreet().matches("^[a-zA-ZążźćńłśęóŻŹĆŁŚ]+$")){
 			errors.rejectValue("street", "address.street");
 		}
 		

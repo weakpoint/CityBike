@@ -81,7 +81,8 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
-	<section>
+	<section class="center" id="content">
+	<section class="left_side">
 		<!-- dane -->
 		<section>
 			<header>
@@ -109,14 +110,16 @@
 			</header>
 			<span>Czas:</span> <span>${overallRentalTime}</span><span> min</span><br /> <span>Koszt:</span><span>${overallRentalCost}</span><span> zł</span>
 		</section>
-	</section>
-
-	<section>
+		</section>
+		<section class="right_side">
 		<h2>Znajdź najbliższą wypożyczalnie</h2>
 		<!-- mapa -->
-		<div id="googleMap" style="width: 500px; height: 380px;"></div>
+		<div id="googleMap" style="width: 400px; height: 400px;"></div>
 		<input type="button" onclick="add();" value="Pokaż wypożyczalnie"/>
 	</section>
+	</section>
+
+	
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>

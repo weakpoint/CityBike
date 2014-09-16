@@ -17,6 +17,8 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
+	<section class="center" id="content">
+	<section class="center_form">
 	<h2>Zarządzanie opłatami</h2>
 
 	<form:form method="post" action="/feeManager" modelAttribute="feeList">
@@ -57,6 +59,8 @@
 
 		</table>
 	</form:form>
+	</section>
+	</section>
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>

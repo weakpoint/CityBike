@@ -13,7 +13,8 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
-	<section>
+	<section class="center" id="content">
+	<section class="center_form">
 		<header>
 			<h1>Zwrot roweru</h1>
 		</header>
@@ -51,7 +52,7 @@
 				</tr>
 			</table>
 		</form:form>
-
+	</section>
 	</section>
 	<footer>
 		<%@include file="footer.jsp"%>

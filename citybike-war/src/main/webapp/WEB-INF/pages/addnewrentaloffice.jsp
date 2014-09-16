@@ -71,75 +71,77 @@
 		return "";
 	}
 </script>
-<link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/styles.css" />"
+	rel="stylesheet">
 <title>Nowa wypożyczalnia</title>
 </head>
 <body>
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
+	<section class="center" id="content">
+	<section class="left_side">
+		<h2>Dane wypożyczalni</h2>
+		<form:form method="POST" commandName="newRentalOffice">
+			<table>
+				<tr>
+					<td>Ulica :</td>
+					<td><form:input path="address.street" id="street" /></td>
+					<td><form:errors path="address.street" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td>Numer domu :</td>
+					<td><form:input path="address.houseNumber" id="housenumber" /></td>
+					<td><form:errors path="address.houseNumber" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<td>Numer lokalu :</td>
+					<td><form:input path="address.flatNumber" id="flatnumber" /></td>
+					<td><form:errors path="address.flatNumber" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<td>Kod pocztowy :</td>
+					<td><form:input path="address.postalCode" id="postalcode" /></td>
+					<td><form:errors path="address.postalCode" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<td>Miasto :</td>
+					<td><form:input path="address.city" id="city" /></td>
+					<td><form:errors path="address.city" cssClass="error" /></td>
+				</tr>
 
-	<h2>Dane wypożyczalni</h2>
-	<form:form method="POST" commandName="newRentalOffice">
-		<table>
+				<tr>
+					<td>Szerokość geograficzna:</td>
+					<td><form:input path="latitude" id="latitudeField" /></td>
+					<td><form:errors path="latitude" id="latitudeField"
+							cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td>Długość geograficzna:</td>
+					<td><form:input path="longitude" id="longitudeField" /></td>
+					<td><form:errors path="longitude" id="latitudeField"
+							cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td colspan="3"><input type="submit" value="OK" /></td>
+					<td><input type="button" value="Pobierz dane z mapy"
+						onclick="getCoordinates();" /></td>
 
-			<tr>
-				<td><h2>Adres</h2></td>
-			</tr>
-			<tr>
-				<td>Ulica :</td>
-				<td><form:input path="address.street" id="street"/></td>
-				<td><form:errors path="address.street" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Numer domu :</td>
-				<td><form:input path="address.houseNumber" id="housenumber"/></td>
-				<td><form:errors path="address.houseNumber" cssClass="error" />
-				</td>
-			</tr>
-			<tr>
-				<td>Numer lokalu :</td>
-				<td><form:input path="address.flatNumber" id="flatnumber"/></td>
-				<td><form:errors path="address.flatNumber" cssClass="error" />
-				</td>
-			</tr>
-			<tr>
-				<td>Kod pocztowy :</td>
-				<td><form:input path="address.postalCode" id="postalcode"/></td>
-				<td><form:errors path="address.postalCode" cssClass="error" />
-				</td>
-			</tr>
-			<tr>
-				<td>Miasto :</td>
-				<td><form:input path="address.city" id="city"/></td>
-				<td><form:errors path="address.city" cssClass="error" /></td>
-			</tr>
+				</tr>
 
-			<tr>
-				<td>Szerokość geograficzna</td>
-				<td><form:input path="latitude" id="latitudeField" /></td>
-				<td><form:errors path="latitude" id="latitudeField" cssClass="error"/></td>
-			</tr>
-			<tr>
-				<td>Długość geograficzna</td>
-				<td><form:input path="longitude" id="longitudeField" /></td>
-				<td><form:errors path="longitude" id="latitudeField" cssClass="error"/></td>
-			</tr>
-			<tr>
-				<td colspan="3"><input type="submit" value="OK" /></td>
-				<td><input type="button" value="Pobierz dane z mapy"
-					onclick="getCoordinates();" /></td>
+			</table>
 
-			</tr>
-
-		</table>
-
-	</form:form>
-
-	<section style="align: center">
-		<!-- mapa -->
-		<div id="googleMap" style="width: 500px; height: 380px;"></div>
+		</form:form>
+		</section>
+		<section class="right_side">
+			<!-- mapa -->
+			<div id="googleMap" style="width: 400px; height: 400px;"></div>
+		</section>
 	</section>
+
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>

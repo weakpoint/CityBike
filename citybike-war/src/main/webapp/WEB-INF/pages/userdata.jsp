@@ -15,10 +15,12 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
+	<section class="center" id="content">
+	<section class="center_form">
 	<h2>Dane użytkownika</h2>
-<section>
+
 	<form:form method="POST" commandName="userInfo" action="${formAction}">
-		<table>
+		<table style="width:500px">
 			<tr>
 				<td>Imię :</td>
 				<td><form:input path="name" /></td>
@@ -101,6 +103,7 @@
 		</table>
 
 	</form:form>
+	</section>
 	</section>
 	<footer>
 		<%@include file="footer.jsp"%>

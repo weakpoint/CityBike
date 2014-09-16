@@ -14,17 +14,18 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
-	<section class="center">
-		Projekt ten jest praktyczną częścią pracy magisterskiej<br /> <strong>System
+	<section class="center" id="content" style="font-size:20px">
+	<br />
+		Projekt ten jest praktyczną częścią pracy magisterskiej<br /><br /> <strong>System
 			do zarządzania miejską wypożyczalnią rowerową wykorzystującą
 			środowisko chmurowe Google App Engine</strong>
+			<br />
 			<br /> Autorem jest Emil Płuciennikowski 
 			<br />Numer indeksu 186200<br />
 		    <br />Lato 2014
+
+	<br /><a href="/startup">START UP!</a>
 	</section>
-
-
-	<a href="/startup">START UP!</a>
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>

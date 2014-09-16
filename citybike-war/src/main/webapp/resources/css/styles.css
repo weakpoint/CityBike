@@ -1,9 +1,10 @@
 .error {
 	color: #ff0000;
+	font-size: 14px;
 }
 
 body {
-	background-color: #995465;
+	background-color: rgb(196, 114, 9);
 }
 
 header {
@@ -15,12 +16,16 @@ footer {
 	width: 1000px;
 	margin: 0 auto;
 	text-align: center;
-	background-color: rgb(200, 104, 9);
+	background-color: burlywood;
 }
 
-.strona {
-	width: 1000px;
-	background-color: rgb(180, 194, 50);
+table{
+	font-size: 20px;
+}
+
+.map{
+	display: block;
+	float: right;
 }
 
 .center {
@@ -28,7 +33,28 @@ footer {
 }
 
 #content {
-	width: 900px;
+	width: 1000px;
+	height: 500px;
+	background-color: rgb(196, 100, 9);
+	padding:5px;
+}
+
+.center_form{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
+
+.left_side{
+	display: block;
+	float: left;
+	width:400px;
+}
+
+.right_side{
+	display: block;
+	float: right;
 }
 
 #logo {
@@ -38,7 +64,7 @@ footer {
 nav {
 	width: 1000px;
 	height: 30px;
-	background-color: rgb(200, 104, 9);
+	background-color: burlywood;
 }
 
 nav li {

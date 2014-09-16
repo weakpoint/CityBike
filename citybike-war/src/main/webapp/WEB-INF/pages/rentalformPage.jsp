@@ -13,7 +13,7 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
-	<section>
+	<section class="center" id="content">
 		<header>
 			<h1>Nowe wypożyczenie</h1>
 		</header>

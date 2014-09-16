@@ -69,12 +69,13 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	}
 
 	public void add(Object model) throws PersistenceException {
+		EntityTransaction tr = entityManager.getTransaction();
 		try {
-			entityManager.getTransaction().begin();
+			tr.begin();
 			entityManager.persist(model);
-			entityManager.getTransaction().commit();
+			tr.commit();
 		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
+			tr.rollback();
 			throw new PersistenceException(e);
 		}
 

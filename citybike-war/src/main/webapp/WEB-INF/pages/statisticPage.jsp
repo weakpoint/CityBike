@@ -24,8 +24,8 @@
 
 			var options = {
 				'title' : title,
-				'width' : 500,
-				'height' : 500
+				'width' : 400,
+				'height' : 400
 			};
 
 		/*	var chart = new google.visualization.PieChart(document
@@ -72,21 +72,41 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
-	Operacja:
-	<form:select path="operation" id="operation">
-		<form:options items="${operation}"></form:options>
-	</form:select>
-	<br /> Wielkość przedziału czasu:
-	<form:select path="timeInterval" id="timeInterval">
-		<form:options items="${timeInterval}"></form:options>
-	</form:select>
-	<br /> <span>Początek przedziału: (YYYY-MM-DD)</span>
-	<input type="date" id="startInterval" pattern="^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$">
-	<br /> <span>Koniec przedziału: (YYY-MM-DD)</span>
-	<input type="date" id="endInterval" pattern="^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$">
-	<br />
-	<button id="generateBtn" onclick="loadChartData();">Wyświetl wykres</button>
-	<div id="chart_div"></div>
+	<section class="center" id="content">
+		<br /> 
+		<table style="float:left">
+			<tr>
+				<td>Operacja:</td>
+				<td><form:select path="operation" id="operation">
+						<form:options items="${operation}"></form:options>
+					</form:select></td>
+			</tr>
+			<tr>
+				<td>Wielkość przedziału czasu:</td>
+				<td><form:select path="timeInterval" id="timeInterval">
+						<form:options items="${timeInterval}"></form:options>
+					</form:select></td>
+			</tr>
+			<tr>
+				<td><span>Początek przedziału: (YYYY-MM-DD)</span></td>
+				<td><input type="date" id="startInterval"
+					pattern="^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"></td>
+			</tr>
+			<tr>
+				<td><span>Koniec przedziału: (YYYY-MM-DD)</span></td>
+				<td><input type="date" id="endInterval"
+					pattern="^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button id="generateBtn" onclick="loadChartData();">Wyświetl
+						wykres</button></td>
+			</tr>
+
+		</table>
+
+		<div id="chart_div" class="map"></div>
+	</section>
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>

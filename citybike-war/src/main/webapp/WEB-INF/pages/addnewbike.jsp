@@ -13,6 +13,8 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
+	<section class="center" id="content">
+	<section class="center_form">
 	<h2>Dane Roweru</h2>
 	<form:form method="POST" commandName="newBike" action="/admin/addNewBike">
 		<table>
@@ -23,7 +25,7 @@
 			</tr>
 
 			<tr>
-				<td>Kod wypożyczalni</td>
+				<td>Kod wypożyczalni:</td>
 				<td><form:select path="rentalOfficeCode">
 						<form:options items="${rentalOfficeCodeList}"></form:options>
 					</form:select>
@@ -38,6 +40,8 @@
 		</table>
 
 	</form:form>
+	</section>
+	</section>
 	<footer>
 		<%@include file="footer.jsp"%>
 	</footer>

@@ -13,30 +13,44 @@
 	<header>
 		<%@include file="header.jsp"%>
 	</header>
-	<section>
+	<section class="center" id="content">
+		<br />
+		<form method="POST" action="/j_spring_security_check">
+			<table style="float: left">
+				<tbody>
+					<tr>
+						<td>Login (E-mail):</td>
+						<td><input type="email" name="j_username"
+							value="admin@admin.pl" required /></td>
+					</tr>
+					<tr>
+						<td>Hasło:</td>
+						<td><input type="password" name="j_password"
+							value="Adminadmin1" required /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="Zaloguj" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
 
-	<form method="POST" action="/j_spring_security_check">
-    <table>
-        <tbody>
-            <tr>
-                <td>Login (E-mail):</td>
-                <td><input type="email" name="j_username" value="admin@admin.pl" required/></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type="password" name="j_password" value="Adminadmin1" required/></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Zaloguj" /></td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-	</section>
-	<div id="verticalLine" style="height: 500px; border-left: thick solid #ff0000;"></div>
-	<section>
-	<!-- external login -->
-	<a href="/facebookLogin.do">Logowanie za pomocą Facebook</a>
+
+		<section style="float: right; font-size: 20px;">
+			<!-- external login -->
+			<table>
+				<tr>
+					<td><strong><span>Zewnętrzne logowanie</span></strong></td>
+				</tr>
+
+				<tr>
+					<td><a href="/facebookLogin.do"><img
+							src="<c:url value="/resources/images/facebook.png" />" alt="" /></img></a></td>
+				</tr>
+			</table>
+
+
+		</section>
 	</section>
 	<footer>
 		<%@include file="footer.jsp"%>

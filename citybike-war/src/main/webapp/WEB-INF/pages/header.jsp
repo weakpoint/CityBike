@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <section>
-	<a href="/"><img src="<c:url value="/resources/images/logo.jpg" />"
+	<a href="/"><img src="<c:url value="/resources/images/logo.png" />"
 		alt="" /></img></a>
 	<nav id="first-menu">
 		<ul>
