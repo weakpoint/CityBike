@@ -90,7 +90,7 @@ public class ReturnBikeFormController {
 		
 		User user = null;
 		try {
-			if (rentalView.getUserKey() != null && rentalView.getBikeKey() != null) {
+			if (rentalView.getUserKey() != null && rentalView.getBikeKey() != null && rentalView.getRentalOfficeKey() != null) {
 				user = facade.getUserByKey(KeyFactory.stringToKey(rentalView.getUserKey()));
 
 				if (user == null) {
@@ -116,6 +116,7 @@ public class ReturnBikeFormController {
 			
 			Bike bike = facade.getBikeByKey(rent.getBikeCode());
 			bike.setStatus(STATUS.AVAILABLE);
+			bike.setRentalOfficeKey(KeyFactory.stringToKey(rentalView.getRentalOfficeKey()));
 			
 			user.setActiveRental(false);
 			

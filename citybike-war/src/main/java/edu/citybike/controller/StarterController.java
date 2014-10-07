@@ -116,10 +116,10 @@ public class StarterController {
 
 		// rental office
 		RentalOffice office = new RentalOffice();
-		office.setLatitude("51.704632");
-		office.setLongitude("19.156177");
+		office.setLatitude("51.7970381282963");
+		office.setLongitude("19.488363508178736");
 		adminaddress = new Address();
-		adminaddress.setCity("Lodz");
+		adminaddress.setCity("Łódź");
 		adminaddress.setStreet("Strykowska");
 		adminaddress.setHouseNumber("33/43");
 		adminaddress.setFlatNumber("");

@@ -32,11 +32,11 @@ public class RentalOfficeValidator implements Validator {
 	public void validate(Object obj, Errors errors) {
 		RentalOffice rentalOffice = (RentalOffice) obj;
 
-		if (!rentalOffice.getLongitude().matches("[1-9][0-9]{0,2}\\.[0-9]{6}")) {
+		if (!rentalOffice.getLongitude().matches("[1-9][0-9]{0,2}\\.[0-9]{6,}")) {
 			errors.rejectValue("latitude", "latitude");
 		}
 
-		if (!rentalOffice.getLongitude().matches("[1-9][0-9]{0,2}\\.[0-9]{6}")) {
+		if (!rentalOffice.getLongitude().matches("[1-9][0-9]{0,2}\\.[0-9]{6,}")) {
 			errors.rejectValue("latitude", "latitude");
 		}
 

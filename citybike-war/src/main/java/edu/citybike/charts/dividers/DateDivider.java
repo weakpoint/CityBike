@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,13 +17,14 @@ public class DateDivider<S> extends Divider<S> {
 
 	@Override
 	public Map<String, List<S>> divide(List<S> data) {
-		Map<String, List<S>> result = new HashMap<String, List<S>>();
+		Map<String, List<S>> result = new LinkedHashMap<String, List<S>>();
 		if (data.size() > 0) {
 			Class<?> clazz = data.get(0).getClass();
 			try {
 				Method method = clazz.getDeclaredMethod(methodName);
-
+				
 				for (S obj : data) {
+					
 					Calendar cal = Calendar.getInstance();
 					cal.setTime((Date) method.invoke(obj));
 
@@ -58,5 +59,6 @@ public class DateDivider<S> extends Divider<S> {
 			return "";
 		}
 	}
-
+	
+	
 }

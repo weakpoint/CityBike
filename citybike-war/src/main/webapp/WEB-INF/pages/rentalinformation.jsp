@@ -66,7 +66,9 @@
 	
 	 function add() {
 		 markers = [];
-		<%for(edu.citybike.model.view.Coordinates coord : (java.util.ArrayList<edu.citybike.model.view.Coordinates>) request.getAttribute("coordinates")){%>
+		<%for(edu.citybike.model.view.Coordinates coord : (java.util.ArrayList<edu.citybike.model.view.Coordinates>) request.getAttribute("coordinates")){
+			System.out.println(coord.getLatitude()+", "+ coord.getLongitude());
+		%>
 	  	addMarker(new google.maps.LatLng(<%=coord.latitude%>, <%=coord.longitude%>));
 	  <%}%>
 	  setAllMap(map);

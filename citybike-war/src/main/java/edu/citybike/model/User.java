@@ -3,7 +3,6 @@ package edu.citybike.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +28,7 @@ public class User implements Serializable{
 	private Address address;
 	private String phoneNumber;
 	
-	@Column(unique=true, nullable=false) 
+
 	private String emailAddress;
 	private boolean activeRental;
 	private String role;

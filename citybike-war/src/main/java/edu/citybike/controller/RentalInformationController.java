@@ -97,9 +97,9 @@ public class RentalInformationController {
 			logger.error(e.getMessage());
 		}
 		model.addObject("actualRentTime", actualTime);
-		model.addObject("actualRentCost", actualCost);
+		model.addObject("actualRentCost", String.format("%.2f", actualCost));
 		model.addObject("overallRentalTime", overallTime);
-		model.addObject("overallRentalCost", overallCost);
+		model.addObject("overallRentalCost", String.format("%.2f", overallCost));
 
 		return model;
 	}

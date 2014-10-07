@@ -36,11 +36,11 @@
 		</form>
 
 
-		<section style="float: right; font-size: 20px;">
+		<section style="float: right;">
 			<!-- external login -->
 			<table>
 				<tr>
-					<td><strong><span>Zewnętrzne logowanie</span></strong></td>
+					<td style="width: 300px;"><strong><span>Zewnętrzne logowanie</span></strong></td>
 				</tr>
 
 				<tr>

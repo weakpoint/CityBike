@@ -16,11 +16,11 @@ public class AddressValidator implements Validator{
 		
 		Address adr = (Address) obj;
 		
-		if(adr.getCity().length() < 2 || !adr.getCity().matches("^[a-zA-ZążźćńłśęóŻŹĆŁŚ]+$")){
+		if(adr.getCity().length() < 2 || !adr.getCity().matches("^[a-zA-ZążźćńłśęóŻŹĆŁŚ ]+$")){
 			errors.rejectValue("city", "address.city");
 		}
 		
-		if(adr.getStreet().length() > 0 && !adr.getStreet().matches("^[a-zA-ZążźćńłśęóŻŹĆŁŚ]+$")){
+		if(adr.getStreet().length() > 0 && !adr.getStreet().matches("^[a-zA-ZążźćńłśęóŻŹĆŁŚ ]+$")){
 			errors.rejectValue("street", "address.street");
 		}
 		

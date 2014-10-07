@@ -21,7 +21,7 @@
 	<section class="center_form">
 	<h2>Zarządzanie opłatami</h2>
 
-	<form:form method="post" action="/feeManager" modelAttribute="feeList">
+	<form:form method="post" action="/admin/feeManager" modelAttribute="feeList">
 		<table id="feeTable">
 			<tr>
 				<th></th>

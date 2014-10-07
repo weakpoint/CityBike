@@ -1,6 +1,17 @@
 .error {
 	color: #ff0000;
 	font-size: 14px;
+	display: block;
+}
+
+ 
+ h2{
+ 	font-size: 23px;
+ }
+ 
+td a {
+	display: block;
+	margin-left: 20px;
 }
 
 body {
@@ -34,7 +45,7 @@ table{
 
 #content {
 	width: 1000px;
-	height: 500px;
+	height: 600px;
 	background-color: rgb(196, 100, 9);
 	padding:5px;
 }
@@ -43,13 +54,13 @@ table{
 	display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    width: 500px;
 }
 
 .left_side{
 	display: block;
 	float: left;
-	width:400px;
+	width:500px;
 }
 
 .right_side{

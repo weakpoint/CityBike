@@ -41,7 +41,7 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	}
 	
 	public EntityTransaction getTransaction(){
-		return entityManagerFactory.createEntityManager().getTransaction();
+		return entityManager.getTransaction();
 	}
 
 
@@ -71,10 +71,12 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	public void add(Object model) throws PersistenceException {
 		EntityTransaction tr = entityManager.getTransaction();
 		try {
+			
 			tr.begin();
 			entityManager.persist(model);
 			tr.commit();
 		} catch (Exception e) {
+			System.out.println("M: "+e.getMessage());
 			tr.rollback();
 			throw new PersistenceException(e);
 		}
