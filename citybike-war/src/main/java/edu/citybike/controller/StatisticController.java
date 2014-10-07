@@ -1,7 +1,7 @@
 package edu.citybike.controller;
 
-import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -56,8 +56,10 @@ public class StatisticController {
 		Date endDate;
 		String res = "";
 		try {
-			startDate = DateFormat.getDateInstance().parse(spv.getStartInterval());
-			endDate = DateFormat.getDateInstance().parse(spv.getEndInterval());
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-mm-dd");
+
+			startDate = sf.parse(spv.getStartInterval());
+			endDate = sf.parse(spv.getEndInterval());
 			
 			chartData.setStartDate(startDate);
 			chartData.setEndDate(endDate);
@@ -65,7 +67,7 @@ public class StatisticController {
 			res = chartData.generateOutputData(currentUser.getUserKey());
 			
 		} catch (ParseException e) {
-			logger.error("Wrong date format");
+			logger.error("Wrong date format "+e.getMessage());
 			res = "{\"p\":{\"error\": \"Zły format daty\"}}";
 		}
 		

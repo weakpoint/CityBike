@@ -38,6 +38,11 @@ public class RentalBikeView {
 	public void setRentalOfficeKey(String rentalOfficeKey) {
 		this.rentalOfficeKey = rentalOfficeKey;
 	}
+	@Override
+	public String toString() {
+		return "RentalBikeView [name=" + name + ", lastName=" + lastName + ", userKey=" + userKey + ", bikeKey="
+				+ bikeKey + ", rentalOfficeKey=" + rentalOfficeKey + "]";
+	}
 	
 	
 }

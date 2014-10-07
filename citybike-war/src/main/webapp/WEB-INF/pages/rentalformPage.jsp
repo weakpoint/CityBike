@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Wypozyczenie</title>
+<title>Wypożyczenie</title>
 <link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
 </head>
 <body>

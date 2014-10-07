@@ -67,12 +67,14 @@ public class ReturnBikeFormController {
 		try {
 			user = facade.getUserByLogin(currentUser.getUsername());
 			Rent rent = facade.getUserActiveRental(user.getKey());
-			rentalView.setUserKey(KeyFactory.keyToString(currentUser.getUserKey()));
-			rentalView.setName(user.getName());
-			rentalView.setLastName(user.getLastName());
-			rentalView.setBikeKey((rent.getBikeCode() != null) ? KeyFactory.keyToString(rent.getBikeCode()) : "");
-			rentalView.setRentalOfficeKey((rent.getRentalOfficeCode() != null) ? KeyFactory.keyToString(rent
-					.getRentalOfficeCode()) : "");
+			if(rent != null){
+				rentalView.setUserKey(KeyFactory.keyToString(currentUser.getUserKey()));
+				rentalView.setName(user.getName());
+				rentalView.setLastName(user.getLastName());
+				rentalView.setBikeKey((rent.getBikeCode() != null) ? KeyFactory.keyToString(rent.getBikeCode()) : "");
+				rentalView.setRentalOfficeKey((rent.getRentalOfficeCode() != null) ? KeyFactory.keyToString(rent
+						.getRentalOfficeCode()) : "");
+			}
 		} catch (PersistenceException e) {
 			logger.error("Error during return bike model preparation");
 		}
@@ -91,12 +93,12 @@ public class ReturnBikeFormController {
 		User user = null;
 		try {
 			if (rentalView.getUserKey() != null && rentalView.getBikeKey() != null && rentalView.getRentalOfficeKey() != null) {
-				user = facade.getUserByKey(KeyFactory.stringToKey(rentalView.getUserKey()));
+				user = facade.getUserByKey(KeyFactory.stringToKey(rentalView.getUserKey())); 
 
 				if (user == null) {
 					throw new ModelNotExistsException("User does not exist");
 				}
-				if ((user.getName().equalsIgnoreCase(rentalView.getName()) && user.getLastName().equalsIgnoreCase(
+				if (!(user.getName().equalsIgnoreCase(rentalView.getName()) && user.getLastName().equalsIgnoreCase(
 						rentalView.getLastName()))) {
 					throw new ModelNotExistsException("Error during autorization");
 				}
@@ -117,7 +119,7 @@ public class ReturnBikeFormController {
 			Bike bike = facade.getBikeByKey(rent.getBikeCode());
 			bike.setStatus(STATUS.AVAILABLE);
 			bike.setRentalOfficeKey(KeyFactory.stringToKey(rentalView.getRentalOfficeKey()));
-			
+			bike.setRentalCount(bike.getRentalCount()+1);
 			user.setActiveRental(false);
 			
 			try{
@@ -146,7 +148,7 @@ public class ReturnBikeFormController {
 			logger.error("Something went wrong: "+e.getMessage());
 		}
 	
-		return new ModelAndView("redirect:/returnBike");
+		return new ModelAndView("redirect:/");
 	}
 
 }

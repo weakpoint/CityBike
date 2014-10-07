@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.appengine.api.datastore.Key;
 
+import edu.citybike.exceptions.ModelAlreadyExistsException;
 import edu.citybike.exceptions.ModelNotExistsException;
 import edu.citybike.exceptions.PersistenceException;
 import edu.citybike.exceptions.TooManyResults;
@@ -41,7 +42,7 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 	}
 	
 	public EntityTransaction getTransaction(){
-		return entityManager.getTransaction();
+		return entityManagerFactory.createEntityManager().getTransaction();
 	}
 
 
@@ -73,14 +74,28 @@ public class DatabaseFacadeImpl implements DatabaseFacade{
 		try {
 			
 			tr.begin();
+			checkPreconditions(model);
 			entityManager.persist(model);
 			tr.commit();
 		} catch (Exception e) {
-			System.out.println("M: "+e.getMessage());
+			System.out.println("Database add: "+e.getMessage());
 			tr.rollback();
 			throw new PersistenceException(e);
 		}
 
+	}
+	
+	private void checkPreconditions(Object model) throws ModelAlreadyExistsException{
+		if(model instanceof User){
+			Query userQuery = entityManager.createQuery("select u from User u where u.emailAddress=?1");
+			userQuery.setParameter(1, ((User)model).getEmailAddress());
+			
+			try {
+				if(userQuery.getSingleResult() != null){
+					throw new ModelAlreadyExistsException("User already exists");
+				}
+			} catch (NoResultException e) {}
+		}
 	}
 
 	public void update(Object model) throws PersistenceException {
